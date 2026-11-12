@@ -106,10 +106,10 @@ class ListFunctions extends Xls
 
             $tmpInfo = [];
             $tmpInfo['worksheetName'] = StringHelper::convertToString($sheet['name']);
-            $tmpInfo['lastColumnLetter'] = 'A';
+            $tmpInfo['lastColumnLetter'] = 'A'; //* @phpstan-ignore assign.overwritten (preserve array order)
             $tmpInfo['lastColumnIndex'] = 0;
             $tmpInfo['totalRows'] = 0;
-            $tmpInfo['totalColumns'] = 0;
+            $tmpInfo['totalColumns'] = 0; //* @phpstan-ignore assign.overwritten (preserve array order)
             $tmpInfo['sheetState'] = StringHelper::convertToString($sheet['sheetState']);
 
             $xls->pos = $sheet['offset'];

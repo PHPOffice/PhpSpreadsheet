@@ -128,14 +128,13 @@ class OLERead
             }
         }
 
-        $pos = 0;
         $this->bigBlockChain = '';
         $bbs = self::BIG_BLOCK_SIZE / 4;
         for ($i = 0; $i < $this->numBigBlockDepotBlocks; ++$i) {
             $pos = ($bigBlockDepotBlocks[$i] + 1) * self::BIG_BLOCK_SIZE;
 
             $this->bigBlockChain .= substr($this->data, $pos, 4 * $bbs);
-            $pos += 4 * $bbs;
+            $pos += 4 * $bbs; //* @phpstan-ignore assign.overwritten (code clarity)
         }
 
         $sbdBlock = $this->sbdStartBlock;
@@ -146,7 +145,7 @@ class OLERead
             $pos = ($sbdBlock + 1) * self::BIG_BLOCK_SIZE;
 
             $this->smallBlockChain .= substr($this->data, $pos, 4 * $bbs);
-            $pos += 4 * $bbs;
+            $pos += 4 * $bbs; //* @phpstan-ignore assign.overwritten (code clarity)
 
             $sbdBlock = self::getInt4d($this->bigBlockChain, $sbdBlock * 4);
         }

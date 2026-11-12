@@ -63,9 +63,9 @@ class Formatter extends BaseFormatter
         // Colour could be a named colour, or a numeric index entry in the colour-palette
         $color_regex = '/\[(' . implode('|', Color::NAMED_COLORS) . '|color\s*(\d+))\]/mui';
         $cond_regex = '/\[(>|>=|<|<=|=|<>)([+-]?\d+([.]\d+)?)\]/';
-        $colors = ['', '', '', '', ''];
-        $conditionOperations = ['', '', '', '', ''];
-        $conditionComparisonValues = [0, 0, 0, 0, 0];
+        $colors = ['', '', '', '', '']; //* @phpstan-ignore array.unusedOffset (unreasonably strict), array.unusedOffset (ditto)
+        $conditionOperations = ['', '', '', '', '']; //* @phpstan-ignore array.unusedOffset (unreasonably strict), array.unusedOffset (ditto), array.unusedOffset (ditto)
+        $conditionComparisonValues = [0, 0, 0, 0, 0]; //* @phpstan-ignore array.unusedOffset (unreasonably strict), array.unusedOffset (ditto), array.unusedOffset (ditto)
         for ($idx = 0; $idx < $sectionCount; ++$idx) {
             if (preg_match($color_regex, $sections[$idx], $matches)) {
                 if (isset($matches[2])) {

@@ -574,7 +574,7 @@ class LoadSpreadsheet extends Xls
                             $textObject = $xls->textObjects[$note];
                             $noteDetails['objTextData'] = $textObject;
                         } else {
-                            $noteDetails['objTextData']['text'] = '';
+                            $noteDetails['objTextData']['text'] = ''; //* @phpstan-ignore offsetAccess.nonOffsetAccessible (I don't know)
                         }
                     }
                     $cellAddress = str_replace('$', '', $noteDetails['cellRef']);

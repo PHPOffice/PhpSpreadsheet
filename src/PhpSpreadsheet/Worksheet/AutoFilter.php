@@ -223,7 +223,7 @@ class AutoFilter implements Stringable
      */
     public function getColumnByOffset(int $columnOffset): AutoFilter\Column
     {
-        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
+        [$rangeStart] = Coordinate::rangeBoundaries($this->range);
         $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
 
         return $this->getColumn($pColumn);
@@ -894,7 +894,7 @@ class AutoFilter implements Stringable
                             //    Convert to a regexp allowing for regexp reserved characters, wildcards and escaped wildcards
                             $ruleValue = WildcardMatch::wildcard($ruleValue);
                             if (trim($ruleValue) == '') {
-                                $customRuleForBlanks = true;
+                                $customRuleForBlanks = true; //* @phpstan-ignore assign.redundant (code clarity)
                                 $ruleValue = trim($ruleValue);
                             }
                         }

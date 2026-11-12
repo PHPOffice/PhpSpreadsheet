@@ -381,7 +381,7 @@ class ReferenceHelper
             foreach ($aProtectedCells as $key2 => $value) {
                 $ranges = $value->allRanges();
                 $newKey = $separator = '';
-                foreach ($ranges as $key => $range) {
+                foreach ($ranges as $range) {
                     $oldKey = $range[0] . (array_key_exists(1, $range) ? (':' . $range[1]) : '');
                     $newKey .= $separator . $this->updateCellReference($oldKey);
                     $separator = ' ';
