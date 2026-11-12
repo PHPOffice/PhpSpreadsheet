@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- Removing a sheet drops the defined names local to it, and turns the named ranges which refer to it into `#REF!`, as Excel does. [Issue #792](https://github.com/PHPOffice/PhpSpreadsheet/issues/792) [PR #5077](https://github.com/PHPOffice/PhpSpreadsheet/pull/5077)
 
 ## 2026-11-07 - 5.11.0
 
@@ -93,7 +93,6 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Ods Writer no longer writes the formula text as the cell value when formulas are not pre-calculated. [Issue #5045](https://github.com/PHPOffice/PhpSpreadsheet/issues/5045) [PR #5046](https://github.com/PHPOffice/PhpSpreadsheet/pull/5046)
 - Xlsx Writer and Reader keep the custom formula of a table totals row (`Column::setTotalsRowFormula()`), written as `totalsRowFormula` with `totalsRowFunction="custom"`; before it was dropped. The totals row label, function (as `SUBTOTAL`) or formula of a column also sets its totals row cell when that cell is empty, so it no longer has to be set by hand. [Issue #5063](https://github.com/PHPOffice/PhpSpreadsheet/issues/5063) [PR #5064](https://github.com/PHPOffice/PhpSpreadsheet/pull/5064)
 - Avoid some breaks caused by new versions of libxml. [PR #5054](https://github.com/PHPOffice/PhpSpreadsheet/pull/5054)
-- Removing a sheet drops the defined names local to it, and turns the named ranges which refer to it into `#REF!`, as Excel does. [Issue #792](https://github.com/PHPOffice/PhpSpreadsheet/issues/792) [PR #5077](https://github.com/PHPOffice/PhpSpreadsheet/pull/5077)
 - `getDataValidation()` and `dataValidationExists()` no longer throw "Cell coordinate string can not be a range of cells" for a range once a validation on a range exists; a range gets the validation set on exactly that range, or a new one. [Issue #5073](https://github.com/PHPOffice/PhpSpreadsheet/issues/5073) [PR #5074](https://github.com/PHPOffice/PhpSpreadsheet/pull/5074)
 - Text formats containing `@` treat a backslash as an escape character, as Excel does, so `@\X` displays `Test` as `TestX` instead of `Test\X`; backslashes in the text itself are kept. [Issue #5069](https://github.com/PHPOffice/PhpSpreadsheet/issues/5069) [PR #5071](https://github.com/PHPOffice/PhpSpreadsheet/pull/5071)
 
