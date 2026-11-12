@@ -32,8 +32,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Nothing yet.
 
 ### Fixed
-
-- Nothing yet.
+- Defined Name can be set to TRUE or FALSE. [Issue #5087](https://github.com/PHPOffice/PhpSpreadsheet/issues/5087) [PR #5100](https://github.com/PHPOffice/PhpSpreadsheet/pull/5100)
 
 ## 2026-11-07 - 5.11.0
 
