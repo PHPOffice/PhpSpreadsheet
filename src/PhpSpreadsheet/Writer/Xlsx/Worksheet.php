@@ -208,6 +208,37 @@ class Worksheet extends WriterPart
     }
 
     /**
+     * Make the changes to the model that writeWorksheet() makes before it
+     * writes the cells, in the same order, but write no XML: spill array
+     * formulas, apply autofilters, and set auto-size column widths.
+     *
+     * The parallel writer calls this for each worksheet in the parent before
+     * it forks. Thus each child sees the changes for all worksheets, and the
+     * parent keeps the changes after the save. The child that writes a
+     * worksheet still calculates its other formulas. Keep this method in
+     * sync with writeWorksheet().
+     */
+    public function prepareWorksheet(PhpspreadsheetWorksheet $worksheet): void
+    {
+        $worksheet->calculateArrays($this->getParentWriter()->getPreCalculateFormulas());
+
+        // writeSheetPr()
+        if (!empty($worksheet->getAutoFilter()->getRange()) && !$worksheet->getAutoFilter()->getEvaluated()) {
+            $worksheet->getAutoFilter()->showHideRows();
+        }
+        foreach ($worksheet->getTableCollection() as $table) {
+            if (!$table->getAutoFilter()->getEvaluated()) {
+                $table->getAutoFilter()->showHideRows();
+            }
+        }
+
+        // writeCols()
+        if (count($worksheet->getColumnDimensions()) > 0) {
+            $worksheet->calculateColumnWidths();
+        }
+    }
+
+    /**
      * Write SheetPr.
      */
     private function writeSheetPr(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
