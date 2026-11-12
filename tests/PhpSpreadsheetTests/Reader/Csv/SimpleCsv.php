@@ -105,7 +105,6 @@ class SimpleCsv implements IReader
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $fh = fopen($filename, 'rb');
-        $data = false;
         if ($fh !== false) {
             $data = fgetcsv($fh, escape: '');
             $row = 0;

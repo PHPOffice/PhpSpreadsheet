@@ -54,7 +54,7 @@ class Value
             }
 
             try {
-                [$column, $row] = Coordinate::indexesFromString($cellValue ?? '');
+                Coordinate::indexesFromString($cellValue ?? '');
             } catch (SpreadsheetException) {
                 return false;
             }

@@ -500,7 +500,7 @@ class PivotTable
         $objWriter->writeAttribute('t', 'grand');
         // One <x/> per field on the axis; the grand-total row has no
         // meaningful item index, so the default (0) is written.
-        foreach ($fields as $ignored) {
+        foreach ($fields as $ignored) { //* @phpstan-ignore foreach.unusedValue ('as' is syntactically required even if semantically unneeded)
             $objWriter->startElement('x');
             $objWriter->endElement();
         }
