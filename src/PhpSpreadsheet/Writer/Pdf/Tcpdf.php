@@ -52,9 +52,6 @@ class Tcpdf extends Pdf
     {
         $fileHandle = parent::prepareForSave($filename);
 
-        //  Default PDF paper size
-        $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
-
         //  Check for paper size and page orientation
         $setup = $this->spreadsheet->getSheet($this->getSheetIndex() ?? 0)->getPageSetup();
         $orientation = $this->getOrientation() ?? $setup->getOrientation();
