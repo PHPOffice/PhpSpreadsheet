@@ -13,7 +13,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
-- Nothing yet.
+- Psalm taint analysis annotations: the files read and written are file sinks, and cell values are untrusted input. [PR #5070](https://github.com/PHPOffice/PhpSpreadsheet/pull/5070)
 
 ### Removed
 
