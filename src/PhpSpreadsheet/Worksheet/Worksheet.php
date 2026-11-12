@@ -469,6 +469,9 @@ class Worksheet
         if (str_replace(self::INVALID_CHARACTERS, '', $sheetTitle) !== $sheetTitle) {
             throw new Exception('Invalid character found in sheet title');
         }
+        if (str_starts_with($sheetTitle, "'") || str_ends_with($sheetTitle, "'")) {
+            throw new Exception('Sheet title cannot start or end with apostrophe');
+        }
 
         // Enforce maximum characters allowed for sheet title
         if (StringHelper::countCharacters($sheetTitle) > self::SHEET_TITLE_MAXIMUM_LENGTH) {
