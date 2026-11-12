@@ -91,7 +91,6 @@ class NumberFormatCallbackTest extends TestCase
             ->setFormatCode(
                 NumberFormat::FORMAT_DATE_DATETIME_BETTER
             );
-        $writer = new OdsWriter($spreadsheetOld);
         $this->tempfile = File::temporaryFileName();
         $writer = new OdsWriter($spreadsheetOld);
         $writer->useAdditionalNumberFormats([
@@ -144,7 +143,6 @@ class NumberFormatCallbackTest extends TestCase
         $sheet->getStyle('A3')
             ->getNumberFormat()
             ->setFormatCode(' hh:mm ');
-        $writer = new OdsWriter($spreadsheetOld);
         $this->tempfile = File::temporaryFileName();
         $writer = new OdsWriter($spreadsheetOld);
         $writer->save($this->tempfile);
@@ -171,7 +169,6 @@ class NumberFormatCallbackTest extends TestCase
         $sheet->getStyle('A2')
             ->getNumberFormat()
             ->setFormatCode('yyyy-mm-dd');
-        $writer = new OdsWriter($spreadsheetOld);
         $this->tempfile = File::temporaryFileName();
         $writer = new OdsWriter($spreadsheetOld);
         $writer->useAdditionalNumberFormats([

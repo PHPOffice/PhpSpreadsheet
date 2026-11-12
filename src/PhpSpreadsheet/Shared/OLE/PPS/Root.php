@@ -109,7 +109,7 @@ class Root extends PPS
     private function calcSize(array &$raList): array
     {
         // Calculate Basic Setting
-        [$iSBDcnt, $iBBcnt, $iPPScnt] = [0, 0, 0];
+        $iBBcnt = 0;
         $iSBcnt = 0;
         $iCount = count($raList);
         for ($i = 0; $i < $iCount; ++$i) {

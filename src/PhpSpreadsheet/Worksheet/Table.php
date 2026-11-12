@@ -233,6 +233,19 @@ class Table implements Stringable
     public function setShowTotalsRow(bool $showTotalsRow): self
     {
         $this->showTotalsRow = $showTotalsRow;
+        $this->updateTotalsRowCells();
+
+        return $this;
+    }
+
+    /**
+     * Set the empty cells of the totals row from the totals row formula, function or label of each column.
+     */
+    public function updateTotalsRowCells(): self
+    {
+        foreach ($this->columns as $column) {
+            $column->updateTotalsRowCell();
+        }
 
         return $this;
     }
@@ -426,7 +439,7 @@ class Table implements Stringable
      */
     public function getColumnByOffset(int $columnOffset): Table\Column
     {
-        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
+        [$rangeStart] = Coordinate::rangeBoundaries($this->range);
         $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
 
         return $this->getColumn($pColumn);
