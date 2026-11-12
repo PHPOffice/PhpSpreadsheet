@@ -376,7 +376,7 @@ class DrawingPassThroughTest extends AbstractFunctional
         self::assertFalse($reader->getEnableDrawingPassThrough());
 
         // Enable pass-through
-        $result = $reader->setEnableDrawingPassThrough(true);
+        $reader->setEnableDrawingPassThrough(true);
         self::assertTrue($reader->getEnableDrawingPassThrough());
 
         // Disable pass-through

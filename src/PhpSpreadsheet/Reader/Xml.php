@@ -59,6 +59,8 @@ class Xml extends BaseReader
     {
         // fffe is invalid, replace with replacement char
         $contents = str_replace("\u{fffe}", "\u{fffd}", $contents);
+        // Excel allows X; Xml does not; changing to x allows both
+        $contents = Preg::replace('/&#X(?=[0-9a-fA-F]+;)/', '&#x', $contents);
         // use positive lookahead to "protect" valid xml entities
         $contents = Preg::replace('/&(?=(?:amp|lt|gt|quot|apos|#[0-9]+|#x[0-9a-fA-F]+);)/', "\u{fffe}", trim($contents));
         // now decode remaining html entities
@@ -207,13 +209,12 @@ class Xml extends BaseReader
             $worksheet_ss = self::getAttributes($worksheet, self::NAMESPACES_SS);
 
             $tmpInfo = [];
-            $tmpInfo['worksheetName'] = '';
-            $tmpInfo['lastColumnLetter'] = 'A';
+            $tmpInfo['worksheetName'] = "Worksheet_{$worksheetID}";
+            $tmpInfo['lastColumnLetter'] = 'A'; //* @phpstan-ignore assign.overwritten (preserve array order)
             $tmpInfo['lastColumnIndex'] = 0;
             $tmpInfo['totalRows'] = 0;
-            $tmpInfo['totalColumns'] = 0;
+            $tmpInfo['totalColumns'] = 0; //* @phpstan-ignore assign.overwritten (preserve array order)
 
-            $tmpInfo['worksheetName'] = "Worksheet_{$worksheetID}";
             if (isset($worksheet_ss['Name'])) {
                 $tmpInfo['worksheetName'] = (string) $worksheet_ss['Name'];
             }
@@ -615,7 +616,7 @@ class Xml extends BaseReader
                     $leftTopColumn = (string) $xmlX->WorksheetOptions->LeftColumnRightPane;
                     $leftTopCoordinateParm = null;
                     if (is_numeric($leftTopRow) && is_numeric($leftTopColumn)) {
-                        $leftTopCoordinateParm = $leftTopCoordinate = Coordinate::stringFromColumnIndex((int) $leftTopColumn + 1) . (string) ($leftTopRow + 1);
+                        $leftTopCoordinateParm = $leftTopCoordinate = Coordinate::stringFromColumnIndex((int) $leftTopColumn + 1) . (string) ($leftTopRow + 1); //* @phpstan-ignore assign.overwritten (Phpstan is probably right but it's hard to see why)
                     }
                     $spreadsheet->getActiveSheet()->freezePane(
                         Coordinate::stringFromColumnIndex(
