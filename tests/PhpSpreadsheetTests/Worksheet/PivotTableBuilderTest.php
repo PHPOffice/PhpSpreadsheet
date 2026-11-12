@@ -7,8 +7,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotCacheDefinition;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotField;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotFieldGroup;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTableBuilder;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -961,6 +963,71 @@ class PivotTableBuilderTest extends TestCase
         $group = PivotFieldGroup::numeric(1.0, 0.0, 1.0e9);
 
         self::assertSame(PivotFieldGroup::MAX_ITEMS, $group->renderedItemCount());
+    }
+
+    /**
+     * A pivot table assembled directly against the model, without going
+     * through PivotTableBuilder, registers no data-field definitions, so the
+     * writer works from the list derived from the fields themselves. The
+     * generated part must still be correct, including the virtual "Values"
+     * field that two data fields require.
+     */
+    public function testWriterUsesDerivedDataFieldDefinitions(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $data = $spreadsheet->getActiveSheet();
+        $data->setTitle('Data');
+        $data->fromArray([
+            ['Region', 'Amount', 'Quantity'],
+            ['East', 100, 1],
+            ['West', 150, 2],
+        ], null, 'A1');
+        $pivotSheet = $spreadsheet->createSheet();
+        $pivotSheet->setTitle('Pivot');
+
+        $cache = new PivotCacheDefinition(1);
+        $cache->setSourceWorksheet('Data');
+        $cache->setSourceRange('A1:C3');
+        $cache->setCacheFields(['Region', 'Amount', 'Quantity']);
+        $cache->setSharedItems('Region', ['East', 'West']);
+
+        $pivotTable = new PivotTable('Handmade');
+        $pivotTable->setGenerated(true);
+        $pivotTable->setCacheDefinition($cache);
+        $pivotTable->setLocation('A3:C7');
+
+        $region = new PivotField(0, 'Region');
+        $region->setAxis(PivotField::AXIS_ROW);
+        $pivotTable->addField($region);
+
+        $amount = new PivotField(1, 'Amount');
+        $amount->setDataField(true);
+        $amount->setSubtotal(PivotField::SUBTOTAL_SUM);
+        $amount->setDataFieldCaption('Sum of Amount');
+        $pivotTable->addField($amount);
+
+        $quantity = new PivotField(2, 'Quantity');
+        $quantity->setDataField(true);
+        $quantity->setSubtotal(PivotField::SUBTOTAL_COUNT);
+        $quantity->setDataFieldCaption('Count of Quantity');
+        $pivotTable->addField($quantity);
+
+        // Nothing registered an explicit list.
+        $pivotSheet->addPivotTable($pivotTable);
+
+        $outputFile = $this->save($spreadsheet);
+
+        $zip = new ZipArchive();
+        self::assertTrue($zip->open($outputFile) === true);
+        $definition = (string) $zip->getFromName('xl/pivotTables/pivotTable1.xml');
+        $zip->close();
+
+        self::assertStringContainsString('<dataFields count="2">', $definition);
+        self::assertStringContainsString('<dataField name="Sum of Amount" fld="1"', $definition);
+        self::assertStringContainsString('<dataField name="Count of Quantity" fld="2" subtotal="count"', $definition);
+        // Two data fields still need the virtual "Values" field on the column axis.
+        self::assertStringContainsString('<colFields count="1"><field x="-2"/></colFields>', $definition);
+        self::assertStringContainsString('<colItems count="2"><i><x/></i><i i="1"><x v="1"/></i></colItems>', $definition);
     }
 
     /**
