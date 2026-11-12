@@ -104,8 +104,6 @@ class Slk extends BaseReader
         $rowIndex = 0;
         $columnIndex = 0;
         while (($rowData = fgets($fileHandle)) !== false) {
-            $columnIndex = 0;
-
             // convert SYLK encoded $rowData to UTF-8
             $rowData = StringHelper::SYLKtoUTF8($rowData);
 

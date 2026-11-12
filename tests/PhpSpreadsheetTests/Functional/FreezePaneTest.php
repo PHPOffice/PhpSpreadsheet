@@ -238,7 +238,7 @@ class FreezePaneTest extends AbstractFunctional
         self::assertEquals($expected, $sheet->getPanes());
         self::assertSame('F7', $sheet->getSelectedCells());
 
-        $cellSplit = ['B4', 1, 3];
+        $cellSplit = ['B4', 1, 3]; //* @phpstan-ignore array.offsetOverwritten (phpstan is being unreasonably strict)
         $sheet->setXSplit($cellSplit[1]);
         self::assertSame($cellSplit[0], $sheet->getFreezePane());
         self::assertSame('F7', $sheet->getSelectedCells());
@@ -250,7 +250,7 @@ class FreezePaneTest extends AbstractFunctional
         ];
         self::assertEquals($expected, $sheet->getPanes());
 
-        $cellSplit = ['B8', 1, 7];
+        $cellSplit = ['B8', 1, 7]; //* @phpstan-ignore array.unusedOffset (phpstan is being unreasonably strict)
         $sheet->setYSplit($cellSplit[2]);
         self::assertSame($cellSplit[0], $sheet->getFreezePane());
         self::assertSame('F7', $sheet->getSelectedCells());

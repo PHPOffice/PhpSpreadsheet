@@ -43,6 +43,8 @@ class StringHelperLocale2Test extends TestCase
         }
     }
 
+    protected static string $cldr = INTL_ICU_VERSION;
+
     /**
      * The data here are somewhat volatile.
      * They may change with any new release of ICU.
@@ -51,7 +53,8 @@ class StringHelperLocale2Test extends TestCase
     {
         $nbsp = "\u{A0}";
         $nnbsp = "\u{202F}";
-        $rsquo = "\u{2019}";
+        // CLDR changed Swiss-Italian separator charactor with release 78
+        $rsquo = ((float) self::$cldr < 78.0) ? "\u{2019}" : "'";
 
         return [
             [false, 'TRUE', 'unknownlocale'],

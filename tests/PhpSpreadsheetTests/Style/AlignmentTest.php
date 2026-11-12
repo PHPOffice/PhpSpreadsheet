@@ -43,23 +43,23 @@ class AlignmentTest extends TestCase
     public function testRotationTooHigh(): void
     {
         $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('Text rotation 91 should be a value between -90 and 90');
         $this->spreadsheet = new Spreadsheet();
         $sheet = $this->spreadsheet->getActiveSheet();
         $cell1 = $sheet->getCell('A1');
         $cell1->setValue('Cell1');
         $cell1->getStyle()->getAlignment()->setTextRotation(91);
-        self::assertEquals(0, $cell1->getStyle()->getAlignment()->getTextRotation());
     }
 
     public function testRotationTooLow(): void
     {
         $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('Text rotation -91 should be a value between -90 and 90');
         $this->spreadsheet = new Spreadsheet();
         $sheet = $this->spreadsheet->getActiveSheet();
         $cell1 = $sheet->getCell('A1');
         $cell1->setValue('Cell1');
         $cell1->getStyle()->getAlignment()->setTextRotation(-91);
-        self::assertEquals(0, $cell1->getStyle()->getAlignment()->getTextRotation());
     }
 
     public function testHorizontal(): void
