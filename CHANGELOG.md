@@ -33,6 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- Removing a sheet drops the defined names local to it, and turns the named ranges which refer to it into `#REF!`, as Excel does. [Issue #792](https://github.com/PHPOffice/PhpSpreadsheet/issues/792) [PR #5077](https://github.com/PHPOffice/PhpSpreadsheet/pull/5077)
 - `SEARCH()` treats `?` and `*` in the text to find as wildcards, and `~` as escaping them, as Excel does; they were matched literally. [Issue #5075](https://github.com/PHPOffice/PhpSpreadsheet/issues/5075) [PR #5076](https://github.com/PHPOffice/PhpSpreadsheet/pull/5076)
 
 ## 2026-11-07 - 5.11.0
