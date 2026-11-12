@@ -325,7 +325,7 @@ class Gnumeric extends BaseReader
                     continue;
                 }
 
-                $this->loadCell($cell, $worksheetName, $cellAttributes, $column, $row);
+                $this->loadCell($cell, $cellAttributes, $column, $row);
             }
 
             if ($sheet->Styles !== null) {
@@ -566,7 +566,6 @@ class Gnumeric extends BaseReader
 
     private function loadCell(
         SimpleXMLElement $cell,
-        string $worksheetName,
         SimpleXMLElement $cellAttributes,
         string $column,
         int $row
@@ -590,12 +589,10 @@ class Gnumeric extends BaseReader
                 // Shared Formula
                 $expression = $this->expressions[$ExprID];
 
-                $cell = $this->referenceHelper->updateFormulaReferences(
+                $cell = $this->referenceHelper->updateFormulaReferencesAnyWorksheet(
                     $expression['formula'],
-                    'A1',
                     $cellAttributes->Col - $expression['column'],
-                    $cellAttributes->Row - $expression['row'],
-                    $worksheetName
+                    $cellAttributes->Row - $expression['row']
                 );
             }
             $type = DataType::TYPE_FORMULA; //* @phpstan-ignore assign.redundant (code clarity)
