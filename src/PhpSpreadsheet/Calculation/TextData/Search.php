@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Search
@@ -86,10 +87,28 @@ class Search
                 return $offset;
             }
 
+            if (strpbrk($needle, '*?~') !== false) {
+                return self::wildcardPosition($needle, $haystack, $offset);
+            }
+
             $pos = mb_stripos($haystack, $needle, --$offset, 'UTF-8');
             if ($pos !== false) {
                 return ++$pos;
             }
+        }
+
+        return ExcelError::VALUE();
+    }
+
+    /**
+     * SEARCH treats ? as any single character, * as any sequence of characters, and ~ as an escape for them.
+     */
+    private static function wildcardPosition(string $needle, string $haystack, int $offset): int|string
+    {
+        $pattern = '/' . WildcardMatch::wildcard($needle) . '/uis';
+        $byteOffset = strlen(mb_substr($haystack, 0, $offset - 1, 'UTF-8'));
+        if (preg_match($pattern, $haystack, $matches, PREG_OFFSET_CAPTURE, $byteOffset) === 1) {
+            return mb_strlen(substr($haystack, 0, $matches[0][1]), 'UTF-8') + 1;
         }
 
         return ExcelError::VALUE();
