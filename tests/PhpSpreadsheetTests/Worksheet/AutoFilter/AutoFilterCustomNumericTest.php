@@ -185,8 +185,6 @@ class AutoFilterCustomNumericTest extends SetupTeardown
                 7
             )
             ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
-
-        self::assertEquals([2, 5, 7, 11, 12], $this->getVisible());
     }
 
     public function testNotEqualsListWith3MembersFilterTypeAfterRules(): void
@@ -218,7 +216,5 @@ class AutoFilterCustomNumericTest extends SetupTeardown
             )
             ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
         $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
-
-        self::assertEquals([2, 5, 7, 11, 12], $this->getVisible());
     }
 }

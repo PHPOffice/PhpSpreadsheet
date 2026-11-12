@@ -347,11 +347,9 @@ class Content extends WriterPart
                     if (Date::isDateTimeFormatCode($numFmt, true)) {
                         $valueCalc = $cell->getCalculatedValueString();
                         if (Preg::isMatch('/[HhSs]/', $numFmt) && !Preg::isMatch('/[YyDd]/', $numFmt)) {
-                            $minus = '';
                             $type = 'time';
                             $valueType = 'time-value';
                             if (str_starts_with($valueCalc, '-')) {
-                                $minus = '-';
                                 $absVal = fmod(abs((float) $value), 1.0);
                                 $hms = (int) round(86400 * $absVal);
                                 $hours = intdiv($hms, 3600);

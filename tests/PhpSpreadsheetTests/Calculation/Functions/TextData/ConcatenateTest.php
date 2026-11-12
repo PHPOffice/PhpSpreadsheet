@@ -41,7 +41,6 @@ class ConcatenateTest extends AllSetupTeardown
     public function testResultTooLong(): void
     {
         $sheet = $this->getSheet();
-        $string = str_repeat('x23456', 1000);
         $sheet->getCell('A1')->setValue(
             '=CONCATENATE('
             . 'REPT("X", 30000)'

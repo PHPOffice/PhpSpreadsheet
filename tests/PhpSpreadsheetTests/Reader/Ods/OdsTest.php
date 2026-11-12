@@ -100,16 +100,10 @@ class OdsTest extends TestCase
     public function testLoadCorruptFile(): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Unable to read data from');
         $filename = 'tests/data/Reader/Ods/corruptMeta.ods';
         $reader = new Ods();
-        $spreadsheet = $reader->load($filename);
-
-        self::assertEquals(2, $spreadsheet->getSheetCount());
-
-        $firstSheet = $spreadsheet->getSheet(0);
-
-        $secondSheet = $spreadsheet->getSheet(1);
-        self::assertNotSame($firstSheet, $secondSheet);
+        $reader->load($filename);
     }
 
     public function testReadValueAndComments(): void
