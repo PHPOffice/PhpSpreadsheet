@@ -66,6 +66,7 @@
             "php-cs-fixer fix"
         ],
         "sbom": [
+            "git diff --exit-code composer.lock",
             "composer CycloneDX:make-sbom --omit=dev --output-file=./sbom.xml"
         ],
         "versions": [

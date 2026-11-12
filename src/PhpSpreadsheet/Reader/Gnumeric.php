@@ -157,7 +157,7 @@ class Gnumeric extends BaseReader
             if (self::matchXml($xml, 'Sheet')) {
                 $tmpInfo = [
                     'worksheetName' => '',
-                    'lastColumnLetter' => 'A',
+                    'lastColumnLetter' => 'A', //* @phpstan-ignore array.offsetOverwritten (preserve array order)
                     'lastColumnIndex' => 0,
                     'totalRows' => 0,
                     'totalColumns' => 0,
@@ -228,7 +228,7 @@ class Gnumeric extends BaseReader
     private function processComments(SimpleXMLElement $sheet): void
     {
         if ((!$this->readDataOnly) && (isset($sheet->Objects))) {
-            foreach ($sheet->Objects->children(self::NAMESPACE_GNM) as $key => $comment) {
+            foreach ($sheet->Objects->children(self::NAMESPACE_GNM) as $comment) {
                 $commentAttributes = $comment->attributes();
                 //    Only comment objects are handled at the moment
                 if ($commentAttributes && $commentAttributes->Text) {
@@ -598,7 +598,7 @@ class Gnumeric extends BaseReader
                     $worksheetName
                 );
             }
-            $type = DataType::TYPE_FORMULA;
+            $type = DataType::TYPE_FORMULA; //* @phpstan-ignore assign.redundant (code clarity)
         } elseif ($isArrayFormula === false) {
             $vtype = (string) $ValueType;
             if (array_key_exists($vtype, self::MAPPINGS['dataType'])) {
