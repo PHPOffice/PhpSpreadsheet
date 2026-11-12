@@ -179,7 +179,6 @@ class MetadataBoundsTest extends TestCase
         $numberStyle = '<number:number-style style:name="N1"><number:number number:decimal-places="0"' . $attribute . '/></number:number-style>';
         $cellStyle = '<style:style style:name="ce1" style:family="table-cell" style:data-style-name="N1"/>';
         $styles = '';
-        $automaticStyles = '';
         if ($location === 'styles') {
             $styles = '<office:styles>' . $numberStyle . '</office:styles>';
             $automaticStyles = '<office:automatic-styles>' . $cellStyle . '</office:automatic-styles>';

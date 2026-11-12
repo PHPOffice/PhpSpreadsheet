@@ -61,7 +61,6 @@ class DataValidations
                 switch ($tagName) {
                     case 'Range':
                         foreach (explode(',', $tagValue) as $range) {
-                            $cell = '';
                             if (preg_match('/^R(\d+)C(\d+):R(\d+)C(\d+)$/', (string) $range, $selectionMatches) === 1) {
                                 // range
                                 $firstCell = Coordinate::stringFromColumnIndex((int) $selectionMatches[2])

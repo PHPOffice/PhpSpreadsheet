@@ -160,7 +160,7 @@ class SetupTeardownDatabases extends TestCase
         $maxCol = '';
         $startCol = 'P';
         $maxRow = 0;
-        $startRow = 1;
+        //$startRow = 1; // unchange from above
         $row = $startRow;
         foreach ($criteria as $dataRow) {
             /** @var mixed[] $dataRow */

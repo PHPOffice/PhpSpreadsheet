@@ -638,7 +638,7 @@ class Worksheet
      */
     public function getChartByName(string $chartName)
     {
-        foreach ($this->chartCollection as $index => $chart) {
+        foreach ($this->chartCollection as $chart) {
             if ($chart->getName() == $chartName) {
                 return $chart;
             }
@@ -3386,7 +3386,6 @@ class Worksheet
         $hideColumns = !empty($hiddenColumns);
 
         $keys = $this->cellCollection->getSortedCoordinatesInt();
-        $keyIndex = 0;
         $keysCount = count($keys);
         // Loop through rows
         for ($row = $minRow; $row <= $maxRow; ++$row) {
@@ -3791,13 +3790,14 @@ class Worksheet
         }
 
         // or if cell is part of a data validation range
+        $isRange = Preg::isMatch('/[: ]/', $cellCoordinate);
         foreach ($this->dataValidationCollection as $key => $dataValidation) {
             $keyParts = explode(' ', $key);
             foreach ($keyParts as $keyPart) {
                 if ($keyPart === $cellCoordinate) {
                     return $dataValidation;
                 }
-                if (str_contains($keyPart, ':')) {
+                if (!$isRange && str_contains($keyPart, ':')) {
                     if (Coordinate::coordinateIsInsideRange($keyPart, $cellCoordinate)) {
                         return $dataValidation;
                     }
@@ -3842,13 +3842,14 @@ class Worksheet
         if (isset($this->dataValidationCollection[$coordinate])) {
             return true;
         }
+        $isRange = Preg::isMatch('/[: ]/', $coordinate);
         foreach ($this->dataValidationCollection as $key => $dataValidation) {
             $keyParts = explode(' ', $key);
             foreach ($keyParts as $keyPart) {
                 if ($keyPart === $coordinate) {
                     return true;
                 }
-                if (str_contains($keyPart, ':')) {
+                if (!$isRange && str_contains($keyPart, ':')) {
                     if (Coordinate::coordinateIsInsideRange($keyPart, $coordinate)) {
                         return true;
                     }
