@@ -122,9 +122,9 @@ class ConditionalColorScale
         if ($this->sqref !== null && $this->worksheet !== null) {
             $values = $this->worksheet->rangesToArray($this->sqref, null, true, false, true);
             $this->valueArray = [];
-            foreach ($values as $key => $value) {
+            foreach ($values as $value) {
                 /** @var array<float|int|string> $value */
-                foreach ($value as $k => $v) {
+                foreach ($value as $v) {
                     $this->valueArray[] = (float) $v;
                 }
             }
