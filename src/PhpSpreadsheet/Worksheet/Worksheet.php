@@ -3275,6 +3275,8 @@ class Worksheet
      * @param bool $oldCalculatedValue If calculateFormulas is false and this is true, use oldCalculatedFormula instead.
      *
      * @return mixed[][]
+     *
+     * @psalm-taint-source input
      */
     public function rangeToArray(
         string $range,
@@ -3537,6 +3539,8 @@ class Worksheet
      * @param bool $oldCalculatedValue If calculateFormulas is false and this is true, use oldCalculatedFormula instead.
      *
      * @return mixed[][]
+     *
+     * @psalm-taint-source input
      */
     public function namedRangeToArray(
         string $definedName,
@@ -3578,6 +3582,8 @@ class Worksheet
      * @param bool $oldCalculatedValue If calculateFormulas is false and this is true, use oldCalculatedFormula instead.
      *
      * @return mixed[][]
+     *
+     * @psalm-taint-source input
      */
     public function toArray(
         mixed $nullValue = null,
