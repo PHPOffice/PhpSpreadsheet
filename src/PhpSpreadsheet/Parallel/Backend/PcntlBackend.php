@@ -154,6 +154,7 @@ class PcntlBackend implements BackendInterface
     private function collectResult(int $taskIndex, string $tempFile, int $status): mixed
     {
         $content = is_file($tempFile) ? file_get_contents($tempFile) : false;
+        $envelope = false; // Best guess at how to avoid phpstan and execution time problem
         if ($content !== false && $content !== '') {
             try {
                 // The temp file sits in the shared system temp directory, so
