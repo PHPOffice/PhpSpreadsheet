@@ -110,7 +110,7 @@ class Escher
 
                 // write the record
                 $recVer = 0xF;
-                $recInstance = 0x0000;
+                $recInstance = 0x0000; //* @phpstan-ignore assign.redundant (assignment 35 statements ago seems irrelevant)
                 $recType = 0xF000;
                 $length = strlen($innerData);
 

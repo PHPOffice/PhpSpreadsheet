@@ -205,7 +205,6 @@ class Styles extends BaseParserClass
                 $bgFound = true;
             }
 
-            $type = '';
             if ((string) $fillStyleXml->patternFill['patternType'] !== '') {
                 $type = (string) $fillStyleXml->patternFill['patternType'];
             } else {
