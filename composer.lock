@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f7fbf113486ae2c8fc04f876c067038",
+    "content-hash": "afe5db6f29cedca31c953c7335c2a89c",
     "packages": [
         {
             "name": "composer/pcre",
@@ -6324,46 +6324,1056 @@
             "time": "2026-07-28T07:33:02+00:00"
         },
         {
-            "name": "tecnickcom/tcpdf",
-            "version": "6.11.4",
+            "name": "tecnickcom/tc-lib-barcode",
+            "version": "2.17.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "fbbaf14cfae8fe646f154f7c530d15ec25764040"
+                "url": "https://github.com/tecnickcom/tc-lib-barcode.git",
+                "reference": "b6c42dd1ca3cae0ddadfe29640d6018d48082054"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/fbbaf14cfae8fe646f154f7c530d15ec25764040",
-                "reference": "fbbaf14cfae8fe646f154f7c530d15ec25764040",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/b6c42dd1ca3cae0ddadfe29640d6018d48082054",
+                "reference": "b6c42dd1ca3cae0ddadfe29640d6018d48082054",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-pcre": "*",
+                "php": "^8.2",
+                "tecnickcom/tc-lib-color": "^3.0"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "ext-gd": "*",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "suggest": {
+                "ext-bcmath": "Speeds up the arbitrary precision arithmetic used by the IMB and PDF417 barcode types (a pure-PHP implementation is used when missing)",
+                "ext-gd": "Required by getGd(), and by getPngData() and getPng() when Imagick is not used",
+                "ext-imagick": "Alternative PNG renderer used by getPngData() when the extension is loaded"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Barcode\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to generate 73 types of linear, 2D and postal barcodes as SVG, PNG, HTML or GD images",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "2D Barcode",
+                "AZTEC Rune",
+                "CODABAR",
+                "CODE 11",
+                "CODE 128",
+                "CODE 16K",
+                "CODE 32",
+                "CODE 39",
+                "CODE 49",
+                "CODE 93",
+                "DMRE",
+                "Deutsche Post",
+                "EAN 13",
+                "EAN 2",
+                "EAN 5",
+                "EAN 8",
+                "ECC200",
+                "GB T 21049",
+                "GS1 DataBar",
+                "GS1-14",
+                "HIBC",
+                "Han Xin Code",
+                "IATA 2 of 5",
+                "ISO IEC 15438",
+                "ISO IEC 16022",
+                "ISO IEC 18004",
+                "ISO IEC 20830",
+                "ISO IEC 21471",
+                "ISO IEC 24724",
+                "ISO IEC 24778",
+                "ITF-14",
+                "Intelligent Mail Barcode",
+                "Interleaved 2 of 5",
+                "Japan Post",
+                "KIX",
+                "LOGMARS",
+                "Linear barcode",
+                "MSI",
+                "Mailmark",
+                "Matrix 2 of 5",
+                "Micro QR Code",
+                "Onecode",
+                "PHARMACODE",
+                "PHARMACODE TWO-TRACKS",
+                "POSTNET",
+                "PZN",
+                "Plessey",
+                "RMS4CC",
+                "SSCC-18",
+                "Standard 2 of 5",
+                "Telepen",
+                "UPC-A",
+                "UPC-E",
+                "australia post",
+                "aztec",
+                "barcode",
+                "datamatrix",
+                "gs1",
+                "gs1-128",
+                "identcode",
+                "leitcode",
+                "matrix barcode",
+                "pdf417",
+                "planet",
+                "png",
+                "postal barcode",
+                "qr-code",
+                "royal mail",
+                "stacked barcode",
+                "svg",
+                "tc-lib-barcode",
+                "upc"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-barcode/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-barcode"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:50:05+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-color",
+            "version": "3.0.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-color.git",
+                "reference": "076424ab943b43c2830c2e278d5510c52b9ab904"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/076424ab943b43c2830c2e278d5510c52b9ab904",
+                "reference": "076424ab943b43c2830c2e278d5510c52b9ab904",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Color\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to manipulate various color representations",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "cielab",
+                "cmyk",
+                "color",
+                "colors",
+                "colour",
+                "colours",
+                "css",
+                "gray",
+                "grayscale",
+                "hsl",
+                "hsla",
+                "javascript",
+                "lab",
+                "pdf",
+                "rgb",
+                "rgba",
+                "separation",
+                "spot",
+                "tc-lib-color",
+                "web"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-color/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-color"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:46:52+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-file",
+            "version": "3.9.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-file.git",
+                "reference": "973e4b9b13dc3cd910f4f6aeb996ed92250f4218"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-file/zipball/973e4b9b13dc3cd910f4f6aeb996ed92250f4218",
+                "reference": "973e4b9b13dc3cd910f4f6aeb996ed92250f4218",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "php": ">=7.1.0"
+                "ext-pcre": "*",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "suggest": {
+                "ext-intl": "Enables Unicode NFC normalization when matching paths against the allowlist"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\File\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library for safe low-level file access: byte-level reads, path allowlisting, file caching and directory lookup",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "Double",
+                "bit",
+                "byte",
+                "file",
+                "long",
+                "read",
+                "short",
+                "tc-lib-file"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-file/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-file"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:47:08+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-pdf",
+            "version": "8.81.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-pdf.git",
+                "reference": "a0626686715391dd4210c5622aee849d033b8baf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf/zipball/a0626686715391dd4210c5622aee849d033b8baf",
+                "reference": "a0626686715391dd4210c5622aee849d033b8baf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-filter": "*",
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "ext-pcre": "*",
+                "ext-xml": "*",
+                "ext-zlib": "*",
+                "php": "^8.2",
+                "tecnickcom/tc-lib-barcode": "^2.17",
+                "tecnickcom/tc-lib-color": "^3.0",
+                "tecnickcom/tc-lib-file": "^3.9",
+                "tecnickcom/tc-lib-pdf-encrypt": "^2.12",
+                "tecnickcom/tc-lib-pdf-font": "^4.6",
+                "tecnickcom/tc-lib-pdf-graph": "^2.18",
+                "tecnickcom/tc-lib-pdf-image": "^3.15",
+                "tecnickcom/tc-lib-pdf-page": "^4.17",
+                "tecnickcom/tc-lib-pdf-parser": "^3.16",
+                "tecnickcom/tc-lib-pdf-sign": "^2.0",
+                "tecnickcom/tc-lib-unicode": "^3.2",
+                "tecnickcom/tc-lib-unicode-data": "^3.1"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "ext-gd": "*",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "suggest": {
+                "ext-curl": "Required to contact a Timestamp Authority (RFC 3161) when timestamping signatures",
+                "ext-intl": "Enables Unicode NFC normalization of the PDF file name"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Pdf\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP PDF Library",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "PDFD32000-2008",
+                "TCPDF",
+                "document",
+                "pdf",
+                "tc-lib-pdf"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-pdf/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-pdf"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:55:55+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-pdf-encrypt",
+            "version": "2.12.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-pdf-encrypt.git",
+                "reference": "1aca6aab0dc4b34621c8b6256258e247a486a06b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf-encrypt/zipball/1aca6aab0dc4b34621c8b6256258e247a486a06b",
+                "reference": "1aca6aab0dc4b34621c8b6256258e247a486a06b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-hash": "*",
+                "ext-openssl": "*",
+                "ext-pcre": "*",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Pdf\\Encrypt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to encrypt and decrypt PDF data",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "aes",
+                "encrypt",
+                "encryption",
+                "pdf",
+                "rc4",
+                "tc-lib-pdf-encrypt"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-pdf-encrypt/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-pdf-encrypt"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:47:25+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-pdf-filter",
+            "version": "2.11.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-pdf-filter.git",
+                "reference": "84e490e0590174930e86955372d753abe356850c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf-filter/zipball/84e490e0590174930e86955372d753abe356850c",
+                "reference": "84e490e0590174930e86955372d753abe356850c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "ext-zlib": "*",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "suggest": {
+                "ext-imagick": "Required for the JPXDecode (JPEG 2000) and CCITTFaxDecode filters",
+                "jbig2dec": "CLI tool required for the JBIG2Decode filter"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Pdf\\Filter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to decode PDF compression and encryption filters",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "compression",
+                "encryption",
+                "filter",
+                "pdf",
+                "tc-lib-pdf-filter"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-pdf-filter/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-pdf-filter"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:47:41+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-pdf-font",
+            "version": "4.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-pdf-font.git",
+                "reference": "668d73e853c6027afd9cdaae8ea042957ba11e08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf-font/zipball/668d73e853c6027afd9cdaae8ea042957ba11e08",
+                "reference": "668d73e853c6027afd9cdaae8ea042957ba11e08",
+                "shasum": ""
+            },
+            "require": {
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-pcre": "*",
+                "ext-zlib": "*",
+                "php": "^8.2",
+                "tecnickcom/tc-lib-file": "^3.9",
+                "tecnickcom/tc-lib-pdf-encrypt": "^2.12",
+                "tecnickcom/tc-lib-unicode-data": "^3.1"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "suggest": {
+                "ext-iconv": "Decodes legacy Macintosh (MacRoman) TrueType name strings",
+                "ext-mbstring": "Decodes UTF-16BE and Windows-1252 TrueType name strings"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Pdf\\Font\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library containing PDF font methods and utilities",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "PFB",
+                "afm",
+                "font",
+                "import",
+                "pdf",
+                "tc-lib-pdf-font",
+                "ttf"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-pdf-font/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-pdf-font"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:53:55+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-pdf-graph",
+            "version": "2.18.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-pdf-graph.git",
+                "reference": "602d8593a4b368e744da430c7fc716eb25b4beaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf-graph/zipball/602d8593a4b368e744da430c7fc716eb25b4beaa",
+                "reference": "602d8593a4b368e744da430c7fc716eb25b4beaa",
+                "shasum": ""
+            },
+            "require": {
+                "ext-zlib": "*",
+                "php": "^8.2",
+                "tecnickcom/tc-lib-color": "^3.0",
+                "tecnickcom/tc-lib-pdf-encrypt": "^2.12"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Pdf\\Graph\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library containing PDF graphic and geometric methods",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "geometry",
+                "graphic",
+                "pdf",
+                "tc-lib-pdf-graph",
+                "transformation"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-pdf-graph/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-pdf-graph"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:52:51+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-pdf-image",
+            "version": "3.15.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-pdf-image.git",
+                "reference": "da7d69e084a692cb55bbab3b27e66d31bf5edc50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf-image/zipball/da7d69e084a692cb55bbab3b27e66d31bf5edc50",
+                "reference": "da7d69e084a692cb55bbab3b27e66d31bf5edc50",
+                "shasum": ""
+            },
+            "require": {
+                "ext-zlib": "*",
+                "php": "^8.2",
+                "tecnickcom/tc-lib-file": "^3.9",
+                "tecnickcom/tc-lib-pdf-encrypt": "^2.12"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "ext-gd": "*",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "suggest": {
+                "ext-gd": "Required to import the images that need a conversion: resizing, alpha channel extraction, and the formats other than JPEG and PNG"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Pdf\\Image\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library containing PDF Image methods",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "image",
+                "jpeg",
+                "jpg",
+                "pdf",
+                "png",
+                "tc-lib-pdf-image"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-pdf-image/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-pdf-image"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:53:08+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-pdf-page",
+            "version": "4.17.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-pdf-page.git",
+                "reference": "5fbe02e4b3fdbfd84f87d8a2f048da608e6ae8d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf-page/zipball/5fbe02e4b3fdbfd84f87d8a2f048da608e6ae8d3",
+                "reference": "5fbe02e4b3fdbfd84f87d8a2f048da608e6ae8d3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-zlib": "*",
+                "php": "^8.2",
+                "tecnickcom/tc-lib-color": "^3.0",
+                "tecnickcom/tc-lib-pdf-encrypt": "^2.12"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Pdf\\Page\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library containing PDF page formats and definitions",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "format",
+                "page",
+                "pdf",
+                "tc-lib-pdf-page"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-pdf-page/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-pdf-page"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:52:35+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-pdf-parser",
+            "version": "3.16.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-pdf-parser.git",
+                "reference": "35f317cfca78bf986f6d9b5058b951de30b3413d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf-parser/zipball/35f317cfca78bf986f6d9b5058b951de30b3413d",
+                "reference": "35f317cfca78bf986f6d9b5058b951de30b3413d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": "^8.2",
+                "tecnickcom/tc-lib-pdf-filter": "^2.11"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Pdf\\Parser\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to parse PDF documents",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "document",
+                "parser",
+                "pdf",
+                "tc-lib-pdf-parser"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-pdf-parser/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-pdf-parser"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:52:19+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-pdf-sign",
+            "version": "2.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-pdf-sign.git",
+                "reference": "614c001b885b04045935cd18860bdd0e174eada0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf-sign/zipball/614c001b885b04045935cd18860bdd0e174eada0",
+                "reference": "614c001b885b04045935cd18860bdd0e174eada0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-openssl": "*",
+                "ext-pcre": "*",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Pdf\\Sign\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to create and embed digital signatures (PKCS#7 / CAdES / PAdES) in PDF documents",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "cades",
+                "digital-signature",
+                "pades",
+                "pdf",
+                "pkcs7",
+                "sign",
+                "signature",
+                "tc-lib-pdf-sign",
+                "timestamp"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-pdf-sign/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-pdf-sign"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:47:59+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-unicode",
+            "version": "3.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-unicode.git",
+                "reference": "fe78012e28bb6a6cc1e7401d8b0dd6b1be0706c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-unicode/zipball/fe78012e28bb6a6cc1e7401d8b0dd6b1be0706c9",
+                "reference": "fe78012e28bb6a6cc1e7401d8b0dd6b1be0706c9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-mbstring": "*",
+                "ext-pcre": "*",
+                "php": "^8.2",
+                "tecnickcom/tc-lib-unicode-data": "^3.1"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Unicode\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to process UTF-8 and Unicode text",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "font",
+                "pdf",
+                "tc-lib-unicode",
+                "unicode",
+                "utf-8"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-unicode/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-unicode"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:51:57+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-unicode-data",
+            "version": "3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-unicode-data.git",
+                "reference": "b9b5b2fe8c9db2408b99f15d46b6e8031f73fb0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-unicode-data/zipball/b9b5b2fe8c9db2408b99f15d46b6e8031f73fb0d",
+                "reference": "b9b5b2fe8c9db2408b99f15d46b6e8031f73fb0d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Unicode\\Data\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library containing Unicode definitions",
+            "homepage": "https://tcpdf.org",
+            "keywords": [
+                "font",
+                "pdf",
+                "tc-lib-unicode-data",
+                "unicode",
+                "utf-8"
+            ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/tc-lib-unicode-data/issues",
+                "source": "https://github.com/tecnickcom/tc-lib-unicode-data"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tecnickcom",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-17T10:48:16+00:00"
+        },
+        {
+            "name": "tecnickcom/tcpdf",
+            "version": "7.0.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/TCPDF.git",
+                "reference": "c60c7bd8ed0923a09424b2a8d9e9d17a2401c785"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/c60c7bd8ed0923a09424b2a8d9e9d17a2401c785",
+                "reference": "c60c7bd8ed0923a09424b2a8d9e9d17a2401c785",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=8.2",
+                "tecnickcom/tc-lib-pdf": "^8.81"
+            },
+            "require-dev": {
+                "carthage-software/mago": "1.57.0",
+                "pdepend/pdepend": "^3.0",
+                "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4"
             },
             "suggest": {
                 "ext-gd": "Enables additional image handling in some workflows.",
                 "ext-imagick": "Enables additional image format support when available.",
                 "ext-zlib": "Recommended for compressed streams and related features.",
-                "tecnickcom/tc-lib-pdf": "Modern replacement for TCPDF."
+                "tecnickcom/tc-lib-pdf": "Modern replacement for TCPDF for new projects."
             },
             "type": "library",
             "autoload": {
                 "classmap": [
                     "config",
-                    "include",
-                    "tcpdf.php",
-                    "tcpdf_barcodes_1d.php",
-                    "tcpdf_barcodes_2d.php",
-                    "include/tcpdf_colors.php",
-                    "include/tcpdf_filters.php",
-                    "include/tcpdf_font_data.php",
-                    "include/tcpdf_fonts.php",
-                    "include/tcpdf_images.php",
-                    "include/tcpdf_static.php",
-                    "include/barcodes/datamatrix.php",
-                    "include/barcodes/pdf417.php",
-                    "include/barcodes/qrcode.php"
+                    "tcpdf.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -6377,7 +7387,7 @@
                     "role": "lead"
                 }
             ],
-            "description": "Deprecated legacy PDF engine for PHP. Migrate to tecnickcom/tc-lib-pdf.",
+            "description": "Deprecated legacy PDF engine for PHP. Use instead tecnickcom/tc-lib-pdf.",
             "homepage": "https://tcpdf.org",
             "keywords": [
                 "PDFD32000-2008",
@@ -6398,7 +7408,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-28T11:28:19+00:00"
+            "time": "2026-10-17T11:01:32+00:00"
         },
         {
             "name": "thecodingmachine/safe",
