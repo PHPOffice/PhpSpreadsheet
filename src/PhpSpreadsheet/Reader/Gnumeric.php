@@ -325,7 +325,7 @@ class Gnumeric extends BaseReader
                     continue;
                 }
 
-                $this->loadCell($cell, $worksheetName, $cellAttributes, $column, $row);
+                $this->loadCell($cell, $cellAttributes, $column, $row);
             }
 
             if ($sheet->Styles !== null) {
@@ -566,7 +566,6 @@ class Gnumeric extends BaseReader
 
     private function loadCell(
         SimpleXMLElement $cell,
-        string $worksheetName,
         SimpleXMLElement $cellAttributes,
         string $column,
         int $row
