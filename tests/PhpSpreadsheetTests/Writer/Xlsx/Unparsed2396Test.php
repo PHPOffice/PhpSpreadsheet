@@ -25,7 +25,6 @@ class Unparsed2396Test extends TestCase
 
     private function getContents(?BaseDrawing $drawing): string
     {
-        $contents = '';
         if ($drawing instanceof Drawing) {
             $contents = (string) file_get_contents($drawing->getPath());
         } else {

@@ -142,10 +142,6 @@ class DataTableTest extends AbstractFunctional
         $spreadsheet->setActiveSheetIndex(1);
 
         // Save Excel 2007 file
-        /** @var callable */
-        $callableReader = [$this, 'readCharts'];
-        /** @var callable */
-        $callableWriter = [$this, 'writeCharts'];
         $reloadedSpreadsheet = $this->writeAndReload(
             $spreadsheet,
             'Xlsx',

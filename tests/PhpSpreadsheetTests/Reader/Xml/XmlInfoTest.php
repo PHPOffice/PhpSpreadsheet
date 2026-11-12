@@ -26,8 +26,7 @@ class XmlInfoTest extends TestCase
         $this->expectExceptionMessage('Invalid Spreadsheet file');
         $filename = __FILE__;
         $reader = new Xml();
-        $names = $reader->listWorksheetNames($filename);
-        self::assertNotEquals($names, $names);
+        $reader->listWorksheetNames($filename);
     }
 
     public function testListNamesGnumericFile(): void
@@ -36,8 +35,7 @@ class XmlInfoTest extends TestCase
         $this->expectExceptionMessage('Invalid Spreadsheet file');
         $filename = 'tests/data/Reader/Gnumeric/PageSetup.gnumeric.unzipped.xml';
         $reader = new Xml();
-        $names = $reader->listWorksheetNames($filename);
-        self::assertNotEquals($names, $names);
+        $reader->listWorksheetNames($filename);
     }
 
     public function testListInfo(): void
@@ -72,8 +70,7 @@ class XmlInfoTest extends TestCase
         $this->expectExceptionMessage('Invalid Spreadsheet file');
         $filename = __FILE__;
         $reader = new Xml();
-        $info = $reader->listWorksheetInfo($filename);
-        self::assertNotEquals($info, $info);
+        $reader->listWorksheetInfo($filename);
     }
 
     public function testListInfoGnumericFile(): void
@@ -82,8 +79,7 @@ class XmlInfoTest extends TestCase
         $this->expectExceptionMessage('Invalid Spreadsheet file');
         $filename = 'tests/data/Reader/Gnumeric/PageSetup.gnumeric.unzipped.xml';
         $reader = new Xml();
-        $info = $reader->listWorksheetInfo($filename);
-        self::assertNotEquals($info, $info);
+        $reader->listWorksheetInfo($filename);
     }
 
     public function testLoadInvalidFile(): void
@@ -92,8 +88,7 @@ class XmlInfoTest extends TestCase
         $this->expectExceptionMessage('Invalid Spreadsheet file');
         $filename = __FILE__;
         $reader = new Xml();
-        $spreadsheet = $reader->load($filename);
-        self::assertNotEquals($spreadsheet, $spreadsheet);
+        $reader->load($filename);
     }
 
     public function testLoadGnumericFile(): void
@@ -102,7 +97,6 @@ class XmlInfoTest extends TestCase
         $this->expectExceptionMessage('Invalid Spreadsheet file');
         $filename = 'tests/data/Reader/Gnumeric/PageSetup.gnumeric.unzipped.xml';
         $reader = new Xml();
-        $spreadsheet = $reader->load($filename);
-        self::assertNotEquals($spreadsheet, $spreadsheet);
+        $reader->load($filename);
     }
 }
