@@ -13,7 +13,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
-- Nothing yet.
+- Psalm taint analysis annotations: the files read and written are file sinks, and cell values are untrusted input. [PR #5070](https://github.com/PHPOffice/PhpSpreadsheet/pull/5070)
 
 ### Removed
 
@@ -34,6 +34,10 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Fixed
 
 - `XLOOKUP()` without an `if_not_found` argument returns a real `#N/A` error when nothing matches, instead of the string `#N/A!`, so `ISNA()`, `ISERROR()` and `IFNA()` handle it. [Issue #5085](https://github.com/PHPOffice/PhpSpreadsheet/issues/5085) [PR #5095](https://github.com/PHPOffice/PhpSpreadsheet/pull/5095)
+- Defined Name can be set to TRUE or FALSE. [Issue #5087](https://github.com/PHPOffice/PhpSpreadsheet/issues/5087) [PR #5100](https://github.com/PHPOffice/PhpSpreadsheet/pull/5100)
+- Csv Writer: a text cell is written as it is, and only a value that is entirely a number is limited to 15 digits, so text that begins with a long number is no longer cut down to that number. [Issue #5092](https://github.com/PHPOffice/PhpSpreadsheet/issues/5092) [PR #5094](https://github.com/PHPOffice/PhpSpreadsheet/pull/5094)
+- Removing a sheet drops the defined names local to it, and turns the named ranges which refer to it into `#REF!`, as Excel does. [Issue #792](https://github.com/PHPOffice/PhpSpreadsheet/issues/792) [PR #5077](https://github.com/PHPOffice/PhpSpreadsheet/pull/5077)
+- `SEARCH()` treats `?` and `*` in the text to find as wildcards, and `~` as escaping them, as Excel does; they were matched literally. [Issue #5075](https://github.com/PHPOffice/PhpSpreadsheet/issues/5075) [PR #5076](https://github.com/PHPOffice/PhpSpreadsheet/pull/5076)
 
 ## 2026-11-07 - 5.11.0
 
