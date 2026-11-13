@@ -22,12 +22,44 @@ class ErrorValueTest extends AbstractFunctional
         self::assertSame(DataType::TYPE_ERROR, $sheet->getCell('A1')->getDataType());
 
         $data = (new OdsWriter\Content(new OdsWriter($spreadsheet)))->write();
-        self::assertStringContainsString('table:formula="of:=' . $error . '"', $data);
-        self::assertStringContainsString('<text:p>' . $error . '</text:p>', $data);
+        self::assertStringContainsString(
+            '<table:table-cell table:style-name="ce0"'
+                . ' office:value-type="string"'
+                . ' office:string-value=""'
+                . ' calcext:value-type="error">'
+                . "<text:p>$error</text:p>"
+                . '</table:table-cell>',
+            $data
+        );
 
         $reloaded = $this->writeAndReload($spreadsheet, 'Ods');
         $spreadsheet->disconnectWorksheets();
         self::assertSame($error, $reloaded->getActiveSheet()->getCell('A1')->getCalculatedValue());
+        self::assertSame(DataType::TYPE_ERROR, $reloaded->getActiveSheet()->getCell('A1')->getDataType());
+        $reloaded->disconnectWorksheets();
+    }
+
+    #[DataProvider('providerErrorValues')]
+    public function testErrorValueAsString(string $error): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValueExplicit('A1', $error, DataType::TYPE_STRING);
+        self::assertSame(DataType::TYPE_STRING, $sheet->getCell('A1')->getDataType());
+
+        $data = (new OdsWriter\Content(new OdsWriter($spreadsheet)))->write();
+        self::assertStringContainsString(
+            'table:table-cell table:style-name="ce0"'
+                . ' office:value-type="string">'
+                . "<text:p>$error</text:p>"
+                . '</table:table-cell>',
+            $data
+        );
+
+        $reloaded = $this->writeAndReload($spreadsheet, 'Ods');
+        $spreadsheet->disconnectWorksheets();
+        self::assertSame($error, $reloaded->getActiveSheet()->getCell('A1')->getCalculatedValue());
+        self::assertSame(DataType::TYPE_STRING, $reloaded->getActiveSheet()->getCell('A1')->getDataType());
         $reloaded->disconnectWorksheets();
     }
 

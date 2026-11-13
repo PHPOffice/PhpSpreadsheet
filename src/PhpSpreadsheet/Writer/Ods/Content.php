@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -90,6 +91,7 @@ class Content extends WriterPart
         $objWriter->writeAttribute('xmlns:xhtml', 'http://www.w3.org/1999/xhtml');
         $objWriter->writeAttribute('xmlns:grddl', 'http://www.w3.org/2003/g/data-view#');
         $objWriter->writeAttribute('xmlns:tableooo', 'http://openoffice.org/2009/table');
+        $objWriter->writeAttribute('xmlns:calcext', 'urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0');
         $objWriter->writeAttribute('xmlns:field', 'urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0');
         $objWriter->writeAttribute('xmlns:formx', 'urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0');
         $objWriter->writeAttribute('xmlns:css3t', 'http://www.w3.org/TR/css3-text/');
@@ -258,9 +260,12 @@ class Content extends WriterPart
                     break;
                 case DataType::TYPE_ERROR:
                     $error = $cell->getValueString();
-                    $objWriter->writeAttribute('table:formula', 'of:=' . $error);
                     $objWriter->writeAttribute('office:value-type', 'string');
-                    $objWriter->writeAttribute('office:string-value', '');
+                    $objWriter->writeAttribute(
+                        'office:string-value',
+                        ''
+                    );
+                    $objWriter->writeAttribute('calcext:value-type', 'error');
                     $this->writeCellText($objWriter, $cell, $error);
 
                     break;
@@ -310,6 +315,23 @@ class Content extends WriterPart
                             $formulaValueCalc ? 'true' : 'false'
                         );
                         $this->writeCellText($objWriter, $cell, $formulaValueCalc ? 'TRUE' : 'FALSE');
+
+                        break;
+                    }
+                    if (ErrorValue::isError($formulaValue)) {
+                        $objWriter->writeAttribute(
+                            'office:value-type',
+                            'string'
+                        );
+                        $objWriter->writeAttribute(
+                            'office:string-value',
+                            ''
+                        );
+                        $objWriter->writeAttribute(
+                            'calcext:value-type',
+                            'error'
+                        );
+                        $this->writeCellText($objWriter, $cell, $formulaValue);
 
                         break;
                     }

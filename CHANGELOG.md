@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- Ods Writer writes the value of an error cell, such as `#N/A` or `#DIV/0!`; every error constant was written as `#NULL!`. [Issue #5022](https://github.com/PHPOffice/PhpSpreadsheet/issues/5022) [PR #5067](https://github.com/PHPOffice/PhpSpreadsheet/pull/5067)
 
 ## 2026-11-07 - 5.11.0
 
@@ -61,7 +61,6 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Ods Writer writes the value of an error cell, such as `#N/A` or `#DIV/0!`; every error constant was written as `#NULL!`.
 - Xls Writer: a color matching a built-in palette entry above the custom range (e.g. `333333`) no longer makes the palette look full, so later custom colors are no longer written as black. [Issue #5065](https://github.com/PHPOffice/PhpSpreadsheet/issues/5065) [PR #5066](https://github.com/PHPOffice/PhpSpreadsheet/pull/5066)
 - Xlsx Reader and AgileEncryption parser reject a DOCTYPE or entity declaration in encrypted workbook metadata before parsing. [PR #5072](https://github.com/PHPOffice/PhpSpreadsheet/pull/5072)
 - `RIGHT()` returns all of the text when the number of characters requested is greater than its length. [PR #5044](https://github.com/PHPOffice/PhpSpreadsheet/pull/5044)
