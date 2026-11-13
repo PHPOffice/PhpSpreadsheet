@@ -120,7 +120,7 @@
                     <table:table-cell office:value-type="string" table:style-name="ce0">
                         <text:p>Lorem ipsum</text:p>
                     </table:table-cell>
-                    <table:table-cell office:string-value="" office:value-type="string" table:style-name="ce0" calcext:value-type="error">
+                    <table:table-cell office:string-value="#NULL!" office:value-type="string" table:style-name="ce0" calcext:value-type="error">
                         <text:p>#NULL!</text:p>
                     </table:table-cell>
                     <table:table-cell office:value-type="string" table:style-name="ce0">

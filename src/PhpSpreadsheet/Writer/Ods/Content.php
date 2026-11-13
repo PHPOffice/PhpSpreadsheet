@@ -263,7 +263,7 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeAttribute(
                         'office:string-value',
-                        ''
+                        $error
                     );
                     $objWriter->writeAttribute('calcext:value-type', 'error');
                     $this->writeCellText($objWriter, $cell, $error);

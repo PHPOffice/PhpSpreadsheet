@@ -25,7 +25,7 @@ class ErrorValueTest extends AbstractFunctional
         self::assertStringContainsString(
             '<table:table-cell table:style-name="ce0"'
                 . ' office:value-type="string"'
-                . ' office:string-value=""'
+                . ' office:string-value="' . $error . '"'
                 . ' calcext:value-type="error">'
                 . "<text:p>$error</text:p>"
                 . '</table:table-cell>',
