@@ -333,6 +333,8 @@ class Ods extends BaseReader
     /** @var array<int, string> default cell style of a column of the current sheet, only where it has a link */
     private array $columnHyperlinkStyles = [];
 
+    private ?string $calcextNs = null;
+
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
@@ -448,6 +450,7 @@ class Ods extends BaseReader
         // Main Content
 
         $dom = $this->loadDom(self::INITIAL_FILE, $zip);
+        $this->calcextNs = $dom->lookupNamespaceUri('calcext');
 
         $pageSettings->readStyleCrossReferences($dom);
 
@@ -1088,6 +1091,7 @@ class Ods extends BaseReader
                 $allCellDataText = implode('', $dataArray);
 
                 $type = $cellData->getAttributeNS($officeNs, 'value-type');
+                $calcextType = $cellData->getAttributeNs($this->calcextNs, 'value-type');
                 $symbol = '';
                 $leftHandCurrency = Preg::isMatch('/\$|£|￥/', $allCellDataText, $matches);
                 if ($leftHandCurrency) {
@@ -1113,7 +1117,7 @@ class Ods extends BaseReader
 
                 switch ($type) {
                     case 'string':
-                        $type = DataType::TYPE_STRING;
+                        $type = ($calcextType === 'error') ? DataType::TYPE_ERROR : DataType::TYPE_STRING;
                         $dataValue = $allCellDataText;
 
                         break;
