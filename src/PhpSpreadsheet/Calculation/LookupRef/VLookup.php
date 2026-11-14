@@ -94,6 +94,10 @@ class VLookup extends LookupBase
 
         $rowNumber = null;
         foreach ($lookupArray as $rowKey => $rowData) {
+            // an exact match never matches an empty cell
+            if (!$notExactMatch && $rowData[$column] === null) {
+                continue;
+            }
             $bothNumeric = self::numeric($lookupValue) && self::numeric($rowData[$column]);
             $bothNotNumeric = !self::numeric($lookupValue) && !self::numeric($rowData[$column]);
             $cellDataLower = StringHelper::strToLower((string) $rowData[$column]);

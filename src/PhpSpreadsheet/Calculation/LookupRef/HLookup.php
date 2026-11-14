@@ -72,6 +72,10 @@ class HLookup extends LookupBase
 
         $rowNumber = null;
         foreach ($lookupArray[$column] as $rowKey => $rowData) {
+            // an exact match never matches an empty cell
+            if (!$notExactMatch && $rowData === null) {
+                continue;
+            }
             // break if we have passed possible keys
             /** @var string $rowKey */
             $bothNumeric = is_numeric($lookupValue) && is_numeric($rowData);
