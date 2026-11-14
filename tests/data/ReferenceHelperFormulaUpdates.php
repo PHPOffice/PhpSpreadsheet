@@ -3,6 +3,27 @@
 declare(strict_types=1);
 
 return [
+    'function name that looks like a cell' => [
+        '=LOG10(A1)',
+        1,
+        2,
+        '2021',
+        '=LOG10(B3)',
+    ],
+    'lower case function name that looks like a cell' => [
+        '=log10(A1)',
+        1,
+        2,
+        '2021',
+        '=log10(B3)',
+    ],
+    'cell with the same text as a function name' => [
+        '=LOG10+LOG10(LOG10)',
+        0,
+        2,
+        '2021',
+        '=LOG12+LOG10(LOG12)',
+    ],
     [
         '=IF(A$1=0,0,A1/A$1)',
         1,

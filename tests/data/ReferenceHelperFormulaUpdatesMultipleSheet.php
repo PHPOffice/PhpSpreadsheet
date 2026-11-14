@@ -3,6 +3,12 @@
 declare(strict_types=1);
 
 return [
+    'function name that looks like a cell' => [
+        '=LOG10(A1)+LOG10(Data!A1)',
+        1,
+        2,
+        '=LOG10(B3)+LOG10(Data!B3)',
+    ],
     [
         "=IF('2020'!\$B1=\"\",\"-\",(('2020'!\$B1/'2019'!\$B1)-1))",
         2,
