@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+
 class MinTest extends AllSetupTeardown
 {
     #[\PHPUnit\Framework\Attributes\DataProvider('providerMIN')]
@@ -15,6 +17,13 @@ class MinTest extends AllSetupTeardown
     public static function providerMIN(): array
     {
         return require 'tests/data/Calculation/Statistical/MIN.php';
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('providerMIN')]
+    public function testMINArrayReturnType(mixed $expectedResult, mixed ...$args): void
+    {
+        $this->returnArrayAs = Calculation::RETURN_ARRAY_AS_ARRAY;
+        $this->runTestCaseReference('MIN', $expectedResult, ...$args);
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('providerMINLiteralArguments')]
