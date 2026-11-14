@@ -48,6 +48,17 @@ class PivotTable implements Stringable
     private array $fields = [];
 
     /**
+     * The <dataFields> entries, in order.
+     *
+     * One source column may be aggregated more than once (sum and average of
+     * the same column, say), so these are tracked separately from $fields,
+     * which holds exactly one entry per source column.
+     *
+     * @var PivotDataField[]
+     */
+    private array $dataFieldDefinitions = [];
+
+    /**
      * True when this pivot table was built in memory (rather than loaded from a
      * file) and therefore must have its OOXML parts generated on save. Loaded
      * pivot tables keep their original XML and are written back verbatim.
@@ -175,6 +186,10 @@ class PivotTable implements Stringable
     /**
      * Return only the value/data fields, in order.
      *
+     * This reports one entry per source column used as a value field. When the
+     * same column is aggregated more than once, use getDataFieldDefinitions()
+     * instead, which has one entry per <dataFields> row.
+     *
      * @return PivotField[]
      */
     public function getDataFields(): array
@@ -185,6 +200,39 @@ class PivotTable implements Stringable
                 static fn (PivotField $field): bool => $field->isDataField()
             )
         );
+    }
+
+    /**
+     * The <dataFields> entries, one per aggregation, in order.
+     *
+     * When nothing has registered an explicit list, this is derived from the
+     * fields flagged as data fields, so a pivot table built or read without
+     * duplicate aggregations behaves exactly as before.
+     *
+     * @return PivotDataField[]
+     */
+    public function getDataFieldDefinitions(): array
+    {
+        if ($this->dataFieldDefinitions !== []) {
+            return $this->dataFieldDefinitions;
+        }
+
+        return array_map(
+            static fn (PivotField $field): PivotDataField => new PivotDataField(
+                $field->getIndex(),
+                $field->getName(),
+                $field->getSubtotal(),
+                $field->getDataFieldCaption()
+            ),
+            $this->getDataFields()
+        );
+    }
+
+    public function addDataFieldDefinition(PivotDataField $dataField): self
+    {
+        $this->dataFieldDefinitions[] = $dataField;
+
+        return $this;
     }
 
     /**

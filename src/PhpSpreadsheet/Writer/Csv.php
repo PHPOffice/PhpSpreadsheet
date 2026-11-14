@@ -5,7 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use Composer\Pcre\Preg;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Csv extends BaseWriter
 {
@@ -76,6 +78,8 @@ class Csv extends BaseWriter
      * Save PhpSpreadsheet to file.
      *
      * @param resource|string $filename
+     *
+     * @psalm-taint-sink file $filename
      */
     public function save($filename, int $flags = 0): void
     {
@@ -138,7 +142,7 @@ class Csv extends BaseWriter
                 }
             }
             /** @var string[] $cellsArray */
-            $this->writeLine($this->fileHandle, $cellsArray);
+            $this->writeLine($this->fileHandle, $cellsArray, $sheet, $row);
         }
 
         $this->maybeCloseFileHandle();
@@ -282,7 +286,7 @@ class Csv extends BaseWriter
      * @param resource $fileHandle PHP filehandle
      * @param string[] $values Array containing values in a row
      */
-    private function writeLine($fileHandle, array $values): void
+    private function writeLine($fileHandle, array $values, Worksheet $sheet, int $row): void
     {
         // No leading delimiter
         $delimiter = '';
@@ -290,8 +294,8 @@ class Csv extends BaseWriter
         // Build the line
         $line = '';
 
-        foreach ($values as $element) {
-            if (Preg::isMatch('/^([+-])?(\d+)[.](\d+)/', $element, $matches)) {
+        foreach ($values as $key => $element) {
+            if (Preg::isMatch('/^([+-])?(\d+)[.](\d+)$/D', $element, $matches) && !self::isTextCell($sheet, $key, $row)) {
                 // Excel will "convert" file with pop-up
                 // if there are more than 15 digits precision.
                 $whole = $matches[2];
@@ -333,6 +337,13 @@ class Csv extends BaseWriter
             $line = (string) mb_convert_encoding($line, $this->outputEncoding);
         }
         fwrite($fileHandle, $line);
+    }
+
+    private static function isTextCell(Worksheet $sheet, int $key, int $row): bool
+    {
+        $coordinate = Coordinate::stringFromColumnIndex($key + 1) . $row;
+
+        return in_array($sheet->getCellCollection()->get($coordinate)?->getDataType(), [DataType::TYPE_STRING, DataType::TYPE_STRING2, DataType::TYPE_INLINE], true);
     }
 
     /**
