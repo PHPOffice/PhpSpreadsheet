@@ -1502,13 +1502,13 @@ class Worksheet
             $cellCoordinate = Validations::definedNameToCoordinate($cellCoordinate, $this);
         }
         $cellCoordinate = Validations::validateCellOrCellRange($cellCoordinate);
-        $cellCoordinate = str_replace('$', '', $cellCoordinate);
+        $cellCoordinate = strtoupper(str_replace('$', '', $cellCoordinate));
 
         // set this sheet as active
         $this->getParentOrThrow()->setActiveSheetIndex($this->getParentOrThrow()->getIndex($this));
 
         // set cell coordinate as active
-        $this->setSelectedCells($cellCoordinate);
+        $this->setSelectedCellsWithoutDefinedNames($cellCoordinate);
 
         return $this->getParentOrThrow()->getCellXfSupervisor();
     }
@@ -3117,6 +3117,17 @@ class Worksheet
         if (is_string($coordinate)) {
             $coordinate = Validations::definedNameToCoordinate($coordinate, $this);
         }
+
+        $this->setSelectedCellsWithoutDefinedNames($coordinate);
+
+        return $this;
+    }
+
+    /**
+     * @param AddressRange<CellAddress>|AddressRange<int>|AddressRange<string>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $coordinate
+     */
+    private function setSelectedCellsWithoutDefinedNames(AddressRange|CellAddress|int|string|array $coordinate): void
+    {
         $coordinate = Validations::validateCellOrCellRange($coordinate);
 
         if (Coordinate::coordinateIsRange($coordinate)) {
@@ -3127,8 +3138,6 @@ class Worksheet
         }
         $this->selectedCells = $coordinate;
         $this->setSelectedCellsActivePane();
-
-        return $this;
     }
 
     private function setSelectedCellsActivePane(): void
