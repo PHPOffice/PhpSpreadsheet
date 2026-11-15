@@ -43,6 +43,14 @@ class CoordinateTest extends TestCase
         Coordinate::columnIndexFromString('');
     }
 
+    public function testColumnIndexFromStringInvalid(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Column string index can not be 0');
+
+        Coordinate::columnIndexFromString('0');
+    }
+
     #[DataProvider('providerColumnIndex')]
     public function testStringFromColumnIndex(mixed $expectedResult, int $columnIndex): void
     {

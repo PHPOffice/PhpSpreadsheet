@@ -421,18 +421,33 @@ abstract class Coordinate
         //    We also use the language construct isset() rather than the more costly strlen() function to match the
         //       length of $columnAddress for improved performance
         if (isset($columnAddress[0])) {
+            if (!isset($columnLookup[$columnAddress[0]])) {
+                throw new Exception(
+                    'Column string index can not be ' . $columnAddress
+                );
+            }
             if (!isset($columnAddress[1])) {
                 $indexCache[$columnAddress] = $columnLookup[$columnAddress];
 
                 return $indexCache[$columnAddress];
             }
             if (!isset($columnAddress[2])) {
+                if (!isset($columnLookup[$columnAddress[1]])) {
+                    throw new Exception(
+                        'Column string index can not be ' . $columnAddress
+                    );
+                }
                 $indexCache[$columnAddress] = $columnLookup[$columnAddress[0]] * 26
                     + $columnLookup[$columnAddress[1]];
 
                 return $indexCache[$columnAddress];
             }
             if (!isset($columnAddress[3])) {
+                if (!isset($columnLookup[$columnAddress[1]]) || !isset($columnLookup[$columnAddress[2]])) {
+                    throw new Exception(
+                        'Column string index can not be ' . $columnAddress
+                    );
+                }
                 $temp = $columnLookup[$columnAddress[0]] * 676
                     + $columnLookup[$columnAddress[1]] * 26
                     + $columnLookup[$columnAddress[2]];
