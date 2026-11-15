@@ -114,6 +114,9 @@ class Validations
     {
         // Uppercase coordinate
         $coordinate = strtoupper($coordinate);
+        if ($worksheet->getParentOrThrow()->getDefinedNames() === []) {
+            return $coordinate;
+        }
         // Eliminate leading equal sign
         $testCoordinate = Preg::replace('/^=/', '', $coordinate);
         $defined = $worksheet->getParentOrThrow()->getDefinedName($testCoordinate, $worksheet);
