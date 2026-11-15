@@ -220,9 +220,12 @@ class Cell implements Stringable
 
     protected static function updateIfCellIsTableHeader(?Worksheet $workSheet, self $cell, mixed $oldValue, mixed $newValue): void
     {
+        if ($workSheet === null || $workSheet->getTableCollection()->count() === 0) {
+            return;
+        }
         $oldValue = StringHelper::convertToString($oldValue, false);
         $newValue = StringHelper::convertToString($newValue, false);
-        if (StringHelper::strToLower($oldValue) === StringHelper::strToLower($newValue) || $workSheet === null) {
+        if (StringHelper::strToLower($oldValue) === StringHelper::strToLower($newValue)) {
             return;
         }
 
