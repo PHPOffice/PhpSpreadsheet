@@ -1980,4 +1980,22 @@ class Spreadsheet implements JsonSerializable
 
         return $this->usesCheckBoxStyle;
     }
+
+    private bool $useHighestDataColumn = false;
+
+    /**
+     * If true, toArray and row cell iterators without an explicit end
+     * use getHighestDataColumn/Row instead of getHighestColumn/Row.
+     */
+    public function getUseHighestDataColumn(): bool
+    {
+        return $this->useHighestDataColumn;
+    }
+
+    public function setUseHighestDataColumn(bool $useHighestDataColumn): self
+    {
+        $this->useHighestDataColumn = $useHighestDataColumn;
+
+        return $this;
+    }
 }
