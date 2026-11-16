@@ -805,26 +805,18 @@ class Worksheet
 
                     if ($cellValue !== '') {
                         $curr = $this->cellCollection->getCurrentColumn();
-                        $font = $xfIndex->getFont();
-                        $intFilterAdjustment = (int) $filterAdjustment;
-                        $rotation = (int) $xfIndex
-                            ->getAlignment()->getTextRotation();
-                        $key = $cell->getXfIndex() . '|' . $intFilterAdjustment . '|' . $cellValue;
-                        $width = $knownWidths[$key] ?? null;
-                        if ($width === null) {
-                            $width = round(
-                                Shared\Font::calculateColumnWidth(
-                                    $font,
-                                    $cellValue,
-                                    $rotation,
-                                    $defaultFont,
-                                    $filterAdjustment,
-                                    $indentAdjustment
-                                ),
-                                3
-                            );
-                            $knownWidths[$key] = $width;
-                        }
+                        $key = $cell->getXfIndex() . '|' . (int) $filterAdjustment . '|' . $cellValue;
+                        $width = $knownWidths[$key] ??= round(
+                            Shared\Font::calculateColumnWidth(
+                                $xfIndex->getFont(),
+                                $cellValue,
+                                (int) $xfIndex->getAlignment()->getTextRotation(),
+                                $defaultFont,
+                                $filterAdjustment,
+                                $indentAdjustment
+                            ),
+                            3
+                        );
                         if ($autoSizes[$curr] < $width) {
                             $autoSizes[$curr] = $width;
                         }
