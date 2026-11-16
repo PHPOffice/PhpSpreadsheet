@@ -738,7 +738,7 @@ class Worksheet
 
         // There is only something to do if there are some auto-size columns
         if (!empty($autoSizes)) {
-            /** @var float[][][][][][] */
+            /** @var float[] */
             $knownWidths = [];
             $defaultWidth = $this->getDefaultColumnDimension()->getWidth();
             $holdActivePane = $this->activePane;
