@@ -790,12 +790,12 @@ class Worksheet
                         }
                     }
 
-                    $indentAdjustment = $cell->getStyle()->getAlignment()->getIndent();
-                    $indentAdjustment += (int) ($cell->getStyle()->getAlignment()->getHorizontal() === Alignment::HORIZONTAL_CENTER);
+                    $xfIndex = ($spreadsheet?->getCellXfByIndex($cell->getXfIndex())) ?? new Style();
+                    $indentAdjustment = $xfIndex->getAlignment()->getIndent();
+                    $indentAdjustment += (int) ($xfIndex->getAlignment()->getHorizontal() === Alignment::HORIZONTAL_CENTER);
 
                     // Calculated value
                     // To formatted string
-                    $xfIndex = ($spreadsheet?->getCellXfByIndex($cell->getXfIndex())) ?? new Style();
                     $cellValue = NumberFormat::toFormattedString(
                         $cell->getCalculatedValueString(),
                         ($xfIndex
