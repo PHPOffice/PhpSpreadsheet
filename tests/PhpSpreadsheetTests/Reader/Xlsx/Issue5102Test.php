@@ -20,6 +20,7 @@ class Issue5102Test extends TestCase
         self::assertSame('XFD', $sheet->getHighestColumn());
         self::assertCount(16384, $sheet->toArray()[0]);
         self::assertSame(16384, iterator_count($sheet->getRowIterator()->current()->getCellIterator()));
+        self::assertSame(16384, iterator_count($sheet->getColumnIterator()));
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -32,6 +33,7 @@ class Issue5102Test extends TestCase
         self::assertSame('XFD', $sheet->getHighestColumn());
         self::assertSame([['hi']], $sheet->toArray());
         self::assertSame(1, iterator_count($sheet->getRowIterator()->current()->getCellIterator()));
+        self::assertSame(1, iterator_count($sheet->getColumnIterator()));
         $spreadsheet->disconnectWorksheets();
     }
 }

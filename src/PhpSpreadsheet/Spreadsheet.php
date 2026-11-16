@@ -1984,7 +1984,7 @@ class Spreadsheet implements JsonSerializable
     private bool $useHighestDataColumn = false;
 
     /**
-     * If true, toArray and row cell iterators without an explicit end
+     * If true, toArray, row cell iterators and column iterators without an explicit end
      * use getHighestDataColumn/Row instead of getHighestColumn/Row.
      */
     public function getUseHighestDataColumn(): bool

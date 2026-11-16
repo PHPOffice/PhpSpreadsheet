@@ -14,7 +14,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Added
 
 - Psalm taint analysis annotations: the files read and written are file sinks, and cell values are untrusted input. [PR #5070](https://github.com/PHPOffice/PhpSpreadsheet/pull/5070)
-- Spreadsheet::setUseHighestDataColumn, so that toArray and row cell iterators without an explicit end stop at the highest data column and row. [Issue #5102](https://github.com/PHPOffice/PhpSpreadsheet/issues/5102)
+- Spreadsheet::setUseHighestDataColumn, so that toArray, row cell iterators and column iterators without an explicit end stop at the highest data column and row. [Issue #5102](https://github.com/PHPOffice/PhpSpreadsheet/issues/5102) [PR #5113](https://github.com/PHPOffice/PhpSpreadsheet/pull/5113)
 
 ### Removed
 
