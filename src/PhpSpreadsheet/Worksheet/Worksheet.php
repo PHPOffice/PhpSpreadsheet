@@ -806,12 +806,11 @@ class Worksheet
                     if ($cellValue !== '') {
                         $curr = $this->cellCollection->getCurrentColumn();
                         $font = $xfIndex->getFont();
-                        $fontName = $font->getName();
-                        $fontSize = (string) ($font->getSize());
                         $intFilterAdjustment = (int) $filterAdjustment;
                         $rotation = (int) $xfIndex
                             ->getAlignment()->getTextRotation();
-                        $width = $knownWidths[$cellValue][$fontName][$fontSize][$indentAdjustment][$intFilterAdjustment][$rotation] ?? null;
+                        $key = $cell->getXfIndex() . '|' . $intFilterAdjustment . '|' . $cellValue;
+                        $width = $knownWidths[$key] ?? null;
                         if ($width === null) {
                             $width = round(
                                 Shared\Font::calculateColumnWidth(
