@@ -823,7 +823,7 @@ class Worksheet
                                 ),
                                 3
                             );
-                             $knownWidths[$cellValue][$fontName][$fontSize][$indentAdjustment][$intFilterAdjustment][$rotation] = $width;
+                            $knownWidths[$key] = $width;
                         }
                         if ($autoSizes[$curr] < $width) {
                             $autoSizes[$curr] = $width;
