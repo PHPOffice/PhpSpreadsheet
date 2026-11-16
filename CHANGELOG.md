@@ -33,6 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
+- `Worksheet::getColumnDimension()` throws an exception for an invalid column such as `0` and does not store it, so a later save no longer fails with "Undefined array key". [Issue #5109](https://github.com/PHPOffice/PhpSpreadsheet/issues/5109) [PR #5124](https://github.com/PHPOffice/PhpSpreadsheet/pull/5124)
 - Ods Writer writes the value of an error cell, such as `#N/A` or `#DIV/0!`; every error constant was written as `#NULL!`. [Issue #5022](https://github.com/PHPOffice/PhpSpreadsheet/issues/5022) [PR #5067](https://github.com/PHPOffice/PhpSpreadsheet/pull/5067)
 - Fix pivot table with two or more data fields removed by Excel. [Issue #5106](https://github.com/PHPOffice/PhpSpreadsheet/issues/5106) [PR #5107](https://github.com/PHPOffice/PhpSpreadsheet/pull/5107)
 - `XLOOKUP()` without an `if_not_found` argument returns a real `#N/A` error when nothing matches, instead of the string `#N/A!`, so `ISNA()`, `ISERROR()` and `IFNA()` handle it. [Issue #5085](https://github.com/PHPOffice/PhpSpreadsheet/issues/5085) [PR #5095](https://github.com/PHPOffice/PhpSpreadsheet/pull/5095)

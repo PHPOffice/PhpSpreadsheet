@@ -1460,9 +1460,12 @@ class Worksheet
 
         // Fetch dimensions
         if (!isset($this->columnDimensions[$column])) {
+            if (!ctype_alpha($column)) {
+                throw new Exception("Invalid column $column");
+            }
+            $columnIndex = Coordinate::columnIndexFromString($column);
             $this->columnDimensions[$column] = new ColumnDimension($column);
 
-            $columnIndex = Coordinate::columnIndexFromString($column);
             if ($this->cachedHighestColumn < $columnIndex) {
                 $this->cachedHighestColumn = $columnIndex;
             }
