@@ -298,7 +298,7 @@ $spreadsheet->getActiveSheet()
     ->getStyle($cellWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 ```
-You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/01_Basic_Comparisons.php#L81 "Conditional Formatting - Simple Example") for the repo.
+You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond01_Basic_Comparisons.php#L94 "Conditional Formatting - Simple Example") for the repo.
 
 ![11-12-CF-Simple-Example.png](./images/11-12-CF-Simple-Example.png)
 
@@ -328,7 +328,7 @@ $wizard->equals('$H$9', Wizard::VALUE_TYPE_CELL);
 
 ![11-08-CF-Absolute-Cell-Reference.png](./images/11-08-CF-Absolute-Cell-Reference.png)
 
-You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/01_Basic_Comparisons.php#L103 "Conditional Formatting - Basic Comparisons") for the repo.
+You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond01_Basic_Comparisons.php#L117 "Conditional Formatting - Basic Comparisons") for the repo.
 
 Note that we are passing the cell as an absolute cell reference, "pinned" (with the `$` symbol) for both the row and the column.
 
@@ -342,7 +342,7 @@ $wizard->between('$B1', Wizard::VALUE_TYPE_CELL)
     ->setStyle($greenStyle);
 ```
 
-This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/01_Basic_Comparisons.php#L126 "Conditional Formatting - Basic Comparisons") for the repo.
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond01_Basic_Comparisons.php#L140 "Conditional Formatting - Basic Comparisons") for the repo.
 
 In this case, we "pin" the column for the address; but leave the row "unpinned".
 Notice also that we treat the first cell in our range as cell `A1`: the relative row number will be adjusted automatically to match our defined range; that is, the range that we specified when we instantiated the Wizard (passed in through the Wizard Factory) when we make the call to `getConditional()`.
@@ -368,7 +368,7 @@ $spreadsheet->getActiveSheet()
     ->setConditionalStyles($conditionalStyles);
 ```
 
-You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/02_Text_Comparisons.php#L209 "Conditional Formatting - Text Comparisons") for the repo.
+You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond02_Text_Comparisons.php#L214 "Conditional Formatting - Text Comparisons") for the repo.
 
 When the formula contains cell references, we again need to be careful with pinning to absolute columns/rows; and when unpinned, we reference based on the top-left cell of the range being cell `A1` when we define the formula.
 Here we're defining the formula as `CONCATENATE($A1," ",$B1)`, so we're "pinning" the column references for columns `A` and `B`; but leaving the row unpinned (explicitly set to start from row 1), which is then adjusted to the conditional range when we get the Conditional from the Wizard, and adjusted to the individual rows within that range when MS Excel displays the results.
@@ -435,7 +435,7 @@ $spreadsheet->getActiveSheet()
     ->getStyle($textWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 ```
-You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/02_Text_Comparisons.php#L149 "Conditional Formatting - Text Comparisons") for the repo.
+You can find an example that demonstrates this in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond02_Text_Comparisons.php#L154 "Conditional Formatting - Text Comparisons") for the repo.
 
 ![11-17-CF-Text-Contains.png](./images/11-17-CF-Text-Contains.png)
 
@@ -484,7 +484,7 @@ The Conditional has no actual "Operator Type", and the condition/value should be
 
 ![11-18-CF-Date-Occurring-Examples.png](./images/11-18-CF-Date-Occurring-Examples.png)
 
-The above image shows a grid that demonstrate each of the possible Date Occurring rules, and was generated using [the code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/05_Date_Comparisons.php#L118 "Conditional Formatting - Dates Occurring Comparisons")
+The above image shows a grid that demonstrate each of the possible Date Occurring rules, and was generated using [the code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond05_Date_Comparisons.php#L121 "Conditional Formatting - Dates Occurring Comparisons")
 
 Typical sample code wod look something like:
 
@@ -560,7 +560,7 @@ $spreadsheet->getActiveSheet()
     ->getStyle($blanksWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 ```
-This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/03_Blank_Comparisons.php#L58 "Conditional Formatting - Blank Comparisons") for the repo.
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond03_Blank_Comparisons.php#L61 "Conditional Formatting - Blank Comparisons") for the repo.
 
 ![11-10-CF-Blanks-Example.png](./images/11-10-CF-Blanks-Example.png)
 
@@ -609,7 +609,7 @@ $spreadsheet->getActiveSheet()
     ->setConditionalStyles($conditionalStyles);
 ```
 
-This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/04_Error_Comparisons.php#L62 "Conditional Formatting - Error Comparisons") for the repo.
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond04_Error_Comparisons.php#L64 "Conditional Formatting - Error Comparisons") for the repo.
 
 ![11-11-CF-Errors-Example.png](./images/11-11-CF-Errors-Example.png)
 
@@ -658,7 +658,7 @@ $spreadsheet->getActiveSheet()
     ->getStyle($duplicatesWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 ```
-This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/06_Duplicate_Comparisons.php#L66 "Conditional Formatting - Duplicate/Unique Comparisons") for the repo.
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond06_Duplicate_Comparisons.php#L70 "Conditional Formatting - Duplicate/Unique Comparisons") for the repo.
 
 ![11-19-CF-Duplicates-Uniques-Examples.png](./images/11-19-CF-Duplicates-Uniques-Examples.png)
 
@@ -695,7 +695,7 @@ $spreadsheet->getActiveSheet()
     ->getStyle($expressionWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 ```
-This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/07_Expression_Comparisons.php#L87 "Conditional Formatting - Odd/Even Expression Comparisons") for the repo.
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond07_Expression_Comparisons.php#L92 "Conditional Formatting - Odd/Even Expression Comparisons") for the repo.
 
 ![11-14-CF-Expression-Example-Odd-Even.png](./images/11-14-CF-Expression-Example-Odd-Even.png)
 
@@ -719,7 +719,7 @@ $spreadsheet->getActiveSheet()
     ->getStyle($expressionWizard->getCellRange())
     ->setConditionalStyles($conditionalStyles);
 ```
-This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/07_Expression_Comparisons.php#L107 "Conditional Formatting - Sales Grid Expression Comparisons") for the repo.
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond07_Expression_Comparisons.php#L111 "Conditional Formatting - Sales Grid Expression Comparisons") for the repo.
 
 ![11-15-CF-Expression-Sales-Grid-1.png](./images/11-15-CF-Expression-Sales-Grid-1.png)
 
@@ -729,7 +729,7 @@ Or we could apply multiple comparisons in the same expression, so to check for a
 $expressionWizard->expression('AND($C1="USA",$D1="Q4")')
     ->setStyle($greenStyleMoney);
 ```
-This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/07_Expression_Comparisons.php#L121 "Conditional Formatting - Sales Grid Expression Comparisons") for the repo.
+This example can also be found in the [code samples](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/samples/ConditionalFormatting/cond07_Expression_Comparisons.php#L126 "Conditional Formatting - Sales Grid Expression Comparisons") for the repo.
 
 ![11-16-CF-Expression-Sales-Grid-2.png](./images/11-16-CF-Expression-Sales-Grid-2.png)
 
