@@ -780,8 +780,11 @@ class Calculation extends CalculationLocale
         //    Parse the formula onto the token stack and calculate the value
         $this->cyclicReferenceStack->push($wsCellReference);
 
-        $cellValue = $this->processTokenStack($this->internalParseFormula($formula, $cell), $cellID, $cell);
-        $this->cyclicReferenceStack->pop();
+        try {
+            $cellValue = $this->processTokenStack($this->internalParseFormula($formula, $cell), $cellID, $cell);
+        } finally {
+            $this->cyclicReferenceStack->pop();
+        }
 
         // Save to calculation cache
         if ($cellID !== null) {
@@ -2694,7 +2697,6 @@ class Calculation extends CalculationLocale
     protected function raiseFormulaError(string $errorMessage, int $code = 0, ?Throwable $exception = null): bool
     {
         $this->formulaError = $errorMessage;
-        $this->cyclicReferenceStack->clear();
         $suppress = $this->suppressFormulaErrors;
         $suppressed = $suppress ? ' $suppressed' : '';
         $this->debugLog->writeDebugLog("Raise Error$suppressed $errorMessage");
