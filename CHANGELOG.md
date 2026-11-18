@@ -21,7 +21,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Changed
 
-- Nothing yet.
+- Performance: when empty cells are not read, the Xlsx Reader removes the valueless cells Excel writes for formatted empty cells before parsing a worksheet, so a file with formatting on many empty rows loads several times faster. [PR #5128](https://github.com/PHPOffice/PhpSpreadsheet/pull/5128)
 
 ### Moved
 
