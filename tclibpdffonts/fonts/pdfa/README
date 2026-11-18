@@ -1,0 +1,9 @@
+# pdfa font files for tc-lib-pdf-font
+
+This folder contains font files and/or font data extracted from:
+https://github.com/tecnickcom/tc-font-pdfa
+using the "bulk_convert.php" utility in https://github.com/tecnickcom/tc-lib-pdf-font
+
+The original files (if present) have been renamed and compressed using the ZLIB data format (.z files).
+The font files are subject to the conditions stated in the LICENSE file.
+For further information please consult the original documentation at the link above.
