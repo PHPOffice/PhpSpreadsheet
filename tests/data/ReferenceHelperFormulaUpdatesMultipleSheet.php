@@ -3,6 +3,18 @@
 declare(strict_types=1);
 
 return [
+    'text in quotes is not a reference' => [
+        '=IF(A1="B2",Data!C3,"Data!D4")',
+        2,
+        2,
+        '=IF(C3="B2",Data!E5,"Data!D4")',
+    ],
+    'text in quotes is not a row range' => [
+        '="12:30"&A1',
+        0,
+        1,
+        '="12:30"&A2',
+    ],
     [
         "=IF('2020'!\$B1=\"\",\"-\",(('2020'!\$B1/'2019'!\$B1)-1))",
         2,
