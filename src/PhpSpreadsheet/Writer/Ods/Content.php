@@ -350,25 +350,21 @@ class Content extends WriterPart
                     }
                     // no break
                 case DataType::TYPE_NUMERIC:
-                    $holdWorksheet = $cell->getWorksheet();
-                    $holdSelected = $holdWorksheet->getSelectedCells();
-                    $holdSpreadsheet = $holdWorksheet->getParent();
-                    $holdActiveSheetIndex = $holdSpreadsheet?->getActiveSheetIndex();
-                    $formatted = $cell->getFormattedValue();
+                    $spreadsheet = $cell->getWorksheet()->getParentOrThrow();
+                    $numberFormat = $spreadsheet->getCellXfByIndex($cell->getXfIndex())->getNumberFormat();
                     $type = 'float';
                     $valueType = 'value';
-                    $value = $cell->getCalculatedValueString();
-                    $numFmt = $cell->getStyle()
-                        ->getNumberFormat()
-                        ->getFormatCode() ?? '';
-                    $holdWorksheet->setSelectedCells($holdSelected);
-                    if (isset($holdSpreadsheet, $holdActiveSheetIndex)) {
-                        $holdSpreadsheet->setActiveSheetIndex(
-                            $holdActiveSheetIndex
-                        );
+                    $value = $valueCalc = $cell->getCalculatedValueString();
+                    $numFmt = $numberFormat->getFormatCode() ?? '';
+                    $currentCalendar = Date::getExcelCalendar();
+                    Date::setExcelCalendar($spreadsheet->getExcelCalendar());
+
+                    try {
+                        $formatted = NumberFormat::toFormattedString($value, (string) $numberFormat->getFormatCode(true));
+                    } finally {
+                        Date::setExcelCalendar($currentCalendar);
                     }
                     if (Date::isDateTimeFormatCode($numFmt, true)) {
-                        $valueCalc = $cell->getCalculatedValueString();
                         if (Preg::isMatch('/[HhSs]/', $numFmt) && !Preg::isMatch('/[YyDd]/', $numFmt)) {
                             $type = 'time';
                             $valueType = 'time-value';
