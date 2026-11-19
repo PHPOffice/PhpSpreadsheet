@@ -14,8 +14,8 @@ The Microsoft Excel™ Binary file format (BIFF5 and BIFF8) is a binary
 file format that was used by Microsoft Excel™ between versions 95 and 2003.
 The format is supported (to various extents) by most spreadsheet
 programs. BIFF files normally have an extension of .xls. Documentation
-describing the format can be [read online](https://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx)
-or [downloaded as PDF](https://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/%5BMS-XLS%5D.pdf).
+describing the format can be [read online](https://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx).
+That site has links which allow you to download as a Pdf or Word document.
 
 ### Xml
 
