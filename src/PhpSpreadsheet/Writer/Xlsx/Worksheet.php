@@ -1619,14 +1619,14 @@ class Worksheet extends WriterPart
 
             return;
         }
-        // Empty string (not null) so str_starts_with($calculatedValueString, '#') below stays
-        // type-correct when pre-calc is off; the surrounding writeElementIf condition guards
-        // against actually emitting <v> when there is no calculated value.
-        $calculatedValueString = $preCalc ? $cell->getCalculatedValueString() : '';
         $result = $calculatedValue;
         while (is_array($result)) {
             $result = array_shift($result);
         }
+        // Empty string (not null) so str_starts_with($calculatedValueString, '#') below stays
+        // type-correct when pre-calc is off; the surrounding writeElementIf condition guards
+        // against actually emitting <v> when there is no calculated value.
+        $calculatedValueString = $preCalc ? StringHelper::convertToString($result, false, convertBool: true) : '';
         if (is_string($result)) {
             if (ErrorValue::isError($result)) {
                 $this->writeCellError($objWriter, 'e', $cellValue, $result);

@@ -1884,27 +1884,29 @@ class Html extends BaseWriter
 
         $html = $this->generateRowSpans($html, $rowSpan, $colSpan);
 
-        $mergedCellStyle = new MergedCellStyle();
-        $mergedStyle = $mergedCellStyle->getMergedStyle(
-            $worksheet,
-            $coordinate,
-            $this->tableFormats,
-            $this->conditionalFormatting,
-            $this->tableFormatsBuiltin
-        );
-        if ($mergedCellStyle->getMatched()) {
-            $styles = $this->createCSSStyle($mergedStyle, true);
-            $html .= ' style="';
-            if ($holdCss !== '') {
-                $html .= "$holdCss; ";
-                $holdCss = '';
-            }
-            foreach ($styles as $key => $value) {
-                if (!str_starts_with($key, 'border-') || $value !== 'none #000000') {
-                    $html .= $key . ':' . $value . ';';
+        if ($worksheet->getTableCollection()->count() > 0 || $worksheet->getConditionalStylesCollection() !== []) {
+            $mergedCellStyle = new MergedCellStyle();
+            $mergedStyle = $mergedCellStyle->getMergedStyle(
+                $worksheet,
+                $coordinate,
+                $this->tableFormats,
+                $this->conditionalFormatting,
+                $this->tableFormatsBuiltin
+            );
+            if ($mergedCellStyle->getMatched()) {
+                $styles = $this->createCSSStyle($mergedStyle, true);
+                $html .= ' style="';
+                if ($holdCss !== '') {
+                    $html .= "$holdCss; ";
+                    $holdCss = '';
                 }
+                foreach ($styles as $key => $value) {
+                    if (!str_starts_with($key, 'border-') || $value !== 'none #000000') {
+                        $html .= $key . ':' . $value . ';';
+                    }
+                }
+                $html .= '"';
             }
-            $html .= '"';
         }
         if ($holdCss !== '') {
             $html .= ' style="' . $holdCss . '"';
