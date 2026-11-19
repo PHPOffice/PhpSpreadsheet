@@ -11,6 +11,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension as HelperDimension;
@@ -319,6 +320,9 @@ class Ods extends BaseReader
      */
     private array $allStyles;
 
+    /** @var array<string, int> */
+    private array $xfIndexes = [];
+
     /** @var string[] */
     private array $numberFormats;
 
@@ -373,7 +377,7 @@ class Ods extends BaseReader
 
         // Styles
 
-        $this->allStyles = $this->numberFormats = [];
+        $this->allStyles = $this->numberFormats = $this->xfIndexes = [];
         $dom = $this->loadDom('styles.xml', $zip);
         $officeNs = (string) $dom->lookupNamespaceUri('office');
         $styleNs = (string) $dom->lookupNamespaceUri('style');
@@ -963,8 +967,12 @@ class Ods extends BaseReader
                 $spannedRange = "$columnID$rowID";
                 // the following is sufficient for ods,
                 // and does no harm for xlsx/xls.
-                $worksheet->getStyle($spannedRange)
-                    ->applyFromArray($this->allStyles[$styleName]);
+                $this->applyCellStyle(
+                    $worksheet,
+                    $worksheet->getCell($spannedRange),
+                    "s$styleName",
+                    $this->allStyles[$styleName]
+                );
                 // the rest of this block is needed for xlsx/xls,
                 // and does no harm for ods.
                 if (isset($this->allStyles[$styleName]['borders'])) {
@@ -1267,17 +1275,13 @@ class Ods extends BaseReader
                         }
 
                         // Set other properties
-                        if ($formatting !== null) {
-                            $spreadsheet->getActiveSheet()
-                                ->getStyle($columnID . $rID)
-                                ->getNumberFormat()
-                                ->setFormatCode($formatting);
-                        } else {
-                            $spreadsheet->getActiveSheet()
-                                ->getStyle($columnID . $rID)
-                                ->getNumberFormat()
-                                ->setFormatCode(NumberFormat::FORMAT_GENERAL);
-                        }
+                        $formatCode = $formatting ?? NumberFormat::FORMAT_GENERAL;
+                        $this->applyCellStyle(
+                            $spreadsheet->getActiveSheet(),
+                            $cell,
+                            "f$formatCode",
+                            ['numberFormat' => ['formatCode' => $formatCode]]
+                        );
 
                         if ($hyperlink !== null) {
                             if ($hyperlink[0] === '#') {
@@ -1297,6 +1301,19 @@ class Ods extends BaseReader
             StringHelper::stringIncrement($columnID);
         }
         $rowID += $rowRepeats;
+    }
+
+    /** @param mixed[] $styleArray */
+    private function applyCellStyle(Worksheet $worksheet, Cell $cell, string $key, array $styleArray): void
+    {
+        $key .= '|' . $cell->getXfIndex();
+        if (isset($this->xfIndexes[$key])) {
+            $cell->setXfIndex($this->xfIndexes[$key]);
+            $worksheet->setSelectedCells($cell->getCoordinate());
+        } else {
+            $worksheet->getStyle($cell->getCoordinate())->applyFromArray($styleArray);
+            $this->xfIndexes[$key] = $cell->getXfIndex();
+        }
     }
 
     private function processDrawFrame(string $spannedRange, DOMElement $item, Worksheet $worksheet): void
