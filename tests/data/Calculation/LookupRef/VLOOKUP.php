@@ -83,6 +83,30 @@ return [
         2,
         false,
     ],
+    'exact match in unsorted table returns first duplicate' => [
+        2,
+        'a',
+        [
+            ['b', 1],
+            ['a', 2],
+            ['B', 3],
+            ['A', 4],
+        ],
+        2,
+        false,
+    ],
+    'exact match is case-insensitive and returns first duplicate' => [
+        1,
+        'B',
+        [
+            ['b', 1],
+            ['a', 2],
+            ['B', 3],
+            ['A', 4],
+        ],
+        2,
+        false,
+    ],
     [
         '#N/A',
         '10y2',
