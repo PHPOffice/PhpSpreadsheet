@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\Attributes\DataProvider;
 
@@ -41,6 +43,41 @@ class SumTest extends AllSetupTeardown
     public static function providerSUMLiterals(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMLITERALS.php';
+    }
+
+    #[DataProvider('providerSUMCellArguments')]
+    public function testSUMCellArguments(mixed $expectedResult, string $formula, string $arrayReturnType): void
+    {
+        $spreadsheet = $this->getSpreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType($arrayReturnType);
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('N/A');
+        $sheet->getCell('A2')->setValue(5);
+        $sheet->getCell('A3')->setValue(7);
+        $other = $spreadsheet->createSheet();
+        $other->setTitle('Other');
+        $other->getCell('A1')->setValue('text');
+        $sheet->getCell('B1')->setValue($formula);
+        self::assertSame($expectedResult, $sheet->getCell('B1')->getCalculatedValue());
+    }
+
+    public static function providerSUMCellArguments(): array
+    {
+        $formulas = [
+            'text in a single-cell reference is ignored' => [5, '=SUM(A1,A2)'],
+            'text in the only argument is ignored' => [0, '=SUM(A1)'],
+            'text in a reference to another sheet is ignored' => [12, '=SUM(Other!A1,A2,A3)'],
+            'text in a range is ignored' => [12, '=SUM(A1:A3)'],
+            'text typed as an argument is an error' => [ExcelError::VALUE(), '=SUM("N/A",A2)'],
+        ];
+        $cases = [];
+        foreach ([Calculation::RETURN_ARRAY_AS_VALUE, Calculation::RETURN_ARRAY_AS_ARRAY] as $arrayReturnType) {
+            foreach ($formulas as $name => [$expectedResult, $formula]) {
+                $cases["$name, $arrayReturnType"] = [$expectedResult, $formula, $arrayReturnType];
+            }
+        }
+
+        return $cases;
     }
 
     #[DataProvider('providerSUMWITHINDEXMATCH')]

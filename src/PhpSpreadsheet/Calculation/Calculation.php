@@ -485,6 +485,29 @@ class Calculation extends CalculationLocale
     }
 
     /**
+     * In array mode a single-cell reference reaches the function as a plain value.
+     * Functions that ignore text from cells but reject typed text need it back as [row][column].
+     *
+     * @param mixed[] $arg
+     */
+    private function restoreCellReferenceShape(string $functionName, array $arg, mixed $value): mixed
+    {
+        if (
+            $arg['type'] !== 'Cell Value'
+            || is_array($value)
+            || !is_string($arg['reference'])
+            || $this->getInstanceArrayReturnType() !== self::RETURN_ARRAY_AS_ARRAY
+            || !in_array($functionName, ['MAX', 'MIN', 'SUM'], true)
+        ) {
+            return $value;
+        }
+        [, $coordinate] = Worksheet::extractSheetTitle($arg['reference'], true, true);
+        [$column, $row] = Coordinate::coordinateFromString(str_replace('$', '', (string) $coordinate));
+
+        return [(int) $row => [$column => $value]];
+    }
+
+    /**
      * Remove quotes used as a wrapper to identify string values.
      */
     public static function unwrapResult(mixed $value): mixed
@@ -2313,7 +2336,7 @@ class Calculation extends CalculationLocale
                                 $this->debugLog->writeDebugLog('Empty Argument reevaluated as 0');
                             } else {
                                 $emptyArguments[] = $arg['type'] === 'Empty Argument';
-                                $args[] = self::unwrapResult($arg['value']);
+                                $args[] = $this->restoreCellReferenceShape($functionName, $arg, self::unwrapResult($arg['value']));
                             }
                             if ($functionName !== 'MKMATRIX') {
                                 $argArrayVals[] = $this->showValue($arg['value']);
