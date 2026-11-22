@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- Opt-in parallel worksheet generation for the Xlsx Writer (CLI only, requires pcntl and the suggested fidry/cpu-core-counter package). [PR #4834](https://github.com/PHPOffice/PhpSpreadsheet/pull/4834)
 
 ## 2026-11-21 - 5.12.0
 
