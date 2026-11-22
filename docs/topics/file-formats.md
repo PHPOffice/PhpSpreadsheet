@@ -14,8 +14,8 @@ The Microsoft Excel™ Binary file format (BIFF5 and BIFF8) is a binary
 file format that was used by Microsoft Excel™ between versions 95 and 2003.
 The format is supported (to various extents) by most spreadsheet
 programs. BIFF files normally have an extension of .xls. Documentation
-describing the format can be [read online](https://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx)
-or [downloaded as PDF](https://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/%5BMS-XLS%5D.pdf).
+describing the format can be [read online](https://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx).
+That site has links which allow you to download as a Pdf or Word document.
 
 ### Xml
 
@@ -32,7 +32,7 @@ Office Open XML SpreadsheetML, and Excel 2010 extended this still
 further with its new features such as sparklines. These files typically
 have an extension of .xlsx. This format is based around a zipped
 collection of eXtensible Markup Language (XML) files. Microsoft Office
-Open XML SpreadsheetML is mostly standardized in [ECMA 376](https://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm)
+Open XML SpreadsheetML is mostly standardized in [ECMA 376](https://ecma-international.org/publications-and-standards/standards/ecma-376/)
 and ISO 29500.
 
 ### Ods
@@ -61,7 +61,7 @@ options (unlike CSV files).
 
 ### Gnumeric
 
-The [Gnumeric file format](https://help.gnome.org/users/gnumeric/stable/sect-file-formats.html.en#file-format-gnumeric)
+The [Gnumeric file format](https://gnome.pages.gitlab.gnome.org/gnumeric/manual/sect-file-formats.html#file-format-gnumeric)
 is used by the Gnome Gnumeric spreadsheet
 application, and typically files have an extension of `.gnumeric`. The
 file contents are stored using eXtensible Markup Language (XML) markup,
