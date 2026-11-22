@@ -12526,6 +12526,11 @@ Search.appendIndex(
             "summary": "Input\u0020encoding.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#property_inputEncoding"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003A\u0024maxBorderSpannedCells",
+            "name": "maxBorderSpannedCells",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#property_maxBorderSpannedCells"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003A\u0024sheetIndex",
             "name": "sheetIndex",
             "summary": "Sheet\u0020index\u0020to\u0020read.",
@@ -12535,6 +12540,11 @@ Search.appendIndex(
             "name": "rowspan",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#property_rowspan"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003A\u0024rowspanMax",
+            "name": "rowspanMax",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#property_rowspanMax"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003A\u0024suppressLoadWarnings",
             "name": "suppressLoadWarnings",
@@ -12930,6 +12940,11 @@ Search.appendIndex(
             "name": "INITIAL_FILE",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#constant_INITIAL_FILE"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Ods\u003A\u003A\u0024maxBorderSpannedCells",
+            "name": "maxBorderSpannedCells",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Reader-Ods.html#property_maxBorderSpannedCells"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Security\\XmlScanner",
             "name": "XmlScanner",
@@ -26931,6 +26946,51 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotCacheDefinition.html#method_getFieldGroup"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotDataField",
+            "name": "PivotDataField",
+            "summary": "One\u0020entry\u0020in\u0020a\u0020pivot\u0020table\u0027s\u0020\u003CdataFields\u003E\u0020list.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotDataField.html"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotDataField\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotDataField.html#method___construct"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotDataField\u003A\u003AgetFieldIndex\u0028\u0029",
+            "name": "getFieldIndex",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotDataField.html#method_getFieldIndex"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotDataField\u003A\u003AgetName\u0028\u0029",
+            "name": "getName",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotDataField.html#method_getName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotDataField\u003A\u003AsetName\u0028\u0029",
+            "name": "setName",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotDataField.html#method_setName"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotDataField\u003A\u003AgetSubtotal\u0028\u0029",
+            "name": "getSubtotal",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotDataField.html#method_getSubtotal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotDataField\u003A\u003AsetSubtotal\u0028\u0029",
+            "name": "setSubtotal",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotDataField.html#method_setSubtotal"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotDataField\u003A\u003AgetCaption\u0028\u0029",
+            "name": "getCaption",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotDataField.html#method_getCaption"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotDataField\u003A\u003AsetCaption\u0028\u0029",
+            "name": "setCaption",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotDataField.html#method_setCaption"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotField",
             "name": "PivotField",
             "summary": "Read\u002Donly\u0020representation\u0020of\u0020a\u0020single\u0020field\u0020within\u0020a\u0020pivot\u0020table.",
@@ -27136,6 +27196,31 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getEndDate"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003ArenderedItemCount\u0028\u0029",
+            "name": "renderedItemCount",
+            "summary": "How\u0020many\u0020items\u0020this\u0020grouping\u0020renders,\u0020including\u0020the\u0020two\u0020out\u002Dof\u002Drange\nbounds\u0020Excel\u0020always\u0020adds\u0020\u0028\u0022\u003Cstart\u0022\u0020and\u0020\u0022\u003Eend\u0022\u0020\/\u0020\u0022\u003C1\/1\/1900\u0022\u0020and\n\u0022\u003E12\/31\/9999\u0022\u0029.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_renderedItemCount"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AeffectiveGroupBy\u0028\u0029",
+            "name": "effectiveGroupBy",
+            "summary": "The\u0020calendar\u0020unit\u0020this\u0020date\u0020grouping\u0020uses.\u0020Excel\u0020groups\u0020by\u0020a\u0020single\u0020unit\nper\u0020field,\u0020so\u0020the\u0020first\u0020requested\u0020unit\u0020wins\u003B\u0020months\u0020is\u0020the\u0020default.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_effectiveGroupBy"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AdateGroupItems\u0028\u0029",
+            "name": "dateGroupItems",
+            "summary": "The\u0020canonical\u0020group\u002Ditem\u0020labels\u0020Excel\u0020uses\u0020for\u0020this\u0020grouping\u0020unit.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_dateGroupItems"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AeffectiveNumericRange\u0028\u0029",
+            "name": "effectiveNumericRange",
+            "summary": "The\u0020effective\u0020numeric\u0020bounds\u0020and\u0020bucket\u0020width,\u0020with\u0020the\u0020same\u0020fallbacks\nthe\u0020writer\u0020applies\u0020when\u0020the\u0020caller\u0020supplied\u0020none.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_effectiveNumericRange"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AnumericBuckets\u0028\u0029",
+            "name": "numericBuckets",
+            "summary": "The\u0020\u0022\u003Clower\u003E\u002D\u003Cupper\u003E\u0022\u0020bucket\u0020labels\u0020for\u0020a\u0020numeric\u0020grouping.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_numericBuckets"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003ATYPE_NUMERIC",
             "name": "TYPE_NUMERIC",
             "summary": "",
@@ -27180,6 +27265,11 @@ Search.appendIndex(
             "name": "GROUP_BY_YEARS",
             "summary": "",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_YEARS"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotFieldGroup\u003A\u003AMAX_ITEMS",
+            "name": "MAX_ITEMS",
+            "summary": "Excel\u0027s\u0020own\u0020ceiling\u0020on\u0020the\u0020number\u0020of\u0020items\u0020in\u0020a\u0020single\u0020pivot\u0020field.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_MAX_ITEMS"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable",
             "name": "PivotTable",
@@ -27275,6 +27365,16 @@ Search.appendIndex(
             "name": "getDataFields",
             "summary": "Return\u0020only\u0020the\u0020value\/data\u0020fields,\u0020in\u0020order.",
             "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getDataFields"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AgetDataFieldDefinitions\u0028\u0029",
+            "name": "getDataFieldDefinitions",
+            "summary": "The\u0020\u003CdataFields\u003E\u0020entries,\u0020one\u0020per\u0020aggregation,\u0020in\u0020order.",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_getDataFieldDefinitions"
+        },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003AaddDataFieldDefinition\u0028\u0029",
+            "name": "addDataFieldDefinition",
+            "summary": "",
+            "url": "classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotTable.html#method_addDataFieldDefinition"
         },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Worksheet\\PivotTable\\PivotTable\u003A\u003A__toString\u0028\u0029",
             "name": "__toString",

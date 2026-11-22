@@ -220,6 +220,13 @@ opened, the spreadsheet application applies it while refreshing the pivot.</p>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_MAX_ITEMS">MAX_ITEMS</a>
+    <span>
+        &nbsp;= 1048576                            </span>
+</dt>
+<dd>Excel&#039;s own ceiling on the number of items in a single pivot field.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_TYPE_DATE">TYPE_DATE</a>
     <span>
         &nbsp;= &#039;date&#039;                            </span>
@@ -247,6 +254,29 @@ opened, the spreadsheet application applies it while refreshing the pivot.</p>
                                 &nbsp;: self    </span>
 </dt>
 <dd>Create a date grouping by one or more calendar units.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_dateGroupItems">dateGroupItems()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
+</dt>
+<dd>The canonical group-item labels Excel uses for this grouping unit.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_effectiveGroupBy">effectiveGroupBy()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>The calendar unit this date grouping uses. Excel groups by a single unit
+per field, so the first requested unit wins; months is the default.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_effectiveNumericRange">effectiveNumericRange()</a>
+    <span>
+                                &nbsp;: array{0: float, 1: float, 2: float}    </span>
+</dt>
+<dd>The effective numeric bounds and bucket width, with the same fallbacks
+the writer applies when the caller supplied none.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getEndDate">getEndDate()</a>
@@ -308,6 +338,22 @@ opened, the spreadsheet application applies it while refreshing the pivot.</p>
                                 &nbsp;: self    </span>
 </dt>
 <dd>Create a numeric range grouping (buckets of $interval width).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_numericBuckets">numericBuckets()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
+</dt>
+<dd>The &quot;&lt;lower&gt;-&lt;upper&gt;&quot; bucket labels for a numeric grouping.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_renderedItemCount">renderedItemCount()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>How many items this grouping renders, including the two out-of-range
+bounds Excel always adds (&quot;&lt;start&quot; and &quot;&gt;end&quot; / &quot;&lt;1/1/1900&quot; and
+&quot;&gt;12/31/9999&quot;).</dd>
 
     </dl>
 
@@ -538,6 +584,38 @@ opened, the spreadsheet application applies it while refreshing the pivot.</p>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_MAX_ITEMS">
+        MAX_ITEMS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_MAX_ITEMS" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php"><a href="files/src-phpspreadsheet-worksheet-pivottable-pivotfieldgroup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php">PivotFieldGroup.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">140</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Excel&#039;s own ceiling on the number of items in a single pivot field.</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">MAX_ITEMS</span>
+    = <span class="phpdocumentor-signature__default-value">1048576</span>
+</code>
+
+
+    
+    
+    
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_TYPE_DATE">
         TYPE_DATE
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_TYPE_DATE" class="headerlink"><i class="fas fa-link"></i></a>
@@ -671,6 +749,125 @@ opened, the spreadsheet application applies it while refreshing the pivot.</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_dateGroupItems">
+        dateGroupItems()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_dateGroupItems" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php"><a href="files/src-phpspreadsheet-worksheet-pivottable-pivotfieldgroup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php">PivotFieldGroup.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">174</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The canonical group-item labels Excel uses for this grouping unit.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">dateGroupItems</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_effectiveGroupBy">
+        effectiveGroupBy()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_effectiveGroupBy" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php"><a href="files/src-phpspreadsheet-worksheet-pivottable-pivotfieldgroup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php">PivotFieldGroup.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">164</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The calendar unit this date grouping uses. Excel groups by a single unit
+per field, so the first requested unit wins; months is the default.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">effectiveGroupBy</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_effectiveNumericRange">
+        effectiveNumericRange()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_effectiveNumericRange" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php"><a href="files/src-phpspreadsheet-worksheet-pivottable-pivotfieldgroup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php">PivotFieldGroup.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">197</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The effective numeric bounds and bucket width, with the same fallbacks
+the writer applies when the caller supplied none.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">effectiveNumericRange</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{0: float, 1: float, 2: float}</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array{0: float, 1: float, 2: float}</span>
             </section>
 
 </article>
@@ -1079,6 +1276,93 @@ opened, the spreadsheet application applies it while refreshing the pivot.</p>
             </section>
 
 </article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_numericBuckets">
+        numericBuckets()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_numericBuckets" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php"><a href="files/src-phpspreadsheet-worksheet-pivottable-pivotfieldgroup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php">PivotFieldGroup.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">214</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The &quot;&lt;lower&gt;-&lt;upper&gt;&quot; bucket labels for a numeric grouping.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">numericBuckets</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>The bucket index is computed from the start rather than accumulated, so
+a fractional interval cannot drift through repeated addition.</p>
+</section>
+
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_renderedItemCount">
+        renderedItemCount()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_renderedItemCount" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php"><a href="files/src-phpspreadsheet-worksheet-pivottable-pivotfieldgroup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PivotTable/PivotFieldGroup.php">PivotFieldGroup.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">151</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">How many items this grouping renders, including the two out-of-range
+bounds Excel always adds (&quot;&lt;start&quot; and &quot;&gt;end&quot; / &quot;&lt;1/1/1900&quot; and
+&quot;&gt;12/31/9999&quot;).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">renderedItemCount</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>This is the single source of truth for the item count: the pivot field's
+<items>, the cache definition's &lt;groupItems&gt; and the declared pivot
+location are all derived from it, so they cannot drift apart.</p>
+</section>
+
+    
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            </section>
+
+</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
@@ -1200,6 +1484,7 @@ opened, the spreadsheet application applies it while refreshing the pivot.</p>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_QUARTERS">GROUP_BY_QUARTERS</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_SECONDS">GROUP_BY_SECONDS</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_GROUP_BY_YEARS">GROUP_BY_YEARS</a></li>
+                                                    <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_MAX_ITEMS">MAX_ITEMS</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_TYPE_DATE">TYPE_DATE</a></li>
                                                     <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#constant_TYPE_NUMERIC">TYPE_NUMERIC</a></li>
                                             </ul>
@@ -1210,6 +1495,9 @@ opened, the spreadsheet application applies it while refreshing the pivot.</p>
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_date">date()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_dateGroupItems">dateGroupItems()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_effectiveGroupBy">effectiveGroupBy()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_effectiveNumericRange">effectiveNumericRange()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getEndDate">getEndDate()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getEndNum">getEndNum()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_getGroupBy">getGroupBy()</a></li>
@@ -1220,6 +1508,8 @@ opened, the spreadsheet application applies it while refreshing the pivot.</p>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_isDate">isDate()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_isNumeric">isNumeric()</a></li>
                                             <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_numeric">numeric()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_numericBuckets">numericBuckets()</a></li>
+                                            <li class=""><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PivotTable-PivotFieldGroup.html#method_renderedItemCount">renderedItemCount()</a></li>
                                     </ul>
             </li>
                     </ul>
