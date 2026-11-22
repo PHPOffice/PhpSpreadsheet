@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotCacheDefinition;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotDataField;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotField;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotFieldGroup;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable;
@@ -129,5 +130,110 @@ class PivotTableModelTest extends TestCase
         self::assertTrue($field->isDataField());
         self::assertSame('count', $field->getSubtotal());
         self::assertSame('Count of Amount', $field->getDataFieldCaption());
+    }
+
+    /**
+     * A pivot table assembled by hand never calls addDataFieldDefinition(),
+     * so getDataFieldDefinitions() has to derive the list from the fields
+     * flagged as data fields. This is the path taken by any caller building
+     * the model directly rather than through PivotTableBuilder or the reader.
+     */
+    public function testDataFieldDefinitionsDerivedFromFieldsWhenNoneRegistered(): void
+    {
+        $pivotTable = new PivotTable('Manual');
+
+        $region = new PivotField(0, 'Region');
+        $region->setAxis(PivotField::AXIS_ROW);
+        $pivotTable->addField($region);
+
+        $amount = new PivotField(1, 'Amount');
+        $amount->setDataField(true);
+        $amount->setSubtotal(PivotField::SUBTOTAL_SUM);
+        $amount->setDataFieldCaption('Sum of Amount');
+        $pivotTable->addField($amount);
+
+        $quantity = new PivotField(2, 'Quantity');
+        $quantity->setDataField(true);
+        $quantity->setSubtotal(PivotField::SUBTOTAL_COUNT);
+        $quantity->setDataFieldCaption('Count of Quantity');
+        $pivotTable->addField($quantity);
+
+        $definitions = $pivotTable->getDataFieldDefinitions();
+
+        self::assertCount(2, $definitions);
+
+        self::assertSame(1, $definitions[0]->getFieldIndex());
+        self::assertSame('Amount', $definitions[0]->getName());
+        self::assertSame(PivotField::SUBTOTAL_SUM, $definitions[0]->getSubtotal());
+        self::assertSame('Sum of Amount', $definitions[0]->getCaption());
+
+        self::assertSame(2, $definitions[1]->getFieldIndex());
+        self::assertSame('Quantity', $definitions[1]->getName());
+        self::assertSame(PivotField::SUBTOTAL_COUNT, $definitions[1]->getSubtotal());
+        self::assertSame('Count of Quantity', $definitions[1]->getCaption());
+    }
+
+    /**
+     * The derived list reflects only the fields flagged as data fields, and
+     * is empty when there are none.
+     */
+    public function testDataFieldDefinitionsDerivedListExcludesNonDataFields(): void
+    {
+        $pivotTable = new PivotTable('Manual');
+
+        $region = new PivotField(0, 'Region');
+        $region->setAxis(PivotField::AXIS_ROW);
+        $pivotTable->addField($region);
+
+        self::assertSame([], $pivotTable->getDataFieldDefinitions());
+    }
+
+    /**
+     * An explicitly registered list wins over the derived one, so a source
+     * column aggregated twice keeps both entries instead of collapsing to the
+     * single pivot field that represents that column.
+     */
+    public function testRegisteredDataFieldDefinitionsTakePrecedence(): void
+    {
+        $pivotTable = new PivotTable('Explicit');
+
+        $amount = new PivotField(1, 'Amount');
+        $amount->setDataField(true);
+        $amount->setSubtotal(PivotField::SUBTOTAL_SUM);
+        $amount->setDataFieldCaption('Sum of Amount');
+        $pivotTable->addField($amount);
+
+        // One pivot field, two aggregations of it.
+        self::assertCount(1, $pivotTable->getDataFieldDefinitions());
+
+        $pivotTable
+            ->addDataFieldDefinition(new PivotDataField(1, 'Amount', PivotField::SUBTOTAL_SUM, 'Sum of Amount'))
+            ->addDataFieldDefinition(new PivotDataField(1, 'Amount', PivotField::SUBTOTAL_AVERAGE, 'Average of Amount'));
+
+        $definitions = $pivotTable->getDataFieldDefinitions();
+        self::assertCount(2, $definitions);
+        self::assertSame(PivotField::SUBTOTAL_SUM, $definitions[0]->getSubtotal());
+        self::assertSame(PivotField::SUBTOTAL_AVERAGE, $definitions[1]->getSubtotal());
+        // Both refer to the same source column.
+        self::assertSame(1, $definitions[0]->getFieldIndex());
+        self::assertSame(1, $definitions[1]->getFieldIndex());
+    }
+
+    public function testPivotDataFieldSetters(): void
+    {
+        $dataField = new PivotDataField(3, 'Amount');
+
+        self::assertSame(3, $dataField->getFieldIndex());
+        self::assertSame('Amount', $dataField->getName());
+        self::assertNull($dataField->getSubtotal());
+        self::assertNull($dataField->getCaption());
+
+        $dataField->setName('Total')
+            ->setSubtotal(PivotField::SUBTOTAL_AVERAGE)
+            ->setCaption('Average of Amount');
+
+        self::assertSame('Total', $dataField->getName());
+        self::assertSame(PivotField::SUBTOTAL_AVERAGE, $dataField->getSubtotal());
+        self::assertSame('Average of Amount', $dataField->getCaption());
     }
 }

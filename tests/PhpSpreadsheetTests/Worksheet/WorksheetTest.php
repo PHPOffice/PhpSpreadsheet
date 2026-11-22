@@ -32,6 +32,8 @@ class WorksheetTest extends TestCase
         return [
             [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet title.'],
             ['invalid*title', 'Invalid character found in sheet title'],
+            ['X \'Q1\'', 'Sheet title cannot start or end with apostrophe'],
+            ['\'X \'Q1', 'Sheet title cannot start or end with apostrophe'],
         ];
     }
 
