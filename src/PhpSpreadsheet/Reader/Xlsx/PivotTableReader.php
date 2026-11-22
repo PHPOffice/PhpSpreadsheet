@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotCacheDefinition;
+use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotDataField;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotField;
 use PhpOffice\PhpSpreadsheet\Worksheet\PivotTable\PivotTable;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -111,29 +112,51 @@ class PivotTableReader
             ++$index;
         }
 
-        $this->markDataFields($fields);
+        $this->markDataFields($pivotTable, $fields);
     }
 
     /**
      * Flag the fields referenced by <dataFields> as value fields, and record
      * their aggregation function.
      *
+     * Each <dataField> row also becomes a data-field definition on the pivot
+     * table, so a source column aggregated more than once keeps every one of
+     * its aggregations rather than collapsing to the last.
+     *
      * @param PivotField[] $fields keyed by field index
      */
-    private function markDataFields(array $fields): void
+    private function markDataFields(PivotTable $pivotTable, array $fields): void
     {
         if (isset($this->pivotTableXml->dataFields)) {
             foreach ($this->pivotTableXml->dataFields->dataField as $dataFieldXml) {
                 $dataAttributes = $dataFieldXml->attributes();
                 if (isset($dataAttributes['fld'])) {
                     $fieldIndex = (int) $dataAttributes['fld'];
+                    // "sum" is the default subtotal when the attribute is absent.
+                    $subtotal = isset($dataAttributes['subtotal'])
+                        ? (string) $dataAttributes['subtotal']
+                        : 'sum';
+                    $caption = isset($dataAttributes['name'])
+                        ? (string) $dataAttributes['name']
+                        : null;
+
                     if (isset($fields[$fieldIndex])) {
-                        $fields[$fieldIndex]->setDataField(true);
-                        // "sum" is the default subtotal when the attribute is absent.
-                        $fields[$fieldIndex]->setSubtotal(
-                            isset($dataAttributes['subtotal']) ? (string) $dataAttributes['subtotal'] : 'sum'
-                        );
+                        $field = $fields[$fieldIndex];
+                        if (!$field->isDataField()) {
+                            $field->setDataField(true);
+                            $field->setSubtotal($subtotal);
+                            $field->setDataFieldCaption($caption);
+                        }
                     }
+
+                    $pivotTable->addDataFieldDefinition(
+                        new PivotDataField(
+                            $fieldIndex,
+                            $fields[$fieldIndex]?->getName() ?? '',
+                            $subtotal,
+                            $caption
+                        )
+                    );
                 }
             }
         }
