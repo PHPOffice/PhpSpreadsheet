@@ -17,31 +17,41 @@ class Biff8 extends Xls
      */
     protected static function readBIFF8ConstantArray(string $arrayData): array
     {
+        if (strlen($arrayData) < 3) {
+            throw new ReaderException('Truncated BIFF8 constant array.');
+        }
+
         // offset: 0; size: 1; number of columns decreased by 1
         $nc = ord($arrayData[0]);
 
         // offset: 1; size: 2; number of rows decreased by 1
         $nr = self::getUInt2d($arrayData, 1);
-        $size = 3; // initialize
-        $arrayData = substr($arrayData, 3);
+        $constantCount = ($nc + 1) * ($nr + 1);
+        // The smallest serialized constant is 4 bytes: identifier, 2-byte
+        // string length, and option flags (an empty string).
+        if ($constantCount * 4 > strlen($arrayData) - 3) {
+            throw new ReaderException('BIFF8 constant array exceeds record size.');
+        }
 
         // offset: 3; size: var; list of ($nc + 1) * ($nr + 1) constant values
+        $offset = 3;
         $matrixChunks = [];
         for ($r = 1; $r <= $nr + 1; ++$r) {
             $items = [];
             for ($c = 1; $c <= $nc + 1; ++$c) {
-                $constant = self::readBIFF8Constant($arrayData);
+                $constant = self::readBIFF8Constant($arrayData, $offset);
+                if ($constant['size'] <= 0 || $offset + $constant['size'] > strlen($arrayData)) {
+                    throw new ReaderException('Truncated BIFF8 constant array.');
+                }
                 $items[] = $constant['value'];
-                $arrayData = substr($arrayData, $constant['size']);
-                $size += $constant['size'];
+                $offset += $constant['size'];
             }
             $matrixChunks[] = implode(',', $items); // looks like e.g. '1,"hello"'
         }
-        $matrix = '{' . implode(';', $matrixChunks) . '}';
 
         return [
-            'value' => $matrix,
-            'size' => $size,
+            'value' => '{' . implode(';', $matrixChunks) . '}',
+            'size' => $offset,
         ];
     }
 
@@ -52,10 +62,21 @@ class Biff8 extends Xls
      *
      * @return array{value: bool|float|int|string, size: int}
      */
-    private static function readBIFF8Constant(string $valueData): array
+    private static function readBIFF8Constant(string $valueData, int $offset): array
     {
+        $available = strlen($valueData) - $offset;
+        if ($available <= 0) {
+            throw new ReaderException('Unexpected end of BIFF8 constant array.');
+        }
+
         // offset: 0; size: 1; identifier for type of constant
-        $identifier = ord($valueData[0]);
+        $identifier = ord($valueData[$offset]);
+        if (in_array($identifier, [0x00, 0x01, 0x04, 0x10], true) && $available < 9) {
+            throw new ReaderException('Truncated BIFF8 constant array.');
+        }
+        if ($identifier === 0x02 && $available < 4) {
+            throw new ReaderException('Truncated BIFF8 constant array.');
+        }
 
         switch ($identifier) {
             case 0x00: // empty constant (what is this?)
@@ -65,20 +86,33 @@ class Biff8 extends Xls
                 break;
             case 0x01: // number
                 // offset: 1; size: 8; IEEE 754 floating-point value
-                $value = self::extractNumber(substr($valueData, 1, 8));
+                $value = self::extractNumber(substr($valueData, $offset + 1, 8));
                 $size = 9;
 
                 break;
             case 0x02: // string value
                 // offset: 1; size: var; Unicode string, 16-bit string length
-                $string = self::readUnicodeStringLong(substr($valueData, 1));
-                $value = '"' . $string['value'] . '"';
+                $stringOffset = $offset + 1;
+                $characterCount = self::getUInt2d($valueData, $stringOffset);
+                if ($characterCount > 255) {
+                    throw new ReaderException('BIFF8 string constant exceeds 255 characters.');
+                }
+                $optionFlags = ord($valueData[$stringOffset + 2] ?? "\x00");
+                $isCompressed = (($optionFlags & 0x01) === 0);
+                $characterBytes = $isCompressed ? $characterCount : $characterCount * 2;
+                $stringSize = 2 + 1 + $characterBytes;
+                if ($stringOffset + $stringSize > strlen($valueData)) {
+                    throw new ReaderException('Truncated BIFF8 constant array.');
+                }
+                $stringData = substr($valueData, $stringOffset, $stringSize);
+                $string = self::readUnicodeStringLong($stringData);
                 $size = 1 + $string['size'];
+                $value = self::UTF8toExcelDoubleQuoted($string['value']);
 
                 break;
             case 0x04: // boolean
                 // offset: 1; size: 1; 0 = FALSE, 1 = TRUE
-                if (ord($valueData[1])) {
+                if (ord($valueData[$offset + 1])) {
                     $value = 'TRUE';
                 } else {
                     $value = 'FALSE';
@@ -88,7 +122,7 @@ class Biff8 extends Xls
                 break;
             case 0x10: // error code
                 // offset: 1; size: 1; error code
-                $value = ErrorCode::lookup(ord($valueData[1]));
+                $value = ErrorCode::lookup(ord($valueData[$offset + 1]));
                 $size = 9;
 
                 break;

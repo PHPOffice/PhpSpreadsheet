@@ -42,9 +42,6 @@ And run Rector on your code:
 vendor/bin/rector process src
 ```
 
-For more details, see
-[rector-phpoffice](https://github.com/rectorphp/rector-phpoffice).
-
 ## Manual changes
 
 RectorPHP should take care of everything, but if somehow it does not work, you can review/apply the following manual changes
