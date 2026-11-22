@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet\PivotTable;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -39,9 +40,14 @@ class PivotTableBuilder
     private array $fieldNames;
 
     /**
-     * Requested placements, keyed by field name.
+     * Requested placements, in the order they were added.
      *
-     * @var array<string, array{axis: string, subtotal: ?string, caption: ?string}>
+     * This is a list rather than a map keyed by field name: the same source
+     * column may be added more than once as a data field, with a different
+     * aggregation each time (sum and average of "Amount", say), and every one
+     * of those has to survive to the <dataFields> list.
+     *
+     * @var list<array{field: string, axis: string, subtotal: ?string, caption: ?string}>
      */
     private array $placements = [];
 
@@ -152,19 +158,43 @@ class PivotTableBuilder
         $pivotTable->setCacheDefinition($cacheDefinition);
         $pivotTable->setLocation($this->targetLocation($targetCell));
 
+        // Exactly one pivot field per source column, in source order: that is
+        // what <pivotFields> and <cacheFields> require.
         foreach ($this->fieldNames as $index => $fieldName) {
             $field = new PivotField($index, $fieldName);
-            if (isset($this->placements[$fieldName])) {
-                $placement = $this->placements[$fieldName];
+            foreach ($this->placementsFor($fieldName) as $placement) {
                 if ($placement['axis'] === PivotField::AXIS_VALUES) {
-                    $field->setDataField(true);
-                    $field->setSubtotal($placement['subtotal']);
-                    $field->setDataFieldCaption($placement['caption'] ?? $this->defaultCaption($placement['subtotal'], $fieldName));
+                    // The first aggregation sets the field's own subtotal and
+                    // caption; any further ones only add <dataFields> rows.
+                    if (!$field->isDataField()) {
+                        $field->setDataField(true);
+                        $field->setSubtotal($placement['subtotal']);
+                        $field->setDataFieldCaption(
+                            $placement['caption'] ?? $this->defaultCaption($placement['subtotal'], $fieldName)
+                        );
+                    }
                 } else {
                     $field->setAxis($placement['axis']);
                 }
             }
             $pivotTable->addField($field);
+        }
+
+        // One <dataFields> entry per requested aggregation, in request order.
+        $fieldIndices = array_flip($this->fieldNames);
+        foreach ($this->placements as $placement) {
+            if ($placement['axis'] !== PivotField::AXIS_VALUES) {
+                continue;
+            }
+            $fieldName = $placement['field'];
+            $pivotTable->addDataFieldDefinition(
+                new PivotDataField(
+                    (int) $fieldIndices[$fieldName],
+                    $fieldName,
+                    $placement['subtotal'],
+                    $placement['caption'] ?? $this->defaultCaption($placement['subtotal'], $fieldName)
+                )
+            );
         }
 
         $targetWorksheet->addPivotTable($pivotTable);
@@ -175,9 +205,44 @@ class PivotTableBuilder
     private function place(string $fieldName, string $axis, ?string $subtotal, ?string $caption): self
     {
         $this->assertFieldExists($fieldName);
-        $this->placements[$fieldName] = ['axis' => $axis, 'subtotal' => $subtotal, 'caption' => $caption];
+
+        // A field sits on at most one of the row / column / page axes, so a
+        // new axis placement replaces any earlier one for that field. Data
+        // fields accumulate instead: the same column may be aggregated more
+        // than once.
+        if ($axis !== PivotField::AXIS_VALUES) {
+            $this->placements = array_values(
+                array_filter(
+                    $this->placements,
+                    static fn (array $placement): bool => $placement['field'] !== $fieldName
+                        || $placement['axis'] === PivotField::AXIS_VALUES
+                )
+            );
+        }
+
+        $this->placements[] = [
+            'field' => $fieldName,
+            'axis' => $axis,
+            'subtotal' => $subtotal,
+            'caption' => $caption,
+        ];
 
         return $this;
+    }
+
+    /**
+     * The placements for a field, in order.
+     *
+     * @return list<array{field: string, axis: string, subtotal: ?string, caption: ?string}>
+     */
+    private function placementsFor(string $fieldName): array
+    {
+        return array_values(
+            array_filter(
+                $this->placements,
+                static fn (array $placement): bool => $placement['field'] === $fieldName
+            )
+        );
     }
 
     private function assertFieldExists(string $fieldName): void
@@ -257,46 +322,67 @@ class PivotTableBuilder
      */
     private function targetLocation(string $targetCell): string
     {
-        $targetCell = str_replace('$', '', $targetCell);
-        [$column, $row] = Coordinate::coordinateFromString($targetCell);
+        [$column, $row] = Coordinate::coordinateFromString(str_replace('$', '', $targetCell));
         $firstColumn = Coordinate::columnIndexFromString($column);
         $firstRow = (int) $row;
 
-        // Columns: the row-field header column, then one column per distinct
-        // value of each column field, then one for the grand total. Without
-        // column fields the data fields are laid out across instead.
-        $width = 1;
-        foreach ($this->placements as $fieldName => $placement) {
+        $dataFieldCount = max($this->countPlacements(PivotField::AXIS_VALUES), 1);
+
+        // Columns: the row-label column, then the column-field values. Each of
+        // those values repeats once per data field, and the grand total does
+        // too. With no column field the data fields are laid out across
+        // instead, one column each.
+        $columnValueCount = 1;
+        $hasColumnFields = false;
+        foreach ($this->placements as $placement) {
             if ($placement['axis'] === PivotField::AXIS_COLUMN) {
-                $width += max(count($this->distinctValues($fieldName)), 1);
+                $hasColumnFields = true;
+                $columnValueCount *= $this->renderedItemCount($placement['field']);
             }
         }
-        $hasColumnFields = $width > 1;
-        $dataFieldCount = $this->countPlacements(PivotField::AXIS_VALUES);
-        if ($hasColumnFields) {
-            ++$width; // grand total column
-        } else {
-            // No column fields: each data field occupies its own column
-            // alongside the row-label column.
-            $width += max($dataFieldCount, 1);
-        }
+        $width = 1;
+        $width += $hasColumnFields
+            ? ($columnValueCount + 1) * $dataFieldCount
+            : $dataFieldCount;
 
         // Rows: the header row (plus a second one when column fields add their
-        // own header), one per distinct value of each row field, and the grand
+        // own header), one per rendered value of each row field, and the grand
         // total row.
         $height = $hasColumnFields ? 2 : 1;
-        $rowValueCount = 0;
-        foreach ($this->placements as $fieldName => $placement) {
+        foreach ($this->placements as $placement) {
             if ($placement['axis'] === PivotField::AXIS_ROW) {
-                $rowValueCount += max(count($this->distinctValues($fieldName)), 1);
+                $height += $this->renderedItemCount($placement['field']);
             }
         }
-        $height += $rowValueCount + 1;
+        ++$height; // grand total row
 
-        $lastColumn = Coordinate::stringFromColumnIndex($firstColumn + $width - 1);
-        $lastRow = $firstRow + $height - 1;
+        // The range must stay inside the sheet: a ref that runs off the last
+        // row or column is rejected outright.
+        $lastColumnIndex = min($firstColumn + $width - 1, AddressRange::MAX_COLUMN_INT);
+        $lastRow = min($firstRow + $height - 1, AddressRange::MAX_ROW);
 
-        return $targetCell . ':' . $lastColumn . $lastRow;
+        $firstCell = Coordinate::stringFromColumnIndex($firstColumn) . $firstRow;
+        $lastCell = Coordinate::stringFromColumnIndex($lastColumnIndex) . $lastRow;
+
+        return $firstCell . ':' . $lastCell;
+    }
+
+    /**
+     * Number of rows/columns a field actually renders.
+     *
+     * A grouped field displays one entry per group bucket (plus the two
+     * out-of-range bounds Excel always adds), which bears no relation to how
+     * many distinct values the source column holds. An ungrouped field
+     * displays one entry per distinct source value.
+     */
+    private function renderedItemCount(string $fieldName): int
+    {
+        $group = $this->groups[$fieldName] ?? null;
+        if ($group !== null) {
+            return max($group->renderedItemCount(), 1);
+        }
+
+        return max(count($this->distinctValues($fieldName)), 1);
     }
 
     /**

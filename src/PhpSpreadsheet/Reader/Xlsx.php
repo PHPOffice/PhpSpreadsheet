@@ -161,7 +161,7 @@ class Xlsx extends BaseReader
 
     private function decryptToTemporaryFile(string $filename): ?string
     {
-        if (File::testFileNoThrow($filename, self::INITIAL_FILE)) {
+        if (!File::testFileNoThrow($filename) || File::testFileNoThrow($filename, self::INITIAL_FILE)) {
             return null;
         }
 
