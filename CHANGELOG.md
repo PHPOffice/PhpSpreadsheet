@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- `Functions::flattenArray()` and `flattenArray2()` are linear instead of quadratic, speeding up MAX, MATCH, COUNTIF and other functions on large ranges. [PR #5101](https://github.com/PHPOffice/PhpSpreadsheet/pull/5101)
 
 ## 2026-11-21 - 5.12.0
 

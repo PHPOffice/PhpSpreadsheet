@@ -231,17 +231,7 @@ class Functions
         }
 
         $flattened = [];
-        $stack = array_values($array);
-
-        while (!empty($stack)) {
-            $value = array_shift($stack);
-
-            if (is_array($value)) {
-                array_unshift($stack, ...array_values($value));
-            } else {
-                $flattened[] = $value;
-            }
-        }
+        self::flattenInto($array, $flattened);
 
         return $flattened;
     }
@@ -257,19 +247,26 @@ class Functions
     public static function flattenArray2(mixed ...$array): array
     {
         $flattened = [];
-        $stack = array_values($array);
+        self::flattenInto($array, $flattened);
 
-        while (!empty($stack)) {
-            $value = array_shift($stack);
+        return $flattened;
+    }
 
+    /**
+     * Append the non-array values of $array to $flattened, depth first.
+     *
+     * @param mixed[] $array
+     * @param mixed[] $flattened
+     */
+    private static function flattenInto(array $array, array &$flattened): void
+    {
+        foreach ($array as $value) {
             if (is_array($value)) {
-                array_unshift($stack, ...array_values($value));
+                self::flattenInto($value, $flattened);
             } else {
                 $flattened[] = $value;
             }
         }
-
-        return $flattened;
     }
 
     public static function scalar(mixed $value): mixed
