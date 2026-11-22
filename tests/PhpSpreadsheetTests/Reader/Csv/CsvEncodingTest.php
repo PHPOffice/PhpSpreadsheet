@@ -159,9 +159,8 @@ class CsvEncodingTest extends TestCase
         $this->expectException(SpreadsheetException::class);
         $this->expectExceptionMessage('Disallowed stream wrapper');
         $filename = 'phar://whatever';
-        $reader = new Csv();
         $reflectionMethod = new ReflectionMethod(Csv::class, 'guessEncodingNoBom');
-        $reflectionMethod->invokeArgs($reader, [$filename]);
+        $reflectionMethod->invokeArgs(null, [$filename]);
     }
 
     public function testGuessHttpNoBom(): void
@@ -169,9 +168,8 @@ class CsvEncodingTest extends TestCase
         $this->expectException(ReaderException::class);
         $this->expectExceptionMessage('does not exist or is not readable');
         $filename = 'http://example.com';
-        $reader = new Csv();
         $reflectionMethod = new ReflectionMethod(Csv::class, 'guessEncodingNoBom');
-        $reflectionMethod->invokeArgs($reader, [$filename]);
+        $reflectionMethod->invokeArgs(null, [$filename]);
     }
 
     public function testGuessUtf16BEString(): void
