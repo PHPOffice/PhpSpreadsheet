@@ -97,7 +97,7 @@ class FileTest extends TestCase
         }
         self::assertFalse(File::testFileNoThrow($temp));
         $this->expectException(ReaderException::class);
-        $this->expectExceptionMessage('for reading');
+        $this->expectExceptionMessage('is not readable');
         File::assertFile($temp);
     }
 
