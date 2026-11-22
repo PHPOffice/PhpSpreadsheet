@@ -18,7 +18,7 @@ class XLookup extends LookupBase
      * @param mixed $lookupValue Value to search for
      * @param mixed $lookupArray Expect array, Array to search in
      * @param mixed $returnArray Expect array, Array to return from (must match lookupArray size)
-     * @param mixed $ifNotFound Value to return if no match found (default: #N/A!)
+     * @param mixed $ifNotFound Value to return if no match found (default: #N/A)
      * @param mixed $matchMode expect int 0 = exact match (default)
      *                                     -1 = exact or next smaller
      *                                      1 = exact or next larger
@@ -32,7 +32,7 @@ class XLookup extends LookupBase
         mixed $lookupValue,
         mixed $lookupArray,
         mixed $returnArray,
-        mixed $ifNotFound = '#N/A!',
+        mixed $ifNotFound = ExcelError::ERROR_CODES['na'],
         mixed $matchMode = 0,
         mixed $searchMode = 1
     ): mixed {

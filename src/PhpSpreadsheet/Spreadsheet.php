@@ -676,7 +676,10 @@ class Spreadsheet implements JsonSerializable
                 "You tried to remove a sheet by the out of bounds index: {$sheetIndex}. The actual number of sheets is {$numSheets}."
             );
         }
-        array_splice($this->workSheetCollection, $sheetIndex, 1);
+        $removedSheets = array_splice($this->workSheetCollection, $sheetIndex, 1);
+        foreach ($removedSheets as $removedSheet) {
+            $this->orphanDefinedNames($removedSheet);
+        }
 
         // Adjust active sheet index if necessary
         if (
@@ -684,6 +687,22 @@ class Spreadsheet implements JsonSerializable
             && ($this->activeSheetIndex > 0 || $numSheets <= 1)
         ) {
             --$this->activeSheetIndex;
+        }
+    }
+
+    /**
+     * Drop the names local to a removed sheet, and turn the named ranges
+     * which refer to it into #REF!, as the Xlsx Reader does for a name
+     * whose sheet does not exist.
+     */
+    private function orphanDefinedNames(Worksheet $worksheet): void
+    {
+        foreach ($this->definedNames as $key => $definedName) {
+            if ($definedName->getLocalOnly() && $definedName->getScope() === $worksheet) {
+                unset($this->definedNames[$key]);
+            } elseif (!$definedName->isFormula() && $definedName->getWorksheet() === $worksheet) {
+                $this->definedNames[$key] = DefinedName::createInstance($definedName->getName(), null, '#REF!', $definedName->getLocalOnly(), $definedName->getScope());
+            }
         }
     }
 

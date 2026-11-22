@@ -63,6 +63,8 @@ interface IWriter
      *            self::DISABLE_PRECALCULATE_FORMULAE   Don't Precalculate formulae before saving the file
      *
      * @throws Exception
+     *
+     * @psalm-taint-sink file $filename
      */
     public function save($filename, int $flags = 0): void;
 
