@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class CsvEncodingTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerEncodings')]
+    #[DataProvider('providerEncodings')]
     public function testEncodings(string $filename, string $encoding): void
     {
         $reader = new Csv();
@@ -19,7 +23,7 @@ class CsvEncodingTest extends TestCase
         self::assertEquals('Å', $sheet->getCell('A1')->getValue());
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerEncodings')]
+    #[DataProvider('providerEncodings')]
     public function testWorkSheetInfo(string $filename, string $encoding): void
     {
         $reader = new Csv();
@@ -47,7 +51,7 @@ class CsvEncodingTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerGuessEncoding')]
+    #[DataProvider('providerGuessEncoding')]
     public function testGuessEncoding(string $filename): void
     {
         $reader = new Csv();
@@ -80,7 +84,7 @@ class CsvEncodingTest extends TestCase
         self::assertEquals('�', $sheet->getCell('C3')->getValue());
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerGuessEncoding')]
+    #[DataProvider('providerGuessEncoding')]
     public function testFallbackEncoding(string $filename): void
     {
         $reader = new Csv();
@@ -130,5 +134,48 @@ class CsvEncodingTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals('premičre', $sheet->getCell('A1')->getValue());
         self::assertEquals('sixičme', $sheet->getCell('C2')->getValue());
+    }
+
+    public function testGuessPhar(): void
+    {
+        $this->expectException(SpreadsheetException::class);
+        $this->expectExceptionMessage('Disallowed stream wrapper');
+        $filename = 'phar://whatever';
+        $reader = new Csv();
+        $reader->guessEncoding($filename);
+    }
+
+    public function testGuessHttp(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('does not exist or is not readable');
+        $filename = 'http://example.com';
+        $reader = new Csv();
+        $reader->guessEncoding($filename);
+    }
+
+    public function testGuessPharNoBom(): void
+    {
+        $this->expectException(SpreadsheetException::class);
+        $this->expectExceptionMessage('Disallowed stream wrapper');
+        $filename = 'phar://whatever';
+        $reflectionMethod = new ReflectionMethod(Csv::class, 'guessEncodingNoBom');
+        $reflectionMethod->invokeArgs(null, [$filename]);
+    }
+
+    public function testGuessHttpNoBom(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('does not exist or is not readable');
+        $filename = 'http://example.com';
+        $reflectionMethod = new ReflectionMethod(Csv::class, 'guessEncodingNoBom');
+        $reflectionMethod->invokeArgs(null, [$filename]);
+    }
+
+    public function testGuessUtf16BEString(): void
+    {
+        $string = Csv::UTF16BE_BOM . "\x00\x30";
+        $reader = new Csv();
+        self::assertSame('UTF-16BE', $reader->guessEncodingBom('', $string));
     }
 }

@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
@@ -136,5 +137,34 @@ class DrawingTest extends TestCase
         $writerXlsxDrawing = new XlsxWriter\Drawing($writerXlsx);
         $reflectionMethod = new ReflectionMethod($writerXlsxDrawing, 'writeDrawing');
         $reflectionMethod->invokeArgs($writerXlsxDrawing, [$objWriter, $drawing]);
+    }
+
+    private const MESSAGES = [
+        'Invalid protocol for linked drawing',
+        'Deliberate exception on url path',
+        'Deliberate exception on local file path',
+    ];
+
+    #[DataProvider('providerPaths')]
+    public function testPaths(string $path, int $msgno): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage(self::MESSAGES[$msgno] ?? self::MESSAGES[0]);
+        $drawing = new Drawing();
+        $drawing->setThrowWhenTesting(true);
+        $drawing->setPath($path);
+    }
+
+    /** @return array<array{string, int}> */
+    public static function providerPaths(): array
+    {
+        return [
+            'normal phar' => ['phar://anyoldname', 0],
+            'embedded space' => ['ph ar://anyoldname', 0],
+            'leading space' => [' phar://anyoldname', 0],
+            'embedded control character' => ["ph\x04ar://anyoldname", 0],
+            'space in file name' => ['ftp://h/a b.png', 1],
+            'windows file' => ['C:/whatever', 2],
+        ];
     }
 }
