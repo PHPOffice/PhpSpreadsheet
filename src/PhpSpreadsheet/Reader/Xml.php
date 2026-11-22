@@ -363,42 +363,71 @@ class Xml extends BaseReader
             if (isset($worksheet->Table->Column)) {
                 foreach ($worksheet->Table->Column as $columnData) {
                     $columnData_ss = self::getAttributes($columnData, self::NAMESPACES_SS);
+                    $temp = 0;
+                    if (isset($columnData_ss['Index'])) {
+                        $temp2 = (string) $columnData_ss['Index'];
+                        $temp3 = (int) $temp2;
+                        if (is_numeric($temp2) && $temp3 > 0 && $temp3 <= AddressRange::MAX_COLUMN_INT) {
+                            $temp = $temp3;
+                        }
+                    }
+                    if ($temp > 0) {
+                        $columnIndex = $temp;
+                    } elseif ($columnIndex === $oldColumnIndex) {
+                        $columnIndex = min($columnIndex + 1, AddressRange::MAX_COLUMN_INT);
+                    }
+
                     $colspan = 0;
                     if (isset($columnData_ss['Span'])) {
                         $spanAttr = (string) $columnData_ss['Span'];
                         if (is_numeric($spanAttr)) {
-                            $colspan = max(0, (int) $spanAttr);
+                            $temp = (int) $spanAttr;
+                            $colspan = min(max(0, $temp), AddressRange::MAX_COLUMN_INT - $columnIndex);
                         }
-                    }
-                    if (isset($columnData_ss['Index'])) {
-                        $columnIndex = (int) $columnData_ss['Index'];
-                    } elseif ($columnIndex === $oldColumnIndex) {
-                        ++$columnIndex;
                     }
                     $oldColumnIndex = $columnIndex;
                     $columnID = Coordinate::stringFromColumnIndex($columnIndex);
                     $columnWidth = null;
                     if (isset($columnData_ss['Width'])) {
-                        $columnWidth = $columnData_ss['Width'];
+                        $temp = (string) $columnData_ss['Width'];
+                        if (is_numeric($temp)) {
+                            $columnWidth = $temp / 5.4;
+                        }
                     }
                     $columnVisible = null;
                     if (isset($columnData_ss['Hidden'])) {
                         $columnVisible = ((string) $columnData_ss['Hidden']) !== '1';
                     }
-                    while ($colspan >= 0) {
-                        if (isset($columnWidth)) {
-                            $spreadsheet->getActiveSheet()
-                                ->getColumnDimension($columnID)
-                                ->setWidth($columnWidth / 5.4);
-                        }
-                        if (isset($columnVisible)) {
-                            $spreadsheet->getActiveSheet()
-                                ->getColumnDimension($columnID)
+                    $sheet = $spreadsheet->getActiveSheet();
+                    if (isset($columnWidth, $columnVisible)) {
+                        while ($colspan >= 0) {
+                            $sheet->getColumnDimension($columnID)
+                                ->setWidth($columnWidth)
                                 ->setVisible($columnVisible);
+                            ++$columnIndex;
+                            StringHelper::stringIncrement($columnID);
+                            --$colspan;
                         }
-                        ++$columnIndex;
-                        StringHelper::stringIncrement($columnID);
-                        --$colspan;
+                    } elseif (isset($columnWidth)) {
+                        while ($colspan >= 0) {
+                            $sheet->getColumnDimension($columnID)
+                                ->setWidth($columnWidth);
+                            ++$columnIndex;
+                            StringHelper::stringIncrement($columnID);
+                            --$colspan;
+                        }
+                    } elseif (isset($columnVisible)) {
+                        while ($colspan >= 0) {
+                            $sheet->getColumnDimension($columnID)
+                                ->setVisible($columnVisible);
+                            ++$columnIndex;
+                            StringHelper::stringIncrement($columnID);
+                            --$colspan;
+                        }
+                    } else {
+                        $columnIndex += $colspan + 1;
+                        $columnIndex = min($columnIndex, AddressRange::MAX_COLUMN_INT);
+                        $columnID = Coordinate::stringFromColumnIndex($columnIndex);
                     }
                 }
             }

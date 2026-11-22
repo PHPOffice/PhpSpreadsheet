@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Csv\Delimiter;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -635,6 +636,7 @@ class Csv extends BaseReader
     private static function guessEncodingNoBom(string $filename): string
     {
         $encoding = '';
+        File::assertFile($filename);
         $contents = (string) file_get_contents($filename);
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF32BE_LF, 'UTF-32BE');
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF32LE_LF, 'UTF-32LE');
@@ -659,7 +661,12 @@ class Csv extends BaseReader
     public static function guessEncodingBom(string $filename, ?string $convertString = null): string
     {
         $encoding = '';
-        $first4 = $convertString ?? (string) file_get_contents($filename, false, null, 0, 4);
+        if ($convertString !== null) {
+            $first4 = $convertString;
+        } else {
+            File::assertFile($filename);
+            $first4 = (string) file_get_contents($filename, false, null, 0, 4);
+        }
         self::guessEncodingTestBom($encoding, $first4, self::UTF8_BOM, 'UTF-8');
         self::guessEncodingTestBom($encoding, $first4, self::UTF16BE_BOM, 'UTF-16BE');
         self::guessEncodingTestBom($encoding, $first4, self::UTF32BE_BOM, 'UTF-32BE');

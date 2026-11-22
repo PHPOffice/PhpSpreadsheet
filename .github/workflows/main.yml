@@ -14,6 +14,7 @@ jobs:
           - '8.3'
           - '8.4'
           - '8.5'
+          - '8.6'
 
         include:
           - php-version: 'nightly'
@@ -78,6 +79,7 @@ jobs:
           - false
         php-version:
           - '8.5'
+          - '8.6'
 
         include:
           - php-version: 'nightly'
