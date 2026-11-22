@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
+/** @deprecated This branch of PhpSpreadsheet is deprecated. Please migrate to release 5 or later ASAP. */
 class Spreadsheet implements JsonSerializable
 {
     // Allowable values for workbook window visilbity
