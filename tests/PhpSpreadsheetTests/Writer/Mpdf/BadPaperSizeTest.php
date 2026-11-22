@@ -29,7 +29,7 @@ class BadPaperSizeTest extends TestCase
             $dimensions = PageFormat::getSizeFromName('A4');
             $expectedWidth = $dimensions[0] / 72; // convert to inches
             $expectedHeight = $dimensions[1] / 72; // convert to inches
-            $mpdf = new MpdfClass();
+            $mpdf = @new MpdfClass();
             $mpdf->setSourceFile($file);
             $tplId = $mpdf->importPage(1);
             /** @var array{width: float, height: float} results in millimeters */
@@ -59,7 +59,7 @@ class BadPaperSizeTest extends TestCase
             $dimensions = PageFormat::getSizeFromName('LETTER');
             $expectedWidth = $dimensions[0] / 72; // convert to inches
             $expectedHeight = $dimensions[1] / 72; // convert to inches
-            $mpdf = new MpdfClass();
+            $mpdf = @new MpdfClass();
             $mpdf->setSourceFile($file);
             $tplId = $mpdf->importPage(1);
             /** @var array{width: float, height: float} results in millimeters */
