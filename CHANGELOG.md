@@ -9,11 +9,11 @@ a breaking change.
 
 Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.12.0
+## TBD - 5.13.0
 
 ### Added
 
-- Psalm taint analysis annotations: the files read and written are file sinks, and cell values are untrusted input. [PR #5070](https://github.com/PHPOffice/PhpSpreadsheet/pull/5070)
+- Nothing yet.
 
 ### Removed
 
@@ -30,6 +30,17 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Deprecated
 
 - Nothing yet.
+
+### Fixed
+
+- Nothing yet.
+
+## 2026-11-21 - 5.12.0
+
+### Added
+
+- Formal support for Php8.6.
+- Psalm taint analysis annotations: the files read and written are file sinks, and cell values are untrusted input. [PR #5070](https://github.com/PHPOffice/PhpSpreadsheet/pull/5070)
 
 ### Fixed
 
