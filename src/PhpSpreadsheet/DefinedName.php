@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 abstract class DefinedName
@@ -55,6 +56,12 @@ abstract class DefinedName
         // Set local members
         $this->name = $name;
         $this->worksheet = $worksheet;
+        $logical = mb_strtoupper($value ?? '', 'UTF-8');
+        if ($logical === 'TRUE' || $logical === Calculation::getTRUE()) {
+            $value = 'TRUE';
+        } elseif ($logical === 'FALSE' || $logical === Calculation::getFALSE()) {
+            $value = 'FALSE';
+        }
         $this->value = (string) $value;
         $this->localOnly = $localOnly;
         // If local only, then the scope will be set to worksheet unless a scope is explicitly set
@@ -97,7 +104,7 @@ abstract class DefinedName
             $value = substr($value, 1);
         }
 
-        if (is_numeric($value)) {
+        if (is_numeric($value) || $value === 'TRUE' || $value === 'FALSE') {
             return true;
         }
 
