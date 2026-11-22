@@ -96,6 +96,58 @@ return [
         'BITE',
         'BIT',
     ],
+    'wildcard question mark' => [
+        2,
+        '?c',
+        'abc',
+    ],
+    'wildcard question mark is case-insensitive' => [
+        2,
+        'b?d',
+        'ABCD',
+    ],
+    'wildcard asterisk' => [
+        2,
+        'b*d',
+        'abcd',
+    ],
+    'wildcard asterisk alone' => [
+        1,
+        '*',
+        'abc',
+    ],
+    'wildcard with offset' => [
+        4,
+        'b?',
+        'abcbd',
+        3,
+    ],
+    'wildcard with multibyte characters' => [
+        6,
+        'ύ?',
+        'ΕΝΑ ΔΎΟ',
+        2,
+    ],
+    'wildcard not found' => [
+        '#VALUE!',
+        'x*',
+        'abc',
+    ],
+    'tilde escapes asterisk' => [
+        2,
+        '~*',
+        'a*b',
+    ],
+    'tilde escapes question mark' => [
+        3,
+        '~?',
+        'ab?c',
+    ],
+    'regex characters are literal' => [
+        '#VALUE!',
+        'a.c',
+        'abc',
+    ],
     'Boolean Needle' => [
         '#VALUE!',
         true,
