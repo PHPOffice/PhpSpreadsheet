@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- With array return mode (which Xlsx Reader turns on for files with dynamic-array metadata), `SUM`, `MIN` and `MAX` ignore text in a single-cell reference, as Excel does, instead of returning #VALUE! for `=SUM(A1,A2)`. [Issue #5084](https://github.com/PHPOffice/PhpSpreadsheet/issues/5084) [PR #5098](https://github.com/PHPOffice/PhpSpreadsheet/pull/5098)
 
 ## 2026-11-21 - 5.12.0
 
