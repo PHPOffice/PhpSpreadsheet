@@ -33,6 +33,8 @@ class Drawing extends BaseDrawing
      */
     private ?string $metafileType = null;
 
+    private bool $throwWhenTesting = false;
+
     /**
      * Create a new Drawing.
      */
@@ -124,14 +126,16 @@ class Drawing extends BaseDrawing
                     $this->setSizesAndType($path);
                 }
             }
-        // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
+        // Check if a URL has been passed.
         } elseif (
-            filter_var($path, FILTER_VALIDATE_URL)
-            || Preg::isMatch('~^phar://~i', $path)
-            || (Preg::isMatch('/^([\w.\s\x00-\x1f]+):/', $path) && !Preg::isMatch('/^([\w.]+):/', $path))
+            Preg::isMatch('/^([\w.\s\x00-\x1f]+):/', $path)
+            && !Preg::isMatch('~^[a-zA-Z]:~', $path)
         ) {
             if (!Preg::isMatch('/^(http|https|file|ftp|s3):/', $path)) {
                 throw new PhpSpreadsheetException('Invalid protocol for linked drawing');
+            }
+            if ($this->throwWhenTesting) {
+                throw new PhpSpreadsheetException('Deliberate exception on url path');
             }
             if (!$allowExternal) {
                 return $this;
@@ -175,6 +179,9 @@ class Drawing extends BaseDrawing
                 }
             }
         } else {
+            if ($this->throwWhenTesting) {
+                throw new PhpSpreadsheetException('Deliberate exception on local file path');
+            }
             $exists = @file_exists($path);
             if ($exists !== false && $this->isImage($path)) {
                 $this->path = $path;
@@ -320,5 +327,11 @@ class Drawing extends BaseDrawing
     public function getImageMimeType(): string
     {
         return image_type_to_mime_type($this->getImageTypeForSave());
+    }
+
+    /** @internal */
+    public function setThrowWhenTesting(bool $throwWhenTesting): void
+    {
+        $this->throwWhenTesting = $throwWhenTesting;
     }
 }
