@@ -96,7 +96,7 @@ class CellReferenceHelper
 
     public function computeNewColumnIndex(int $newColumnIndex, ?bool $topLeft): int
     {
-        // A special case is removing the left/top or bottom/right edge of a range
+        // A special cases is removing the left/top or bottom/right edge of a range
         // $topLeft is null if we aren't adjusting a range at all.
         if (
             $topLeft !== null
