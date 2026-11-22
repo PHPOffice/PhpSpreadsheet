@@ -1854,14 +1854,16 @@ class Xls extends XlsBase
         // offset within (spliced) record data
         $pos = 0;
 
-        // Limit global SST position, further control for bad SST Length in BIFF8 data
-        $limitposSST = 0;
-
         // get spliced record data
         $splicedRecordData = $this->getSplicedRecordData();
 
         $recordData = $splicedRecordData['recordData'];
+        /** @var int[] $spliceOffsets */
         $spliceOffsets = $splicedRecordData['spliceOffsets'];
+
+        if (($spliceOffsets[1] ?? strlen($recordData)) < 8) {
+            throw new Exception('SST fixed header is split across records.');
+        }
 
         // offset: 0; size: 4; total number of strings in the workbook
         $pos += 4;
@@ -1870,20 +1872,29 @@ class Xls extends XlsBase
         $nm = self::getInt4d($recordData, 4);
         $pos += 4;
 
-        // look up limit position
-        foreach ($spliceOffsets as $spliceOffset) {
-            // it can happen that the string is empty, therefore we need
-            // <= and not just <
-            if ($pos <= $spliceOffset) {
-                $limitposSST = $spliceOffset;
-            }
-        }
+        $spliceCount = count($spliceOffsets);
+        $spliceIndex = 0;
+        // The final offset is the end of the spliced SST data.
+        $limitposSST = $spliceOffsets[$spliceCount - 1] ?? strlen($recordData);
 
         // loop through the Unicode strings (16-bit length)
         for ($i = 0; $i < $nm && $pos < $limitposSST; ++$i) {
+            $stringStart = $pos;
+            while ($spliceIndex < $spliceCount && $spliceOffsets[$spliceIndex] <= $stringStart) {
+                ++$spliceIndex;
+            }
+            $headerLimit = $spliceOffsets[$spliceIndex] ?? null;
+            if ($headerLimit === null || $stringStart + 3 > $headerLimit) {
+                throw new Exception('SST string header is split across records.');
+            }
+
             // number of characters in the Unicode string
             $numChars = self::getUInt2d($recordData, $pos);
             $pos += 2;
+
+            if ($pos >= strlen($recordData)) {
+                throw new Exception('SST string data is truncated.');
+            }
 
             // option flags
             $optionFlags = ord($recordData[$pos]);
@@ -1900,6 +1911,9 @@ class Xls extends XlsBase
 
             $formattingRuns = 0;
             if ($hasRichText) {
+                if ($pos + 2 > $headerLimit) {
+                        throw new Exception('SST string header is split across records.');
+                }
                 // number of Rich-Text formatting runs
                 $formattingRuns = self::getUInt2d($recordData, $pos);
                 $pos += 2;
@@ -1907,24 +1921,27 @@ class Xls extends XlsBase
 
             $extendedRunLength = 0;
             if ($hasAsian) {
+                if ($pos + 4 > $headerLimit) {
+                    throw new Exception('SST string header is split across records.');
+                }
                 // size of Asian phonetic setting
                 $extendedRunLength = self::getInt4d($recordData, $pos);
+                if ($extendedRunLength < 0) {
+                    throw new Exception('Invalid SST string metadata length.');
+                }
                 $pos += 4;
             }
 
             // expected byte length of character array if not split
             $len = ($isCompressed) ? $numChars : $numChars * 2;
 
-            // look up limit position - Check it again to be sure that no error occurs when parsing SST structure
-            $limitpos = null;
-            foreach ($spliceOffsets as $spliceOffset) {
-                // it can happen that the string is empty, therefore we need
-                // <= and not just <
-                if ($pos <= $spliceOffset) {
-                    $limitpos = $spliceOffset;
-
-                    break;
-                }
+            // Find the first splice offset at or beyond the current position.
+            while ($spliceIndex < $spliceCount && $spliceOffsets[$spliceIndex] < $pos) {
+                ++$spliceIndex;
+            }
+            $limitpos = $spliceOffsets[$spliceIndex] ?? null;
+            if ($limitpos === null) {
+                throw new Exception('SST string data is truncated.');
             }
 
             if ($pos + $len <= $limitpos) {
@@ -1939,21 +1956,28 @@ class Xls extends XlsBase
                 $retstr = substr($recordData, $pos, $limitpos - $pos);
 
                 $bytesRead = $limitpos - $pos;
-
+                if (!$isCompressed && ($bytesRead % 2) !== 0) {
+                    throw new Exception('SST string is split in the middle of a character.');
+                }
                 // remaining characters in Unicode string
-                $charsLeft = $numChars - (($isCompressed) ? $bytesRead : ($bytesRead / 2));
+                $charsLeft = $numChars - (($isCompressed) ? $bytesRead : intdiv($bytesRead, 2));
 
                 $pos = $limitpos;
 
                 // keep reading the characters
                 while ($charsLeft > 0) {
-                    // look up next limit position, in case the string span more than one continue record
-                    foreach ($spliceOffsets as $spliceOffset) {
-                        if ($pos < $spliceOffset) {
-                            $limitpos = $spliceOffset;
-
-                            break;
-                        }
+                    // Advance to the next splice offset in case the string
+                    // spans more than one CONTINUE record.
+                    while ($spliceIndex < $spliceCount && $spliceOffsets[$spliceIndex] <= $pos) {
+                        ++$spliceIndex;
+                    }
+                    $nextLimitpos = $spliceOffsets[$spliceIndex] ?? null;
+                    if ($nextLimitpos === null) {
+                        throw new Exception('SST string data is truncated.');
+                    }
+                    $limitpos = $nextLimitpos;
+                    if ($pos >= strlen($recordData)) {
+                        throw new Exception('SST string data is truncated.');
                     }
 
                     // repeated option flags
@@ -1972,34 +1996,36 @@ class Xls extends XlsBase
                         // 1st fragment uncompressed
                         // this fragment uncompressed
                         $len = min($charsLeft * 2, $limitpos - $pos);
+                        if (($len % 2) !== 0) {
+                            throw new Exception('SST string is split in the middle of a character.');
+                        }
                         $retstr .= substr($recordData, $pos, $len);
-                        $charsLeft -= $len / 2;
-                        $isCompressed = false;
-                    } elseif (!$isCompressed && ($option == 0)) {
+                        $charsLeft -= intdiv($len, 2);
+                    } elseif (!$isCompressed /*&& ($option == 0)*/) {
                         // 1st fragment uncompressed
                         // this fragment compressed
-                        $len = min($charsLeft, $limitpos - $pos);
-                        for ($j = 0; $j < $len; ++$j) {
-                            $retstr .= $recordData[$pos + $j]
-                                . chr(0);
-                        }
+                        $len = (int) min($charsLeft, $limitpos - $pos);
+                        // Pad each byte with a null byte to expand to UTF-16LE
+                        $retstr .= self::uncompressByteString(substr($recordData, $pos, $len));
                         $charsLeft -= $len;
-                        $isCompressed = false;
                     } else {
                         // 1st fragment compressed
                         // this fragment uncompressed
-                        $newstr = '';
-                        $jMax = strlen($retstr);
-                        for ($j = 0; $j < $jMax; ++$j) {
-                            $newstr .= $retstr[$j] . chr(0);
-                        }
-                        $retstr = $newstr;
+                        // Keep an empty first fragment empty when switching encodings.
+                        $retstr = self::uncompressByteString($retstr);
+                        /** @var int */
                         $len = min($charsLeft * 2, $limitpos - $pos);
+                        if (($len % 2) !== 0) {
+                            throw new Exception('SST string is split in the middle of a character.');
+                        }
                         $retstr .= substr($recordData, $pos, $len);
-                        $charsLeft -= $len / 2;
+                        $charsLeft -= intdiv($len, 2);
                         $isCompressed = false;
                     }
 
+                    if ($len <= 0) {
+                        throw new Exception('SST string data is truncated.');
+                    }
                     $pos += $len;
                 }
             }
@@ -2028,8 +2054,15 @@ class Xls extends XlsBase
 
             // read additional Asian phonetics information, if any
             if ($hasAsian) {
+                if ($extendedRunLength < 2 || $extendedRunLength > strlen($recordData) - $pos) {
+                    throw new Exception('Invalid SST string metadata length.');
+                }
                 // For Asian phonetic settings, we skip the extended string data
                 $pos += $extendedRunLength;
+            }
+
+            if ($pos <= $stringStart) {
+                throw new Exception('SST string data is truncated.');
             }
 
             // store the shared sting
@@ -3977,6 +4010,8 @@ class Xls extends XlsBase
      * records are found. Splices the record data pieces and returns the combined string as if record data
      * is in one piece.
      * Moves to next current position in data stream to start of next record different from a CONtINUE record.
+     *
+     * @return array{recordData: string, spliceOffsets: array<int, int>}
      */
     private function getSplicedRecordData(): array
     {

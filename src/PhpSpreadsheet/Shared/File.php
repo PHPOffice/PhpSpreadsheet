@@ -156,12 +156,11 @@ class File
     public static function assertFile(string $filename, string $zipMember = ''): void
     {
         self::prohibitwrappers($filename);
-        if (!is_file($filename)) {
-            throw new ReaderException('File "' . $filename . '" does not exist.');
-        }
-
-        if (!is_readable($filename)) {
-            throw new ReaderException('Could not open "' . $filename . '" for reading.');
+        // http fails is_file automatically - so ftp should fail immediately too.
+        // Note that we will already have failed if there
+        // are whitespace or control characters in the protocol.
+        if (self::startsWithProtocol($filename) || !is_file($filename) || !is_readable($filename)) {
+            throw new ReaderException('File "' . $filename . '" does not exist or is not readable.');
         }
 
         if ($zipMember !== '') {
@@ -183,10 +182,10 @@ class File
     public static function testFileNoThrow(string $filename, ?string $zipMember = null): bool
     {
         self::prohibitwrappers($filename);
-        if (!is_file($filename)) {
-            return false;
-        }
-        if (!is_readable($filename)) {
+        // http fails is_file automatically - so ftp should fail immediately too.
+        // Note that we will already have failed if there
+        // are whitespace or control characters in the protocol.
+        if (self::startsWithProtocol($filename) || !is_file($filename) || !is_readable($filename)) {
             return false;
         }
         if ($zipMember === null) {
@@ -206,5 +205,12 @@ class File
         $zipfile = "zip://$filename#" . str_replace('/', '\\', $zipMember);
 
         return self::fileExists($zipfile);
+    }
+
+    private static function startsWithProtocol(string $filename): bool
+    {
+        // Whitespace and control characters have already been rejected by prohibitWrappers.
+        // {2,} assures that Windows drives don't match.
+        return Preg::isMatch('/^([\w.]){2,}:/', $filename);
     }
 }
