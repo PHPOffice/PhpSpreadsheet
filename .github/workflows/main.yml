@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         experimental:
-          - false
+          - true
         php-version:
           - '8.1'
           - '8.2'
