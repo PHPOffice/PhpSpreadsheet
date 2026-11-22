@@ -469,6 +469,9 @@ class Worksheet
         if (str_replace(self::INVALID_CHARACTERS, '', $sheetTitle) !== $sheetTitle) {
             throw new Exception('Invalid character found in sheet title');
         }
+        if (str_starts_with($sheetTitle, "'") || str_ends_with($sheetTitle, "'")) {
+            throw new Exception('Sheet title cannot start or end with apostrophe');
+        }
 
         // Enforce maximum characters allowed for sheet title
         if (StringHelper::countCharacters($sheetTitle) > self::SHEET_TITLE_MAXIMUM_LENGTH) {
@@ -3275,6 +3278,8 @@ class Worksheet
      * @param bool $oldCalculatedValue If calculateFormulas is false and this is true, use oldCalculatedFormula instead.
      *
      * @return mixed[][]
+     *
+     * @psalm-taint-source input
      */
     public function rangeToArray(
         string $range,
@@ -3537,6 +3542,8 @@ class Worksheet
      * @param bool $oldCalculatedValue If calculateFormulas is false and this is true, use oldCalculatedFormula instead.
      *
      * @return mixed[][]
+     *
+     * @psalm-taint-source input
      */
     public function namedRangeToArray(
         string $definedName,
@@ -3578,6 +3585,8 @@ class Worksheet
      * @param bool $oldCalculatedValue If calculateFormulas is false and this is true, use oldCalculatedFormula instead.
      *
      * @return mixed[][]
+     *
+     * @psalm-taint-source input
      */
     public function toArray(
         mixed $nullValue = null,

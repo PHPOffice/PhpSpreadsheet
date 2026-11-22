@@ -133,4 +133,115 @@ class PivotFieldGroup
     {
         return $this->endDate;
     }
+
+    /**
+     * Excel's own ceiling on the number of items in a single pivot field.
+     */
+    public const MAX_ITEMS = 1048576;
+
+    /**
+     * How many items this grouping renders, including the two out-of-range
+     * bounds Excel always adds ("<start" and ">end" / "<1/1/1900" and
+     * ">12/31/9999").
+     *
+     * This is the single source of truth for the item count: the pivot field's
+     * <items>, the cache definition's <groupItems> and the declared pivot
+     * location are all derived from it, so they cannot drift apart.
+     */
+    public function renderedItemCount(): int
+    {
+        if ($this->isDate()) {
+            return count($this->dateGroupItems());
+        }
+
+        return count($this->numericBuckets()) + 2;
+    }
+
+    /**
+     * The calendar unit this date grouping uses. Excel groups by a single unit
+     * per field, so the first requested unit wins; months is the default.
+     */
+    public function effectiveGroupBy(): string
+    {
+        return $this->groupBy[0] ?? self::GROUP_BY_MONTHS;
+    }
+
+    /**
+     * The canonical group-item labels Excel uses for this grouping unit.
+     *
+     * @return string[]
+     */
+    public function dateGroupItems(): array
+    {
+        switch ($this->effectiveGroupBy()) {
+            case self::GROUP_BY_QUARTERS:
+                return ['<1/1/1900', 'Qtr1', 'Qtr2', 'Qtr3', 'Qtr4', '>12/31/9999'];
+            case self::GROUP_BY_MONTHS:
+                return [
+                    '<1/1/1900', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', '>12/31/9999',
+                ];
+            //case self::GROUP_BY_YEARS:
+            default:
+                // Years are enumerated by the application on refresh.
+                return ['<1/1/1900', '>12/31/9999'];
+        }
+    }
+
+    /**
+     * The effective numeric bounds and bucket width, with the same fallbacks
+     * the writer applies when the caller supplied none.
+     *
+     * @return array{0: float, 1: float, 2: float}
+     */
+    public function effectiveNumericRange(): array
+    {
+        $start = $this->startNum ?? 0.0;
+        $end = $this->endNum ?? ($start + $this->interval);
+        $interval = $this->interval > 0 ? $this->interval : 1.0;
+
+        return [$start, $end, $interval];
+    }
+
+    /**
+     * The "<lower>-<upper>" bucket labels for a numeric grouping.
+     *
+     * The bucket index is computed from the start rather than accumulated, so
+     * a fractional interval cannot drift through repeated addition.
+     *
+     * @return string[]
+     */
+    public function numericBuckets(): array
+    {
+        [$start, $end, $interval] = $this->effectiveNumericRange();
+        if ($interval <= 0.0 || $end <= $start) {
+            return [];
+        }
+
+        // The two sentinel bounds count towards the same ceiling as the
+        // buckets, so the bucket count is clamped with room for them.
+        $count = (int) ceil(($end - $start) / $interval);
+        $count = min($count, self::MAX_ITEMS - 2);
+
+        $buckets = [];
+        for ($i = 0; $i < $count; ++$i) {
+            $lower = $start + ($i * $interval);
+            $upper = min($start + (($i + 1) * $interval), $end);
+            $buckets[] = self::num($lower) . '-' . self::num($upper);
+        }
+
+        return $buckets;
+    }
+
+    /**
+     * Format a float without a trailing ".0" for whole numbers.
+     */
+    private static function num(float $value): string
+    {
+        if ($value === floor($value) && abs($value) < 1.0e15) {
+            return (string) (int) $value;
+        }
+
+        return (string) $value;
+    }
 }

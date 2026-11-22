@@ -333,12 +333,15 @@ class Ods extends BaseReader
     /** @var array<int, string> default cell style of a column of the current sheet, only where it has a link */
     private array $columnHyperlinkStyles = [];
 
+    private ?string $calcextNs = null;
+
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
     public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         File::assertFile($filename, self::INITIAL_FILE);
+        $this->usedBorderSpannedCells = 0;
 
         $this->zip = new ZipArchive();
         $this->filename = $filename;
@@ -448,6 +451,7 @@ class Ods extends BaseReader
         // Main Content
 
         $dom = $this->loadDom(self::INITIAL_FILE, $zip);
+        $this->calcextNs = $dom->lookupNamespaceUri('calcext');
 
         $pageSettings->readStyleCrossReferences($dom);
 
@@ -872,6 +876,10 @@ class Ods extends BaseReader
         }
     }
 
+    protected int $maxBorderSpannedCells = 2500;
+
+    private int $usedBorderSpannedCells = 0;
+
     private function processTableRow(
         DOMElement $childNode,
         string $tableNs,
@@ -965,17 +973,21 @@ class Ods extends BaseReader
                 // the rest of this block is needed for xlsx/xls,
                 // and does no harm for ods.
                 if (isset($this->allStyles[$styleName]['borders'])) {
-                    $spannedRows = $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
-                    $spannedColumns = $cellData->getAttributeNS($tableNs, 'number-rows-spanned');
-                    $spannedRows = max((int) $spannedRows, 1);
-                    $spannedColumns = max((int) $spannedColumns, 1);
+                    $spannedColumns = $spannedRows = 0;
+                    $temp = $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
+                    $tempCol = is_numeric($temp) ? (int) $temp : 1;
+                    $temp = $cellData->getAttributeNS($tableNs, 'number-rows-spanned');
+                    $tempRow = is_numeric($temp) ? (int) $temp : 1;
+                    $newBorderCells = $this->usedBorderSpannedCells + $tempRow * $tempCol;
+                    if ($tempCol > 0 && $tempRow > 0 && $this->maxBorderSpannedCells >= $newBorderCells) {
+                        $this->usedBorderSpannedCells = $newBorderCells;
+                        $spannedColumns = $tempCol;
+                        $spannedRows = $tempRow;
+                    }
                     if ($spannedRows > 1 || $spannedColumns > 1) {
-                        $endRow = $rowID + $spannedRows - 1;
-                        $endCol = $columnID;
-                        while ($spannedColumns > 1) {
-                            StringHelper::stringIncrement($endCol);
-                            --$spannedColumns;
-                        }
+                        $endRow = min($rowID + $spannedRows - 1, AddressRange::MAX_ROW);
+                        $endColIdx = min(Coordinate::columnIndexFromString($columnID) + $spannedColumns - 1, AddressRange::MAX_COLUMN_INT);
+                        $endCol = Coordinate::stringFromColumnIndex($endColIdx);
                         $spannedRange .= ":$endCol$endRow";
                         $worksheet->getStyle($spannedRange)
                             ->getBorders()
@@ -1088,6 +1100,7 @@ class Ods extends BaseReader
                 $allCellDataText = implode('', $dataArray);
 
                 $type = $cellData->getAttributeNS($officeNs, 'value-type');
+                $calcextType = $cellData->getAttributeNs($this->calcextNs, 'value-type');
                 $symbol = '';
                 $leftHandCurrency = Preg::isMatch('/\$|£|￥/', $allCellDataText, $matches);
                 if ($leftHandCurrency) {
@@ -1113,7 +1126,7 @@ class Ods extends BaseReader
 
                 switch ($type) {
                     case 'string':
-                        $type = DataType::TYPE_STRING;
+                        $type = ($calcextType === 'error') ? DataType::TYPE_ERROR : DataType::TYPE_STRING;
                         $dataValue = $allCellDataText;
 
                         break;
@@ -1955,7 +1968,7 @@ class Ods extends BaseReader
                 $temp = $tableCellProperties->getAttributeNs($styleNs, $direction);
             } else {
                 $directionIndex = $direction;
-                $temp = $tableCellProperties->getAttributeNs($fontNs, "border-$direction");
+                $temp = $tableCellProperties->getAttributeNs($fontNs, "border-$direction") ?: $tableCellProperties->getAttributeNs($fontNs, 'border');
             }
             if (Preg::isMatch('/^(\d+(?:[.]\d+)?)pt\s+([-\w]+)\s+#([0-9a-fA-F]{6})$/', $temp, $matches)) {
                 $style = self::MAP_BORDER_STYLE[$matches[2]] ?? Border::BORDER_THIN;
