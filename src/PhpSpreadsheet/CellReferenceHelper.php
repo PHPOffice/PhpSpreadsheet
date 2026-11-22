@@ -23,7 +23,7 @@ class CellReferenceHelper
         $this->numberOfColumns = $numberOfColumns;
         $this->numberOfRows = $numberOfRows;
 
-        // Get coordinate of $beforeCellAddress
+        // Get coordinates of $beforeCellAddress
         [$beforeColumn, $beforeRow] = Coordinate::coordinateFromString($beforeCellAddress);
         $this->beforeColumn = Coordinate::columnIndexFromString($beforeColumn);
         $this->beforeRow = (int) $beforeRow;
