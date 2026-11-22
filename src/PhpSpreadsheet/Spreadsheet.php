@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
+/** @deprecated This branch of PhpSpreadsheet is deprecated. Please migrate to release 5 or later ASAP. */
 class Spreadsheet implements JsonSerializable
 {
     // Allowable values for workbook window visilbity
@@ -400,6 +401,11 @@ class Spreadsheet implements JsonSerializable
      */
     public function __construct()
     {
+        static $deprecation_notice = true;
+        if ($deprecation_notice && !(defined('PHPSPREADSHEET_SILENCE_DEPRECATION') && PHPSPREADSHEET_SILENCE_DEPRECATION)) {
+            $deprecation_notice = false;
+            @trigger_error('This branch of PhpSpreadsheet is deprecated. Please migrate to release 5 or later ASAP.', E_USER_DEPRECATED);
+        }
         $this->uniqueID = uniqid('', true);
         $this->calculationEngine = new Calculation($this);
         $this->theme = new Theme();
