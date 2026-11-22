@@ -42,15 +42,8 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
-      - name: Delete composer lock file
-        id: composer-lock
-        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == '8.3' || matrix.php-version == '8.4' || matrix.php-version == 'nightly'}}
-        run: |
-          rm composer.lock
-          echo "flags=--ignore-platform-reqs" >> $GITHUB_OUTPUT
-
       - name: Install dependencies
-        run: composer update --no-progress --prefer-dist --optimize-autoloader ${{ steps.composer-lock.outputs.flags }}
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
