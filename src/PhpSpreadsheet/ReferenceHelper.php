@@ -1135,7 +1135,6 @@ class ReferenceHelper
     private function updateNamedRange(DefinedName $definedName, Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
     {
         $cellAddress = $definedName->getValue();
-        $asFormula = ($cellAddress[0] === '=');
         if ($definedName->getWorksheet() === $worksheet) {
             /**
              * If we delete the entire range that is referenced by a Named Range, MS Excel sets the value to #REF!
@@ -1144,12 +1143,10 @@ class ReferenceHelper
              * TODO Can we work out a method to identify Named Ranges that cease to be valid, so that we can replace
              *      them with a #REF!
              */
-            if ($asFormula === true) {
-                $formula = $this->updateFormulaReferences($cellAddress, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle(), true, true);
-                $definedName->setValue($formula);
-            } else {
-                $definedName->setValue($this->updateCellReference(ltrim($cellAddress, '='), true));
-            }
+            // The value may or may not start with '=' (the Xlsx reader loads it without one,
+            // usually prefixed with the sheet name); both forms are updated the same way.
+            $formula = $this->updateFormulaReferences($cellAddress, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle(), true, true);
+            $definedName->setValue($formula);
         }
     }
 
