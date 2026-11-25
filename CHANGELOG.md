@@ -33,6 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 - A cyclic formula no longer loops forever when a cell it refers to falls back to its cached value, such as a reference to an external workbook. [Issue #4791](https://github.com/PHPOffice/PhpSpreadsheet/issues/4791) [PR #5114](https://github.com/PHPOffice/PhpSpreadsheet/pull/5114)
+- `VLOOKUP()` and `HLOOKUP()` with an exact match no longer match an empty cell, so an empty lookup value returns `#N/A` as in Excel. [Issue #5086](https://github.com/PHPOffice/PhpSpreadsheet/issues/5086) [PR #5096](https://github.com/PHPOffice/PhpSpreadsheet/pull/5096)
 
 ## 2026-11-21 - 5.12.0
 

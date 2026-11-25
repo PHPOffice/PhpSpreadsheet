@@ -48,12 +48,6 @@ class VLookup extends LookupBase
         $returnColumn = $columnKeys[--$indexNumber];
         $firstColumn = array_shift($columnKeys) ?? 1;
 
-        if (!$notExactMatch) {
-            /** @var callable $callable */
-            $callable = [self::class, 'vlookupSort'];
-            uasort($lookupArray, $callable);
-        }
-
         /** @var string[][] $lookupArray */
         $rowNumber = self::vLookupSearch($lookupValue, $lookupArray, $firstColumn, $notExactMatch);
 
@@ -63,24 +57,6 @@ class VLookup extends LookupBase
         }
 
         return ExcelError::NA();
-    }
-
-    /**
-     * @param scalar[] $a
-     * @param scalar[] $b
-     */
-    private static function vlookupSort(array $a, array $b): int
-    {
-        reset($a);
-        $firstColumn = key($a);
-        $aLower = StringHelper::strToLower((string) $a[$firstColumn]);
-        $bLower = StringHelper::strToLower((string) $b[$firstColumn]);
-
-        if ($aLower == $bLower) {
-            return 0;
-        }
-
-        return ($aLower < $bLower) ? -1 : 1;
     }
 
     /**
@@ -94,6 +70,10 @@ class VLookup extends LookupBase
 
         $rowNumber = null;
         foreach ($lookupArray as $rowKey => $rowData) {
+            // an exact match never matches an empty cell
+            if (!$notExactMatch && $rowData[$column] === null) {
+                continue;
+            }
             $bothNumeric = self::numeric($lookupValue) && self::numeric($rowData[$column]);
             $bothNotNumeric = !self::numeric($lookupValue) && !self::numeric($rowData[$column]);
             $cellDataLower = StringHelper::strToLower((string) $rowData[$column]);
