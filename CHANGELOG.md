@@ -34,6 +34,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Fixed
 
 - `Worksheet::getColumnDimension()` throws an exception for an invalid column such as `0` and does not store it, so a later save no longer fails with "Undefined array key". [Issue #5109](https://github.com/PHPOffice/PhpSpreadsheet/issues/5109) [PR #5124](https://github.com/PHPOffice/PhpSpreadsheet/pull/5124)
+- `VLOOKUP()` and `HLOOKUP()` with an exact match no longer match an empty cell, so an empty lookup value returns `#N/A` as in Excel. [Issue #5086](https://github.com/PHPOffice/PhpSpreadsheet/issues/5086) [PR #5096](https://github.com/PHPOffice/PhpSpreadsheet/pull/5096)
 
 ## 2026-11-21 - 5.12.0
 
