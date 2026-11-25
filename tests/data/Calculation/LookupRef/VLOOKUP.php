@@ -206,4 +206,15 @@ return [
         ],
         [[2], [3], [2]],
     ],
+    'empty lookup value does not match an empty cell' => [
+        '#N/A',
+        null,
+        [
+            ['a', 1],
+            ['b', 2],
+            [null, 3],
+        ],
+        2,
+        false,
+    ],
 ];
