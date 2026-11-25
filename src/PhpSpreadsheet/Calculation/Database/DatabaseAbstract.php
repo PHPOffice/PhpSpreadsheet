@@ -157,7 +157,7 @@ abstract class DatabaseAbstract
         // Check for wildcard characters used in the condition
         $result = preg_match('/(?<operator>[^"]*)(?<operand>".*[*?].*")/ui', $ifCondition, $matches);
         if ($result !== 1) {
-            return "[:{$criterionName}]{$ifCondition}";
+            return self::buildComparison($criterionName, $ifCondition);
         }
 
         $trueFalse = ($matches['operator'] !== '<>');
@@ -168,6 +168,33 @@ abstract class DatabaseAbstract
         }
 
         return $condition;
+    }
+
+    /**
+     * A criterion such as ">0", "<m" or "<TRUE" only matches values of the same type as its operand.
+     * In a formula, text is greater than any number, but the text "abc" does not match ">0".
+     * Such a comparison gets a placeholder that names the type of its operand, [N:name], [L:name] or [T:name],
+     * and processCondition() replaces the whole comparison with FALSE for a value of another type.
+     */
+    private static function buildComparison(string $criterionName, string $ifCondition): string
+    {
+        $result = preg_match('/^(?:<=|>=|<(?!>)|>)(?<operand>.+)$/s', $ifCondition, $matches);
+        if ($result === 1) {
+            $operand = $matches['operand'];
+            $type = null;
+            if (is_numeric($operand)) {
+                $type = 'N';
+            } elseif ($operand === 'TRUE' || $operand === 'FALSE') {
+                $type = 'L';
+            } elseif (str_starts_with($operand, '"')) {
+                $type = 'T';
+            }
+            if ($type !== null) {
+                return "[{$type}:{$criterionName}]{$ifCondition}";
+            }
+        }
+
+        return "[:{$criterionName}]{$ifCondition}";
     }
 
     /**
@@ -221,6 +248,16 @@ abstract class DatabaseAbstract
                 $dataValue = Calculation::wrapResult(strtoupper($dataValue));
             }
             $dataValue = StringHelper::convertToString($dataValue);
+        }
+
+        $value = $dataValues[$key];
+        foreach (['N' => is_int($value) || is_float($value), 'L' => is_bool($value), 'T' => is_string($value)] as $type => $sameType) {
+            $placeholder = "[{$type}:{$criterion}]";
+            if (str_contains($conditions, $placeholder)) {
+                $conditions = $sameType
+                    ? str_replace($placeholder, $dataValue, $conditions)
+                    : (string) preg_replace('/' . preg_quote($placeholder, '/') . '(?:<=|>=|<|>)(?:"(?:[^"]|"")*"|[^,)]*)/', 'FALSE', $conditions);
+            }
         }
 
         return str_replace('[:' . $criterion . ']', $dataValue, $conditions);

@@ -182,4 +182,18 @@ return [
             [2],
         ],
     ],
+    'numeric criterion does not match blank or text' => [
+        1,
+        [
+            [1],
+            [null],
+            ['abc'],
+        ],
+        '<5',
+        [
+            [1],
+            [10],
+            [100],
+        ],
+    ],
 ];
