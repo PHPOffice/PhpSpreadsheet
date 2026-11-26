@@ -84,4 +84,35 @@ class OffsetTest extends AllSetupTeardown
         $sheet->setCellValue('D1', '=OFFSET(CELLAREA,7,2,1,1)');
         self::assertSame('Hello', $sheet->getCell('D1')->getCalculatedValue());
     }
+
+    /** @return array<string, array{mixed, string}> */
+    public static function providerFunctionReference(): array
+    {
+        return [
+            'INDEX single cell' => [37, '=OFFSET(INDEX(Data!A1:A5,2),1,0)'],
+            'INDEX with column' => [41, '=OFFSET(INDEX(Data!A1:B5,4,2),0,-1)'],
+            'INDEX across a row' => [9, '=OFFSET(INDEX(Data!A7:C7,2),0,1)'],
+            'INDEX whole column' => [11 + 23 + 37, '=SUM(OFFSET(INDEX(Data!A1:A5,2),-1,0,3,1))'],
+            'CHOOSE' => [37, '=OFFSET(CHOOSE(1,Data!A2),1,0)'],
+            'CHOOSE second' => [41, '=OFFSET(CHOOSE(2,Data!A1,Data!A3),1,0)'],
+            'IF true' => [37, '=OFFSET(IF(TRUE,Data!A2,Data!A1),1,0)'],
+            'IF false' => [23, '=OFFSET(IF(FALSE,Data!A2,Data!A1),1,0)'],
+            'direct reference' => [37, '=OFFSET(Data!A2,1,0)'],
+            'range with height' => [78, '=SUM(OFFSET(INDEX(Data!A1:A5,2),1,0,2,1))'],
+        ];
+    }
+
+    #[DataProvider('providerFunctionReference')]
+    public function testOffsetOfFunctionReturningReferenceOnOtherSheet(int $expected, string $formula): void
+    {
+        $spreadsheet = $this->getSpreadsheet();
+        $calc = $this->getSheet();
+        $calc->setTitle('Calc');
+        $data = $spreadsheet->createSheet();
+        $data->setTitle('Data');
+        $data->fromArray([[11, 1], [23, 2], [37, 3], [41, 4], [59, 5]], null, 'A1');
+        $data->fromArray([[7, 8, 9]], null, 'A7');
+        $calc->getCell('A1')->setValue($formula);
+        self::assertSame($expected, $calc->getCell('A1')->getCalculatedValue());
+    }
 }
