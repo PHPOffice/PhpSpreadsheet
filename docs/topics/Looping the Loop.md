@@ -62,6 +62,21 @@ It can return the raw cell value (which isn't particularly useful if the cell co
 | $reduceArrays      | boolean  | false   | True - If calculated value is an array, reduce it to top leftmost value. |
 | $lessFloatPrecision | boolean  | false   | True - PhpSpreadsheet 5.2+ - Floats, if formatted, will display as a more human-friendly but possibly less accurate value. |
 
+### Ignoring Trailing Rows And Columns With No Data
+
+Starting with release 5.13.0, memory problems associated with `toArray` *may* have less of an impact if you use the new `setUseHighestDataColumn` method.
+This causes the array dimensions returned by `toArray` to be
+`getHighestDataColumn()` by `getHighestDataRow()` rather than
+`getHighestColumn()` by `getHighestRow()`;
+and it has a similar effect when [using iterators](#using-iterators).
+It can be helpful whenever there are trailing rows or columns
+which are styled or use Data Validations but contain no data.
+
+```php
+$spreadsheet->setUseHighestDataColumn(true);
+$array = $spreadsheet->getActiveSheet()->toArray();
+```
+
 ### Dealing with empty rows
 
 The example spreadsheet that I've used here is well behaved, with no empty rows. Empty rows can cause problems, even when working in Excel itself.
@@ -219,6 +234,7 @@ Features such as Data Validation or Conditional Formatting that can also artific
 If we use `toArray()` to build an array from the worksheet in this case, then it will build a 1,048,576x16,384 array, filled with null values, that will almost certainly exceed PHP's memory limits, and take a long time to do so.
 And if we do have enough memory to build the array, we will still be iterating over a lot more array entries than we want. Even if we're skipping empty rows, we're still testing every row to see if it's empty.
 Where possible, it's better to specify the limit of rows and columns that we want to use to build an array, and PhpSpreadsheet provides the `rangeToArray()` for that purpose.
+Starting with release 5.13.0, you might instead try [Ignoring Trailing Rows and Columns With No Data](#ignoring-trailing-rows-and-columns-with-no-data).
 
 One option to reduce a large array using a lot of PHP memory would be to run a loop using `rangeToArray()` to build smaller arrays for blocks of perhaps 100 rows at a time.
 This will still take a while to run if we have a lot of trailing empty rows, but it won't exceed PHP's memory limits.
@@ -247,12 +263,16 @@ while ($startRow <= $maxRow) {
 ```
 
 Alternatively, we can identify the highest row and highest column that actually contain cell data using the `getHighestDataRow()` and `getHighestDataColumn()` methods. This allows us to specify a range to pass to the `rangeToArray()` method.
+Starting with release 5.13.0, you might instead try [Ignoring Trailing Rows and Columns With No Data](#ignoring-trailing-rows-and-columns-with-no-data).
 
 ```php
+// Use this before 5.13.0
 $maxDataRow = $worksheet->getHighestDataRow();
 $maxDataColumn = $worksheet->getHighestDataColumn();
-
 $dataArray = $worksheet->rangeToArray("A1:{$maxDataColumn}{$maxDataRow}");
+// Use this for 5.13.0+
+$spreadsheet->setUseHighestDataColumn(true);
+$dataArray = $worksheet->toArray();
 
 foreach ($dataArray as $row) {
     // Check for empty rows
@@ -418,18 +438,24 @@ if ($row->isEmpty(startColumn: 'B', endColumn: 'E') {
 Like `toArray()`, the Iterators use the `getHighestRow()` and `getHighestColumn()` methods to identify the maximum row and column values for iterating; so it can still iterate over a lot of trailing empty rows and columns.
 But that is just a default behaviour.
 Similarly to `rangeToArray()` we can specify a range of rows, and a range of columns to iterate.
+Starting with release 5.13.0, you might instead try [Ignoring Trailing Rows and Columns With No Data](#ignoring-trailing-rows-and-columns-with-no-data).
 
 ```php
+// Use this before 5.13.0
 $maxDataRow = $worksheet->getHighestDataRow();
 $maxDataColumn = $worksheet->getHighestDataColumn();
-
 $rowIterator = $worksheet->getRowIterator(1, $maxDataRow);
+// Use this for 5.13.0+
+$spreadsheet->setUseHighestDataColumn(true);
+$rowIterator = $worksheet->getRowIterator();
+
 foreach ($rowIterator as $row) {
     if ($row->isEmpty()) { // Ignore empty rows
         continue;
     }
 
-    $columnIterator = $row->getCellIterator('A', $maxDataColumn);
+    $columnIterator = $row->getCellIterator('A', $maxDataColumn); // before 5.13.0
+    $columnIterator = $row->getCellIterator(); // 5.13.0+
     foreach ($columnIterator as $cell) {
         // Do something with the cell here.
     }
