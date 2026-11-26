@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 
-- Nothing yet.
+- Mpdf Writer invalid paper size. [Issue #5122](https://github.com/PHPOffice/PhpSpreadsheet/issues/5122) [PR #5125](https://github.com/PHPOffice/PhpSpreadsheet/pull/5125)
 
 ## 2026-11-21 - 5.12.0
 
