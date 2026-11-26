@@ -13,7 +13,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
-- Nothing yet.
+- Spreadsheet::setUseHighestDataColumn, so that toArray, row cell iterators and column iterators without an explicit end stop at the highest data column and row. [Issue #5102](https://github.com/PHPOffice/PhpSpreadsheet/issues/5102) [PR #5113](https://github.com/PHPOffice/PhpSpreadsheet/pull/5113)
 
 ### Removed
 
