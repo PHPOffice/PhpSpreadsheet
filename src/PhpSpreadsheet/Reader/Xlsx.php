@@ -55,6 +55,12 @@ class Xlsx extends BaseReader
 {
     const INITIAL_FILE = '_rels/.rels';
 
+    /** Self-closing cell with no attribute other than a reference, a style or a type which loads no value. */
+    private const EMPTY_CELL = '/<(?:\w+:)?c(?:\s+(?:r="[A-Z]+\d+"|s="\d+"|t="(?:b|d|e|n|s|str)"))+\s*\/>/';
+
+    /** Cell without reference, placed by its position in the row. */
+    private const CELL_WITHOUT_REFERENCE = '/<(?:\w+:)?c(?=[\s\/>])(?![^>]*\sr=")/';
+
     /**
      * ReferenceHelper instance.
      */
@@ -228,11 +234,14 @@ class Xlsx extends BaseReader
         return is_array($value) ? $value : [];
     }
 
-    private function loadZip(string $filename, string $ns = '', bool $replaceUnclosedBr = false): SimpleXMLElement
+    private function loadZip(string $filename, string $ns = '', bool $replaceUnclosedBr = false, bool $isWorksheet = false): SimpleXMLElement
     {
         $contents = $this->getFromZipArchive($this->zip, $filename);
         if ($replaceUnclosedBr) {
             $contents = str_replace('<br>', '<br/>', $contents);
+        }
+        if ($isWorksheet) {
+            $contents = $this->removeEmptyCells($contents);
         }
         $rels = @simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
@@ -246,9 +255,12 @@ class Xlsx extends BaseReader
 
     // This function is just to identify cases where I'm not sure
     // why empty namespace is required.
-    private function loadZipNonamespace(string $filename, string $ns): SimpleXMLElement
+    private function loadZipNonamespace(string $filename, string $ns, bool $isWorksheet = false): SimpleXMLElement
     {
         $contents = $this->getFromZipArchive($this->zip, $filename);
+        if ($isWorksheet) {
+            $contents = $this->removeEmptyCells($contents);
+        }
         $rels = simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
             SimpleXMLElement::class,
@@ -257,6 +269,26 @@ class Xlsx extends BaseReader
         );
 
         return self::testSimpleXml($rels);
+    }
+
+    /**
+     * Excel writes a valueless cell for each formatted empty cell.
+     * Removing them before parsing saves most of the load time when empty cells are not read.
+     * Must run before the security scan, which has to check the text that is parsed.
+     */
+    private function removeEmptyCells(string $contents): string
+    {
+        if (
+            $this->readEmptyCells
+            // Removing all the cells of a row would drop its attributes.
+            || $this->ignoreRowsWithNoCells
+            // Such a cell would move if a cell before it were removed.
+            || Preg::isMatch(self::CELL_WITHOUT_REFERENCE, $contents)
+        ) {
+            return $contents;
+        }
+
+        return Preg::replace(self::EMPTY_CELL, '', $contents);
     }
 
     private const REL_TO_MAIN = [
@@ -1000,8 +1032,8 @@ class Xlsx extends BaseReader
                             } else {
                                 $targetWorksheet = "$dir/$fileWorksheet";
                             }
-                            $xmlSheet = $this->loadZipNoNamespace($targetWorksheet, $mainNS);
-                            $xmlSheetNS = $this->loadZip($targetWorksheet, $mainNS);
+                            $xmlSheet = $this->loadZipNoNamespace($targetWorksheet, $mainNS, isWorksheet: true);
+                            $xmlSheetNS = $this->loadZip($targetWorksheet, $mainNS, isWorksheet: true);
 
                             // Shared Formula table is unique to each Worksheet, so we need to reset it here
                             $this->sharedFormulae = [];
