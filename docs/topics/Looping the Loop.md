@@ -69,7 +69,7 @@ This causes the array dimensions returned by `toArray` to be
 `getHighestDataColumn()` by `getHighestDataRow()` rather than
 `getHighestColumn()` by `getHighestRow()`.
 It can be helpful whenever there are trailing rows or columns
-which are styled but contain no data.
+which are styled or use Data Validations but contain no data.
 
 ```php
 $spreadsheet->setUseHighestDataColumn(true);
@@ -434,6 +434,7 @@ if ($row->isEmpty(startColumn: 'B', endColumn: 'E') {
 Like `toArray()`, the Iterators use the `getHighestRow()` and `getHighestColumn()` methods to identify the maximum row and column values for iterating; so it can still iterate over a lot of trailing empty rows and columns.
 But that is just a default behaviour.
 Similarly to `rangeToArray()` we can specify a range of rows, and a range of columns to iterate.
+Starting with release 5.13.0, you might instead try [Ignoring Trailing Rows and Columns With No Data](#ignoring-trailing-rows-and-columns-with-no-data).
 
 ```php
 $maxDataRow = $worksheet->getHighestDataRow();
