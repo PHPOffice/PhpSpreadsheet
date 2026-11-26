@@ -67,13 +67,14 @@ It can return the raw cell value (which isn't particularly useful if the cell co
 Starting with release 5.13.0, memory problems associated with `toArray` *may* have less of an impact if you use the new `setUseHighestDataColumn` method.
 This causes the array dimensions returned by `toArray` to be
 `getHighestDataColumn()` by `getHighestDataRow()` rather than
-`getHighestColumn()` by `getHighestRow()`.
+`getHighestColumn()` by `getHighestRow()`;
+and it has a similar effect when [using iterators](#using-iterators).
 It can be helpful whenever there are trailing rows or columns
 which are styled or use Data Validations but contain no data.
 
 ```php
 $spreadsheet->setUseHighestDataColumn(true);
-$spreadsheet->getActiveSheet()->toArray();
+$array = $spreadsheet->getActiveSheet()->toArray();
 ```
 
 ### Dealing with empty rows
@@ -265,10 +266,13 @@ Alternatively, we can identify the highest row and highest column that actually 
 Starting with release 5.13.0, you might instead try [Ignoring Trailing Rows and Columns With No Data](#ignoring-trailing-rows-and-columns-with-no-data).
 
 ```php
+// Use this before 5.13.0
 $maxDataRow = $worksheet->getHighestDataRow();
 $maxDataColumn = $worksheet->getHighestDataColumn();
-
 $dataArray = $worksheet->rangeToArray("A1:{$maxDataColumn}{$maxDataRow}");
+// Use this for 5.13.0+
+$spreadsheet->setUseHighestDataColumn(true);
+$dataArray = $worksheet->toArray();
 
 foreach ($dataArray as $row) {
     // Check for empty rows
@@ -437,16 +441,21 @@ Similarly to `rangeToArray()` we can specify a range of rows, and a range of col
 Starting with release 5.13.0, you might instead try [Ignoring Trailing Rows and Columns With No Data](#ignoring-trailing-rows-and-columns-with-no-data).
 
 ```php
+// Use this before 5.13.0
 $maxDataRow = $worksheet->getHighestDataRow();
 $maxDataColumn = $worksheet->getHighestDataColumn();
-
 $rowIterator = $worksheet->getRowIterator(1, $maxDataRow);
+// Use this for 5.13.0+
+$spreadsheet->setUseHighestDataColumn(true);
+$rowIterator = $worksheet->getRowIterator();
+
 foreach ($rowIterator as $row) {
     if ($row->isEmpty()) { // Ignore empty rows
         continue;
     }
 
-    $columnIterator = $row->getCellIterator('A', $maxDataColumn);
+    $columnIterator = $row->getCellIterator('A', $maxDataColumn); // before 5.13.0
+    $columnIterator = $row->getCellIterator(); // 5.13.0+
     foreach ($columnIterator as $cell) {
         // Do something with the cell here.
     }
