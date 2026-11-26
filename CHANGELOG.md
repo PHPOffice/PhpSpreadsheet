@@ -33,7 +33,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Fixed
 - `LOG10` is no longer mistaken for a cell reference when references are adjusted, so inserting or removing rows or columns, named formulas, conditional formatting wizards and the Ods Writer keep the function name instead of writing `=LOG12(A3)` or `[.LOG10]`. [Issue #5104](https://github.com/PHPOffice/PhpSpreadsheet/issues/5104) [PR #5105](https://github.com/PHPOffice/PhpSpreadsheet/pull/5105)
-
+- Mpdf Writer invalid paper size. [Issue #5122](https://github.com/PHPOffice/PhpSpreadsheet/issues/5122) [PR #5125](https://github.com/PHPOffice/PhpSpreadsheet/pull/5125)
 - `VLOOKUP()` and `HLOOKUP()` with an exact match no longer match an empty cell, so an empty lookup value returns `#N/A` as in Excel. [Issue #5086](https://github.com/PHPOffice/PhpSpreadsheet/issues/5086) [PR #5096](https://github.com/PHPOffice/PhpSpreadsheet/pull/5096)
 - Text such as `== Notes ==` or `=> see above` is stored as a string instead of a formula that cannot be calculated, which made saving fail. [Issue #4710](https://github.com/PHPOffice/PhpSpreadsheet/issues/4710) [PR #5140](https://github.com/PHPOffice/PhpSpreadsheet/pull/5140)
 
