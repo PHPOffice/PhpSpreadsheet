@@ -3606,8 +3606,13 @@ class Worksheet
         $this->calculateArrays($calculateFormulas);
 
         //    Identify the range that we need to extract from the worksheet
-        $maxCol = $this->getHighestColumn();
-        $maxRow = $this->getHighestRow();
+        if ($this->parent?->getUseHighestDataColumn()) {
+            $maxCol = $this->getHighestDataColumn();
+            $maxRow = $this->getHighestDataRow();
+        } else {
+            $maxCol = $this->getHighestColumn();
+            $maxRow = $this->getHighestRow();
+        }
 
         // Return
         return $this->rangeToArray("A1:{$maxCol}{$maxRow}", $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays, $lessFloatPrecision, $oldCalculatedValue);
