@@ -32,6 +32,8 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Nothing yet.
 
 ### Fixed
+
+- `Worksheet::getColumnDimension()` throws an exception for an invalid column such as `0` and does not store it, so a later save no longer fails with "Undefined array key". [Issue #5109](https://github.com/PHPOffice/PhpSpreadsheet/issues/5109) [PR #5124](https://github.com/PHPOffice/PhpSpreadsheet/pull/5124)
 - `LOG10` is no longer mistaken for a cell reference when references are adjusted, so inserting or removing rows or columns, named formulas, conditional formatting wizards and the Ods Writer keep the function name instead of writing `=LOG12(A3)` or `[.LOG10]`. [Issue #5104](https://github.com/PHPOffice/PhpSpreadsheet/issues/5104) [PR #5105](https://github.com/PHPOffice/PhpSpreadsheet/pull/5105)
 - Mpdf Writer invalid paper size. [Issue #5122](https://github.com/PHPOffice/PhpSpreadsheet/issues/5122) [PR #5125](https://github.com/PHPOffice/PhpSpreadsheet/pull/5125)
 - `VLOOKUP()` and `HLOOKUP()` with an exact match no longer match an empty cell, so an empty lookup value returns `#N/A` as in Excel. [Issue #5086](https://github.com/PHPOffice/PhpSpreadsheet/issues/5086) [PR #5096](https://github.com/PHPOffice/PhpSpreadsheet/pull/5096)

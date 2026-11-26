@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 use PHPUnit\Framework\TestCase;
 
@@ -52,5 +54,20 @@ class ColumnDimensionTest extends TestCase
         $columnDimension->setAutoSize($expected);
         $result = $columnDimension->getAutoSize();
         self::assertTrue($result);
+    }
+
+    public function testInvalidColumnIsNotStored(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        try {
+            $sheet->getColumnDimension('0');
+            self::fail('Expected exception not thrown');
+        } catch (Exception $e) {
+            self::assertSame('Invalid column 0', $e->getMessage());
+        }
+        self::assertSame([], $sheet->getColumnDimensions());
+        $spreadsheet->disconnectWorksheets();
     }
 }
