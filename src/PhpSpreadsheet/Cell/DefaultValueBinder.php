@@ -97,6 +97,7 @@ class DefaultValueBinder implements IValueBinder
                 if (
                     $message === 'Formula Error: An unexpected error occurred'
                     || str_contains($message, 'has no operands')
+                    || str_contains($message, 'Unexpected operator')
                 ) {
                     return DataType::TYPE_STRING;
                 }
