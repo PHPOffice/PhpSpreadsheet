@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Collection\Cells;
 /**
  * @template TKey
  *
- * @implements NativeIterator<TKey, Cell>
+ * @implements NativeIterator<TKey, ?Cell>
  */
 abstract class CellIterator implements NativeIterator
 {

@@ -46,6 +46,7 @@ class StringValueBinder2Test extends TestCase
         $ignoredCells = [];
         foreach ($sheet->getRowIterator() as $row) {
             foreach ($row->getCellIterator() as $cell) {
+                self::assertNotNull($cell);
                 $coordinate = $cell->getCoordinate();
                 $dataType = $cell->getDataType();
                 if ($dataType !== DataType::TYPE_INLINE) {
@@ -80,6 +81,7 @@ class StringValueBinder2Test extends TestCase
         $ignoredCells = [];
         foreach ($sheet->getRowIterator() as $row) {
             foreach ($row->getCellIterator() as $cell) {
+                self::assertNotNull($cell);
                 $coordinate = $cell->getCoordinate();
                 $dataType = $cell->getDataType();
                 if ($dataType !== DataType::TYPE_INLINE) {
@@ -115,6 +117,7 @@ class StringValueBinder2Test extends TestCase
         $ignoredCells = [];
         foreach ($sheet->getRowIterator() as $row) {
             foreach ($row->getCellIterator() as $cell) {
+                self::assertNotNull($cell);
                 $coordinate = $cell->getCoordinate();
                 $expected = (is_int($cell->getValue()) || is_float($cell->getValue())) ? DataType::TYPE_NUMERIC : (($cell->getValue() instanceof RichText) ? DataType::TYPE_INLINE : DataType::TYPE_STRING);
                 self::assertSame($expected, $cell->getDataType(), "wrong type for cell $coordinate");

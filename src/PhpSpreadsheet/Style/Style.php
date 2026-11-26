@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -554,6 +555,7 @@ class Style extends Supervisor
                     $cellIterator = $columnIterator->getCellIterator();
                     $cellIterator->setIterateOnlyExistingCells(true);
                     foreach ($cellIterator as $columnCell) {
+                        /** @var Cell $columnCell */
                         $columnCell->getStyle()
                             ->applyFromArray($styleArray);
                     }
@@ -577,6 +579,7 @@ class Style extends Supervisor
                     $cellIterator = $rowIterator->getCellIterator();
                     $cellIterator->setIterateOnlyExistingCells(true);
                     foreach ($cellIterator as $rowCell) {
+                        /** @var Cell $rowCell */
                         $rowCell->getStyle()
                             ->applyFromArray($styleArray);
                     }

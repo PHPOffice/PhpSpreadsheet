@@ -94,6 +94,7 @@ class XlsxStreamingReadTest extends TestCase
         // Compare all populated cells
         foreach ($sheetSimple->getRowIterator() as $row) {
             foreach ($row->getCellIterator() as $cell) {
+                self::assertNotNull($cell);
                 $coord = $cell->getCoordinate();
                 $simpleValue = $sheetSimple->getCell($coord)->getValue();
                 $streamValue = $sheetStreaming->getCell($coord)->getValue();
@@ -196,6 +197,7 @@ class XlsxStreamingReadTest extends TestCase
 
         foreach ($spreadsheetSimple->getActiveSheet()->getRowIterator() as $row) {
             foreach ($row->getCellIterator() as $cell) {
+                self::assertNotNull($cell);
                 $coord = $cell->getCoordinate();
                 $simpleVal = $spreadsheetSimple->getActiveSheet()->getCell($coord)->getValue();
                 $streamVal = $spreadsheetStreaming->getActiveSheet()->getCell($coord)->getValue();
@@ -522,6 +524,7 @@ class XlsxStreamingReadTest extends TestCase
         // Verify all cells that exist have valid xf indices
         foreach ($sheet->getRowIterator() as $row) {
             foreach ($row->getCellIterator() as $cell) {
+                self::assertNotNull($cell);
                 self::assertGreaterThanOrEqual(
                     0,
                     $cell->getXfIndex(),
@@ -716,6 +719,7 @@ class XlsxStreamingReadTest extends TestCase
 
         foreach ($sheetSimple->getRowIterator() as $row) {
             foreach ($row->getCellIterator() as $cell) {
+                self::assertNotNull($cell);
                 $coord = $cell->getCoordinate();
                 $simpleCell = $sheetSimple->getCell($coord);
                 $streamCell = $sheetStream->getCell($coord);

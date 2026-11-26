@@ -21,6 +21,7 @@ class Issue3721Test extends TestCase
         $cells = [];
         foreach ($sheet->getRowIterator() as $row) {
             foreach ($row->getCellIterator(iterateOnlyExistingCells: true) as $cell) {
+                self::assertNotNull($cell);
                 $cells[] = $cell->getCoordinate();
             }
         }
@@ -43,6 +44,7 @@ class Issue3721Test extends TestCase
         $cells = [];
         foreach ($sheet->getRowIterator() as $row) {
             foreach ($row->getCellIterator(iterateOnlyExistingCells: true) as $cell) {
+                self::assertNotNull($cell);
                 $cells[] = $cell->getCoordinate();
             }
         }

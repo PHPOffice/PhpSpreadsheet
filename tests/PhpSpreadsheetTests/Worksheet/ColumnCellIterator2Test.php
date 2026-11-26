@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\CellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnCellIterator;
@@ -13,12 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnCellIterator2Test extends TestCase
 {
-    // Phpstan does not think RowCellIterator can return null
-    private static function isCellNull(?Cell $item): bool
-    {
-        return $item === null;
-    }
-
     #[DataProvider('providerExistingCell')]
     public function testEndRange(?bool $existing, string $expectedResultFirst, string $expectedResultLast): void
     {
@@ -34,7 +27,7 @@ class ColumnCellIterator2Test extends TestCase
         $lastCoordinate = '';
         $firstCoordinate = '';
         foreach ($iterator as $cell) {
-            if (!self::isCellNull($cell)) {
+            if ($cell !== null) {
                 $lastCoordinate = $cell->getCoordinate();
                 if (!$firstCoordinate) {
                     $firstCoordinate = $lastCoordinate;
@@ -108,8 +101,8 @@ class ColumnCellIterator2Test extends TestCase
         }
         $numCreatedCells = $numEmptyCells = 0;
         foreach ($iterator as $cell) {
-            $numCreatedCells += (int) (!self::isCellNull($cell) && $cell->getValue() === null);
-            $numEmptyCells += (int) (self::isCellNull($cell));
+            $numCreatedCells += (int) ($cell !== null && $cell->getValue() === null);
+            $numEmptyCells += (int) ($cell === null);
         }
         self::assertSame($expectedCreatedResult, $numCreatedCells);
         self::assertSame($expectedNullResult, $numEmptyCells);

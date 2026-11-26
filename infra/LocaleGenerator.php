@@ -291,6 +291,7 @@ class LocaleGenerator
             $cells = $languageColumn->getCellIterator(self::LOCALE_NAME_ROW, self::LOCALE_NAME_ROW);
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
+                /** @var Cell $cell */
                 if ($this->localeCanBeSupported($translationWorksheet, $cell)) {
                     $languageNameMap[$cell->getColumn()] = $cell->getValueString();
                     $this->log($cell->getColumn() . ' -> ' . $cell->getValueString());
@@ -325,6 +326,7 @@ class LocaleGenerator
             $cells = $errorRow->getCellIterator(self::ENGLISH_REFERENCE_COLUMN, self::ENGLISH_REFERENCE_COLUMN);
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
+                /** @var Cell $cell */
                 if ($cell->getValue() != '') {
                     $this->log($cell->getRow() . ' -> ' . $cell->getValueString());
                     $this->errorCodeMap[$cell->getValueString()] = $cell->getRow();
@@ -342,6 +344,7 @@ class LocaleGenerator
             $cells = $functionRow->getCellIterator(self::ENGLISH_REFERENCE_COLUMN, self::ENGLISH_REFERENCE_COLUMN);
             $cells->setIterateOnlyExistingCells(true);
             foreach ($cells as $cell) {
+                /** @var Cell $cell */
                 if ($this->isFunctionCategoryEntry($cell)) {
                     if (!empty($cell->getValue())) {
                         $this->log('CATEGORY: ' . $cell->getValueString());

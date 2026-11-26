@@ -1947,6 +1947,7 @@ class Worksheet
             $iterator = $column->getCellIterator($firstRow);
             $iterator->setIterateOnlyExistingCells(true);
             foreach ($iterator as $cell) {
+                /** @var Cell $cell */
                 $row = $cell->getRow();
                 if ($row > $lastRow) {
                     break;
@@ -1971,6 +1972,7 @@ class Worksheet
             $iterator = $row->getCellIterator($firstColumn);
             $iterator->setIterateOnlyExistingCells(true);
             foreach ($iterator as $cell) {
+                /** @var Cell $cell */
                 $column = $cell->getColumn();
                 $columnIndex = Coordinate::columnIndexFromString($column);
                 if ($columnIndex > $lastColumnIndex) {
