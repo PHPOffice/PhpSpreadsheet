@@ -14,6 +14,7 @@ return [
         0,
         1,
         '="12:30"&A2',
+    ],
     'function name that looks like a cell' => [
         '=LOG10(A1)+LOG10(Data!A1)',
         1,
