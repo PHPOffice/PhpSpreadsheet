@@ -30,6 +30,16 @@ return [
     ],
     [
         2,
+        ['Food', null, 'Rent', '', 'Food'],
+        '',
+    ],
+    [
+        3,
+        ['Food', null, 'Rent', '', 'Food'],
+        '<>Food',
+    ],
+    [
+        2,
         [6, 3, 4, 31, 'X', '', null],
         '<="4"',
     ],

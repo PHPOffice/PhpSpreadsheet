@@ -39,6 +39,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 - Mpdf Writer invalid paper size. [Issue #5122](https://github.com/PHPOffice/PhpSpreadsheet/issues/5122) [PR #5125](https://github.com/PHPOffice/PhpSpreadsheet/pull/5125)
 - `VLOOKUP()` and `HLOOKUP()` with an exact match no longer match an empty cell, so an empty lookup value returns `#N/A` as in Excel. [Issue #5086](https://github.com/PHPOffice/PhpSpreadsheet/issues/5086) [PR #5096](https://github.com/PHPOffice/PhpSpreadsheet/pull/5096)
 - Text such as `== Notes ==` or `=> see above` is stored as a string instead of a formula that cannot be calculated, which made saving fail. [Issue #4710](https://github.com/PHPOffice/PhpSpreadsheet/issues/4710) [PR #5140](https://github.com/PHPOffice/PhpSpreadsheet/pull/5140)
+- `COUNTIF()`, and `COUNTIFS()` with one criteria pair, count empty cells for `""`, `"="` or `"<>value"`, as multi-pair `COUNTIFS()` and `SUMIF()` already do.
 
 ## 2026-11-21 - 5.12.0
 

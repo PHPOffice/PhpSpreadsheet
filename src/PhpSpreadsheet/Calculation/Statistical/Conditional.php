@@ -103,14 +103,17 @@ class Conditional
 
             throw new CalcException('Must specify range of cells, not any kind of literal');
         }
-        // Filter out any empty values that shouldn't be included in a COUNT
-        $range = array_filter(
-            Functions::flattenArray($range),
-            fn ($value): bool => $value !== null && $value !== ''
-        );
+        $condition = Functions::flattenSingleValue($condition);
+        $range = Functions::flattenArray($range);
+        // Empty cells only match "", "=" and "<>..." criteria; keep them out of the others
+        if (!is_string($condition) || ($condition !== '' && $condition !== '=' && !str_starts_with($condition, '<>'))) {
+            $range = array_filter(
+                $range,
+                fn ($value): bool => $value !== null && $value !== ''
+            );
+        }
 
         $range = array_merge([[self::CONDITION_COLUMN_NAME]], array_chunk($range, 1));
-        $condition = Functions::flattenSingleValue($condition);
         $condition = array_merge([[self::CONDITION_COLUMN_NAME]], [[$condition]]);
 
         return DCount::evaluate($range, null, $condition, false);
