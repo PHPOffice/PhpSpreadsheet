@@ -7,7 +7,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Shared;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Font as StyleFont;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ExactFontTest extends TestCase
@@ -82,7 +84,7 @@ class ExactFontTest extends TestCase
         $this->directoryName = '';
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('providerFontData')]
+    #[DataProvider('providerFontData')]
     public function testExact(string $fontName, float $excelWidth, float $xmlWidth, float $winWidth, float $ubuntuWidth): void
     {
         if ($this->incompleteMessage !== '') {
@@ -115,6 +117,52 @@ class ExactFontTest extends TestCase
             ['DejaVu Serif Condensed', 29.55, 30.1796875, 31.9922, 31.1353],
             ['Arial', -29.55, 30.1796875, 31.9922, 31.1353],
         ];
+    }
+
+    public function testExactBold(): void
+    {
+        if ($this->incompleteMessage !== '') {
+            self::markTestIncomplete($this->incompleteMessage);
+        }
+        $fontName = 'DejaVu Sans';
+        $fontSize = 11;
+        $fontSizeSmaller = 10;
+        Font::setTrueTypeFontPath($this->directoryName);
+        Font::setExtraFontArray(self::EXTRA_FONTS);
+        Font::setAutoSizeMethod(Font::AUTOSIZE_METHOD_EXACT);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $text = 'Total Amount Due';
+        $sheet->setCellValue('A1', $text);
+        $sheet->setCellValue('B1', $text);
+        $sheet->setCellValue('C1', $text);
+        $sheet->setCellValue('D1', $text);
+        $sheet->getStyle('A1')->getFont()
+            ->setName($fontName)
+            ->setSize($fontSize);
+        $sheet->getStyle('B1')->getFont()
+            ->setName($fontName)
+            ->setBold(true)
+            ->setSize($fontSize);
+        $sheet->getStyle('C1')->getFont()
+            ->setName($fontName)
+            ->setSize($fontSize);
+        $sheet->getStyle('D1')->getFont()
+            ->setName($fontName)
+            ->setSize($fontSizeSmaller);
+        $sheet->getColumnDimension('A')->setAutoSize(true);
+        $sheet->getColumnDimension('B')->setAutoSize(true);
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
+        $sheet->calculateColumnWidths();
+        $widthA = $sheet->getColumnDimension('A')->getWidth();
+        $widthB = $sheet->getColumnDimension('B')->getWidth();
+        $widthC = $sheet->getColumnDimension('C')->getWidth();
+        $widthD = $sheet->getColumnDimension('D')->getWidth();
+        self::assertGreaterThan($widthA, $widthB);
+        self::assertSame($widthA, $widthC);
+        self::assertLessThan($widthA, $widthD);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testRichText(): void
