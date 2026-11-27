@@ -573,11 +573,11 @@ abstract class Coordinate
             sscanf($coordinate, '%[A-Z]%d', $column, $row);
             /** @var int $row */
             $key = (--$row * AddressRange::MAX_COLUMN_INT) + self::columnIndexFromString((string) $column);
-            $sortKeys[$key] = $coordinate;
+            $sortKeys[$coordinate] = $key;
         }
-        ksort($sortKeys);
+        asort($sortKeys);
 
-        return array_values($sortKeys);
+        return array_keys($sortKeys);
     }
 
     /**
