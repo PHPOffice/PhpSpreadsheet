@@ -13,7 +13,7 @@ Some earlier branches remain supported and security fixes are applied to them; i
 
 ### Added
 
-- Nothing yet.
+- Spreadsheet::setUseHighestDataColumn, so that toArray, row cell iterators and column iterators without an explicit end stop at the highest data column and row. [Issue #5102](https://github.com/PHPOffice/PhpSpreadsheet/issues/5102) [PR #5113](https://github.com/PHPOffice/PhpSpreadsheet/pull/5113)
 
 ### Removed
 
@@ -34,6 +34,11 @@ Some earlier branches remain supported and security fixes are applied to them; i
 ### Fixed
 
 - IF and IFS with an array condition (e.g. `SUM(IF(A1:A4>3,A1:A4,0))`) now evaluate element by element instead of using only one element. [Issue #5089](https://github.com/PHPOffice/PhpSpreadsheet/issues/5089) [PR #5111](https://github.com/PHPOffice/PhpSpreadsheet/pull/5111)
+- A cyclic formula no longer loops forever when a cell it refers to falls back to its cached value, such as a reference to an external workbook. [Issue #4791](https://github.com/PHPOffice/PhpSpreadsheet/issues/4791) [PR #5114](https://github.com/PHPOffice/PhpSpreadsheet/pull/5114)
+- `LOG10` is no longer mistaken for a cell reference when references are adjusted, so inserting or removing rows or columns, named formulas, conditional formatting wizards and the Ods Writer keep the function name instead of writing `=LOG12(A3)` or `[.LOG10]`. [Issue #5104](https://github.com/PHPOffice/PhpSpreadsheet/issues/5104) [PR #5105](https://github.com/PHPOffice/PhpSpreadsheet/pull/5105)
+- Mpdf Writer invalid paper size. [Issue #5122](https://github.com/PHPOffice/PhpSpreadsheet/issues/5122) [PR #5125](https://github.com/PHPOffice/PhpSpreadsheet/pull/5125)
+- `VLOOKUP()` and `HLOOKUP()` with an exact match no longer match an empty cell, so an empty lookup value returns `#N/A` as in Excel. [Issue #5086](https://github.com/PHPOffice/PhpSpreadsheet/issues/5086) [PR #5096](https://github.com/PHPOffice/PhpSpreadsheet/pull/5096)
+- Text such as `== Notes ==` or `=> see above` is stored as a string instead of a formula that cannot be calculated, which made saving fail. [Issue #4710](https://github.com/PHPOffice/PhpSpreadsheet/issues/4710) [PR #5140](https://github.com/PHPOffice/PhpSpreadsheet/pull/5140)
 
 ## 2026-11-21 - 5.12.0
 

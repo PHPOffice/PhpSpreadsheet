@@ -97,6 +97,7 @@ class DefaultValueBinderTest extends TestCase
             'formula cell ref' => ['=A1', DataType::TYPE_FORMULA],
             'formula if' => ['=IF(A1>0,1,0)', DataType::TYPE_FORMULA],
             'formula vlookup' => ['=VLOOKUP(A1,B1:C10,2,FALSE)', DataType::TYPE_FORMULA],
+            'formula unary minus after comparison' => ['=A1=-1', DataType::TYPE_FORMULA],
 
             // Invalid formulas (treated as strings)
             'equals only' => ['=', DataType::TYPE_STRING],
@@ -104,6 +105,10 @@ class DefaultValueBinderTest extends TestCase
             'Issue 1310 Multiple = at start' => ['======', DataType::TYPE_STRING],
             'Issue 1310 Variant 1' => ['= =====', DataType::TYPE_STRING],
             'Issue 1310 Variant 2' => ['=2*3=', DataType::TYPE_STRING],
+            'Issue 4710 two = at start' => ['==', DataType::TYPE_STRING],
+            'Issue 4710 heading' => ['== Notes ==', DataType::TYPE_STRING],
+            'Issue 4710 separator' => ['=-=-=-=', DataType::TYPE_STRING],
+            'Issue 4710 arrow' => ['=> see above', DataType::TYPE_STRING],
 
             // Error codes
             'error NULL' => ['#NULL!', DataType::TYPE_ERROR],

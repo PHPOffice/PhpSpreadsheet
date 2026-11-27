@@ -43,7 +43,7 @@ class Calculation extends CalculationLocale
     // Used only to detect spill operator #
     const CALCULATION_REGEXP_CELLREF_SPILL = '/' . self::CALCULATION_REGEXP_CELLREF . '#/i';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
-    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.(])';
     const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\".(?:[^\"]|\"[^!])?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
     const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
@@ -780,8 +780,11 @@ class Calculation extends CalculationLocale
         //    Parse the formula onto the token stack and calculate the value
         $this->cyclicReferenceStack->push($wsCellReference);
 
-        $cellValue = $this->processTokenStack($this->internalParseFormula($formula, $cell), $cellID, $cell);
-        $this->cyclicReferenceStack->pop();
+        try {
+            $cellValue = $this->processTokenStack($this->internalParseFormula($formula, $cell), $cellID, $cell);
+        } finally {
+            $this->cyclicReferenceStack->pop();
+        }
 
         // Save to calculation cache
         if ($cellID !== null) {
@@ -2700,7 +2703,6 @@ class Calculation extends CalculationLocale
     protected function raiseFormulaError(string $errorMessage, int $code = 0, ?Throwable $exception = null): bool
     {
         $this->formulaError = $errorMessage;
-        $this->cyclicReferenceStack->clear();
         $suppress = $this->suppressFormulaErrors;
         $suppressed = $suppress ? ' $suppressed' : '';
         $this->debugLog->writeDebugLog("Raise Error$suppressed $errorMessage");
