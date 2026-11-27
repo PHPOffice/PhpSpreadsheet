@@ -33,6 +33,28 @@ return [
         [6, 3, 4, 31, 'X', '', null],
         '<="4"',
     ],
+    // A criterion with <, <=, > or >= only matches values of the same type as its operand,
+    // although text is greater than any number in a formula.
+    'issue 3802 text is not greater than 0' => [
+        6,
+        [1, 2, 3, 5, 6, 23, null, 'Something'],
+        '>0',
+    ],
+    'numeric criterion does not match numeric text or logical' => [
+        1,
+        [5, '6', true],
+        '>0',
+    ],
+    'logical criterion does not match text' => [
+        1,
+        [false, 'FALSE', 'TA'],
+        '<TRUE',
+    ],
+    'text criterion does not match number' => [
+        1,
+        [5, 'abc', 'zzz'],
+        '<m',
+    ],
     [
         2,
         [0, 1, 1, 2, 3, 5, 8, 0, 13, 21],
