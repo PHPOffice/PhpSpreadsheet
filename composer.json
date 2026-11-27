@@ -69,6 +69,7 @@
             "git diff --exit-code composer.lock",
             "composer CycloneDX:make-sbom --omit=dev --output-file=./sbom.xml"
         ],
+        "bench": "phpbench run --report=aggregate",
         "versions": [
             "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- --exclude=PHPCompatibility.Variables.ForbiddenThisUseContexts -n"
         ]
@@ -105,6 +106,7 @@
         "friendsofphp/php-cs-fixer": "^3.2",
         "mitoteam/jpgraph": "^10.5",
         "mpdf/mpdf": "^8.1.1",
+        "phpbench/phpbench": "^1.7",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.1 || ^2.0",
         "phpstan/phpstan-deprecation-rules": "^1.0 || ^2.0",
@@ -130,7 +132,8 @@
         "psr-4": {
             "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests",
             "PhpOffice\\PhpSpreadsheetInfra\\": "infra",
-            "PhpOffice\\PhpSpreadsheetBenchmarks\\": "tests/Benchmark"
+            "PhpOffice\\PhpSpreadsheetBenchmarks\\": "tests/Benchmark",
+            "PhpOffice\\PhpSpreadsheetPhpBench\\": "tests/PhpBench"
         }
     }
 }

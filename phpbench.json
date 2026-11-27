@@ -1,0 +1,13 @@
+{
+    "$schema": "./vendor/phpbench/phpbench/phpbench.schema.json",
+    "runner.bootstrap": "vendor/autoload.php",
+    "runner.path": "tests/PhpBench",
+    "runner.file_pattern": "*Bench.php",
+    "runner.iterations": 5,
+    "runner.revs": 1,
+    "runner.php_config": {
+        "memory_limit": "2048M",
+        "xdebug.mode": "off"
+    },
+    "storage.xml_storage_path": ".phpbench"
+}

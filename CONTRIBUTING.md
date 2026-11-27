@@ -32,6 +32,17 @@ When writing Unit Tests, please
 
 This makes it easier to see exactly what is being tested when reviewing the PR. I want to be able to see it in the PR, not have to hunt in other unchanged classes to see what the test is doing.
 
+## Benchmarks
+
+Performance benchmarks live in `tests/PhpBench` and run with [PHPBench](https://phpbench.readthedocs.io/). `composer bench` runs all of them. Pass PHPBench options after `--`, for example `composer bench -- --group=writer` or `composer bench -- --filter=benchVlookup`.
+
+To measure the effect of a change, store a run of the original code under a tag, then compare your change with it:
+
+1. On `master` (with the benchmarks from your branch checked out if `master` does not have them yet), run `composer bench -- --store --tag=master`.
+2. On your branch, run `composer bench -- --ref=master`.
+
+The report then shows the difference from the stored run for each benchmark. If you change something performance sensitive, please add a benchmark that covers it.
+
 ## How to release
 
 1. On the master branch only, run `composer sbom`, and, if needed, update release numbers on SECURITY.md.
