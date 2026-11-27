@@ -392,7 +392,7 @@ class Worksheet extends BIFFwriter
                         break;
                     case DataType::TYPE_FORMULA:
                         $calculatedValue = $this->preCalculateFormulas ? $cell->getCalculatedValue() : null;
-                        $calculatedValueString = $this->preCalculateFormulas ? $cell->getCalculatedValueString() : '';
+                        $calculatedValueString = $this->preCalculateFormulas ? StringHelper::convertToString($calculatedValue, false, convertBool: true) : '';
                         if (self::WRITE_FORMULA_EXCEPTION == $this->writeFormula($row, $column, $cell->getValueString(), $xfIndex, $calculatedValue)) {
                             if ($calculatedValue === null) {
                                 $calculatedValue = $cell->getCalculatedValue();
