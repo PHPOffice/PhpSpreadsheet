@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as Except;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\ColumnCellIterator;
@@ -22,12 +21,6 @@ class ColumnCellIteratorTest extends TestCase
             [150, 250, 350, 450, 550, 650],
             [160, null, 360, null, 560],
         ];
-
-    // Phpstan does not think RowCellIterator can return null
-    private static function isCellNull(?Cell $item): bool
-    {
-        return $item === null;
-    }
 
     private static function getPopulatedSheet(Spreadsheet $spreadsheet): Worksheet
     {
@@ -47,7 +40,7 @@ class ColumnCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
-            self::assertFalse(self::isCellNull($ColumnCell));
+            self::assertNotNull($ColumnCell);
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
         }
@@ -66,7 +59,7 @@ class ColumnCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
-            self::assertFalse(self::isCellNull($ColumnCell));
+            self::assertNotNull($ColumnCell);
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
         }

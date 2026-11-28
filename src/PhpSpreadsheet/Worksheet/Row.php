@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+
 class Row
 {
     private Worksheet $worksheet;
@@ -86,6 +88,7 @@ class Row
         $cellIterator = $this->getCellIterator($startColumn, $endColumn);
         $cellIterator->setIterateOnlyExistingCells(true);
         foreach ($cellIterator as $cell) {
+            /** @var Cell $cell */
             $value = $cell->getValue();
             if ($value === null && $nullValueCellIsEmpty === true) {
                 continue;

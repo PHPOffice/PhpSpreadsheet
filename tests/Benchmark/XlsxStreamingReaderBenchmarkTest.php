@@ -105,6 +105,7 @@ class XlsxStreamingReaderBenchmarkTest extends TestCase
         $simpleValues = [];
         foreach ($sheetSimple->getRowIterator() as $row) {
             foreach ($row->getCellIterator() as $cell) {
+                self::assertNotNull($cell);
                 $coord = $cell->getCoordinate();
                 $simpleValues[$coord] = $sheetSimple->getCell($coord)->getValue();
             }

@@ -41,6 +41,7 @@ class RowCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $RowCell) {
+            self::assertNotNull($RowCell);
             $values[] = $RowCell->getValue();
             self::assertEquals($RowCellIndexResult, $key);
             StringHelper::stringIncrement($RowCellIndexResult);
@@ -59,6 +60,7 @@ class RowCellIteratorTest extends TestCase
 
         $values = [];
         foreach ($iterator as $key => $RowCell) {
+            self::assertNotNull($RowCell);
             $values[] = $RowCell->getValue();
             self::assertEquals($RowCellIndexResult, $key);
             StringHelper::stringIncrement($RowCellIndexResult);
